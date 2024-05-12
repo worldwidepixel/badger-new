@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'development') {
 
 } else {
   console.log(__dirname)
-  textToSVG = TextToSVG.loadSync("../../public/fonts/static/Inter-Medium.ttf");
+  textToSVG = TextToSVG.loadSync("~public/fonts/static/Inter-Medium.ttf");
 }
 
 const textToSVGBold = TextToSVG.loadSync( 
