@@ -2,7 +2,7 @@
 //import TextToSVG from "text-to-svg";
 
 import TextToSVG from 'text-to-svg';
-//import interMedium from '~/public/fonts/Inter-Medium.ttf';
+//import interMedium from '~/public/fonts/static/Inter-Medium.ttf';
 
 export default defineEventHandler(async (event) => {
 
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
 
   } else {
-    textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
+    textToSVG = TextToSVG.loadSync("/fonts/static/Inter-Medium.ttf");
   }
 
   var textToSVGBold: TextToSVG;
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
 
   } else {
     textToSVGBold = TextToSVG.loadSync(
-      "public/fonts/static/Inter-ExtraBold.ttf",
+      "/fonts/static/Inter-ExtraBold.ttf",
     );
   }
 
