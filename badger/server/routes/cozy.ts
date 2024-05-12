@@ -4,34 +4,34 @@
 import TextToSVG from 'text-to-svg';
 //import interMedium from '~/public/fonts/Inter-Medium.ttf';
 
+var textToSVG: TextToSVG;
+
+if (process.env.NODE_ENV === 'development') {
+
+  textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
+
+} else {
+  textToSVG = TextToSVG.loadSync("~/public/fonts/static/Inter-Medium.ttf");
+}
+
+var textToSVGBold: TextToSVG;
+
+if (process.env.NODE_ENV === 'development') {
+
+  textToSVGBold = TextToSVG.loadSync(
+    "public/fonts/static/Inter-ExtraBold.ttf",
+  );
+
+} else {
+  textToSVGBold = TextToSVG.loadSync(
+    "~/public/fonts/static/Inter-ExtraBold.ttf",
+  );
+}
+
+
 export default defineEventHandler(async (event) => {
 
   try {
-
-    var textToSVG: TextToSVG;
-
-    if (process.env.NODE_ENV === 'development') {
-
-      textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
-
-    } else {
-      textToSVG = TextToSVG.loadSync("~/public/fonts/static/Inter-Medium.ttf");
-    }
-    
-    var textToSVGBold: TextToSVG;
-
-    if (process.env.NODE_ENV === 'development') {
-
-      textToSVGBold = TextToSVG.loadSync(
-        "./public/fonts/static/Inter-ExtraBold.ttf",
-      );
-
-    } else {
-      textToSVGBold = TextToSVG.loadSync(
-        "public/fonts/static/Inter-ExtraBold.ttf",
-      );
-    }
-
 
     //setHeader(event, 'Content-Type', 'image/svg+xml')
     const query = getQuery(event);
