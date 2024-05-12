@@ -8,13 +8,17 @@ export default defineEventHandler(async (event) => {
 
   var textToSVG: TextToSVG;
 
+  // Get the directory path of the current file
+  const currentFilePath = new URL(import.meta.url).pathname;
+  const currentDirPath = path.dirname(currentFilePath);
+
   if (process.env.NODE_ENV === 'development') {
 
     textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
 
   } else {
 
-    const mediumFontPath = path.resolve(__dirname, '../../public/fonts/static/Inter-Medium.ttf');
+    const mediumFontPath = path.resolve(currentDirPath, '../../public/fonts/static/Inter-Medium.ttf');
 
     textToSVG = TextToSVG.loadSync(mediumFontPath);
   }
@@ -29,7 +33,7 @@ export default defineEventHandler(async (event) => {
 
   } else {
 
-    const extraBoldFontPath = path.resolve(__dirname, '../../public/fonts/static/Inter-Extrabold.ttf');
+    const extraBoldFontPath = path.resolve(currentDirPath, '../../public/fonts/static/Inter-Extrabold.ttf');
 
     textToSVGBold = TextToSVG.loadSync(extraBoldFontPath);
   }
