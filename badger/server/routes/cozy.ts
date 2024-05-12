@@ -48,7 +48,6 @@ export default defineEventHandler(async (event) => {
       attributes: attributesTwo,
     };
 
-    
     const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
     const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
 
