@@ -6,36 +6,33 @@ import path from 'path';
 
 export default defineEventHandler(async (event) => {
 
-  var textToSVG: TextToSVG;
+  var textToSVG;
+  var textToSVGBold;
 
   // Get the directory path of the current file
   const currentFilePath = new URL(import.meta.url).pathname;
   const currentDirPath = path.dirname(currentFilePath);
 
-  if (process.env.NODE_ENV === 'development') {
-
-    textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
-
-  } else {
-
+  try {
+    // Construct the absolute paths to the font files
     const mediumFontPath = path.resolve(currentDirPath, '../../public/fonts/static/Inter-Medium.ttf');
-
-    textToSVG = TextToSVG.loadSync(mediumFontPath);
-  }
-
-  var textToSVGBold: TextToSVG;
-
-  if (process.env.NODE_ENV === 'development') {
-
-    textToSVGBold = TextToSVG.loadSync(
-      "public/fonts/static/Inter-ExtraBold.ttf",
-    );
-
-  } else {
-
     const extraBoldFontPath = path.resolve(currentDirPath, '../../public/fonts/static/Inter-Extrabold.ttf');
 
-    textToSVGBold = TextToSVG.loadSync(extraBoldFontPath);
+    // Load 'Inter Medium' font based on environment
+    if (process.env.NODE_ENV === 'development') {
+      textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
+    } else {
+      textToSVG = TextToSVG.loadSync(mediumFontPath);
+    }
+
+    // Load 'Inter Extrabold' font based on environment
+    if (process.env.NODE_ENV === 'development') {
+      textToSVGBold = TextToSVG.loadSync("public/fonts/static/Inter-ExtraBold.ttf");
+    } else {
+      textToSVGBold = TextToSVG.loadSync(extraBoldFontPath);
+    }
+  } catch {
+    console.log("WHY")
   }
 
   try {
