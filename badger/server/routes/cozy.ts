@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     } else {
       textToSVG = TextToSVG.loadSync("~/public/fonts/static/Inter-Medium.ttf");
     }
-
+    
     var textToSVGBold: TextToSVG;
 
     if (process.env.NODE_ENV === 'development') {
