@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
   textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf"); 
 
 } else {
-  textToSVG = TextToSVG.loadSync("~public/fonts/static/Inter-Medium.ttf");
+  textToSVG = TextToSVG.loadSync("https://badger-staging.worldwidepixel.ca/fonts/static/Inter-Medium.ttf");
 }
 
 const textToSVGBold = TextToSVG.loadSync( 
