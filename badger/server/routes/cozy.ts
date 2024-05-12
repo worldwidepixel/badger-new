@@ -3,7 +3,15 @@
 
 import TextToSVG from 'text-to-svg';
 
-const textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf"); 
+var textToSVG: TextToSVG;
+
+if (process.env.NODE_ENV === 'development') {
+
+  textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf"); 
+
+} else {
+  textToSVG = TextToSVG.loadSync("/fonts/static/Inter-Medium.ttf");
+}
 
 const textToSVGBold = TextToSVG.loadSync( 
 
