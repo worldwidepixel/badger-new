@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
 
   } else {
-    textToSVG = TextToSVG.loadSync("../../fonts/static/Inter-Medium.ttf");
+    textToSVG = TextToSVG.loadSync(require('fs').promises.readFile('./fonts/static/Inter-Medium.ttf'));
   }
 
   var textToSVGBold: TextToSVG;
@@ -24,9 +24,7 @@ export default defineEventHandler(async (event) => {
     );
 
   } else {
-    textToSVGBold = TextToSVG.loadSync(
-      "../../fonts/static/Inter-ExtraBold.ttf",
-    );
+    textToSVGBold = TextToSVG.loadSync(require('fs').promises.readFile('./fonts/static/Inter-Extrabold.ttf'));
   }
 
   try {
