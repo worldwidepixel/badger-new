@@ -1,11 +1,20 @@
 //import opentype from 'opentype.js'
 //import TextToSVG from "text-to-svg";
 
-import TextToSVG from 'text-to-svg';
+//import TextToSVG from 'text-to-svg';
+import opentype, { Font, FontOptions } from 'opentype.js'
 
 export default defineEventHandler(async (event) => {
 
-  var textToSVG: TextToSVG;
+  //var textToSVG: TextToSVG;
+
+  const interMediumBuffer = fetch('https://badger-staging.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
+  const interExtraBoldBuffer = fetch('https://badger-staging.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf').then(res => res.arrayBuffer());
+
+  const interMedium = opentype.parse(await interMediumBuffer);
+  const interExtraBold = opentype.parse(await interExtraBoldBuffer);
+
+  /*
 
   if (process.env.NODE_ENV === 'development') {
 
@@ -24,8 +33,10 @@ export default defineEventHandler(async (event) => {
     );
 
   } else {
-    textToSVGBold = TextToSVG.loadSync(require('fs').promises.readFile('./fonts/static/Inter-Extrabold.ttf'));
-  }
+    textToSVGBold = TextToSVG.loadSync(
+      "../../fonts/static/Inter-ExtraBold.ttf",
+    );
+  } */
 
   try {
 
@@ -39,6 +50,23 @@ export default defineEventHandler(async (event) => {
     const colorTwo = query.colorTwo ?? query.colourTwo;
     const iconUrl = query.iconUrl;
 
+    function getWidth(text: any, size: any, font: Font) {
+      const fontSize = size;
+      const fontScale = 1 / font.unitsPerEm * fontSize;
+
+      let width = 0;
+      const glyphs = font.stringToGlyphs(text);
+      for (let i = 0; i < glyphs.length; i++) {
+        const glyph = glyphs[i];
+
+        if (glyph.advanceWidth) {
+          width += glyph.advanceWidth * fontScale;
+        }
+
+      }
+      return width;
+    }
+
     //const bufferMedium = await useStorage('assets:server').getItem(`fonts/static/Inter-Medium.ttf`)
     //const bufferMedium = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
     //const bufferExtraBold = await useStorage('assets:server').getItem(`fonts/static/Inter-ExtraBold.ttf`)
@@ -48,10 +76,12 @@ export default defineEventHandler(async (event) => {
     //return mediumFont
     //const extraBoldFont = opentype.parse(await bufferExtraBold)
 
-    const attributesOne = { fill: `#${colorOne}` };
-    const attributesTwo = { fill: `#${colorTwo}` };
+    // MOVED FROM TEXT2SVG TO OPENTYPEJS
 
-    const optionsOne = {
+    //const attributesOne = { fill: `#${colorOne}` };
+    //const attributesTwo = { fill: `#${colorTwo}` };
+
+    /*const optionsOne = {
       x: 64,
       y: 24.5,
       fontSize: 16,
@@ -62,20 +92,51 @@ export default defineEventHandler(async (event) => {
       y: 43.5,
       fontSize: 17,
       attributes: attributesTwo,
-    };
+    };*/
 
-    const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
-    const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
+    // MOVED FROM TEXT2SVG TO OPENTYPEJS
 
-    const lineOneMetrics = textToSVG.getMetrics(lineOne.toString(), optionsOne);
-    const lineTwoMetrics = textToSVGBold.getMetrics(lineTwo.toString(), optionsOne);
+    //const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
+    //const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
+    
+    const mediumPathData = interMedium.getPath(lineOne.toString(), 64, 24.5, 16);
+    const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 64, 43.5, 16);
+    mediumPathData.fill = `#${colorOne}`
+    extraBoldPathData.fill = `#${colorTwo}`
+    //console.log(mediumPathData);
 
-    const finalMetrics =
+    const mediumPath = mediumPathData.toSVG(2);
+    const extraBoldPath = extraBoldPathData.toSVG(2);
+
+    //console.log(mediumPath)
+
+    // MOVED FROM TEXT2SVG TO OPENTYPEJS
+
+    //const lineOneMetrics = textToSVG.getMetrics(lineOne.toString(), optionsOne);
+    //const lineTwoMetrics = textToSVGBold.getMetrics(lineTwo.toString(), optionsOne);
+
+    const mediumWidth = getWidth(lineOne.toString(), 16, interMedium)
+    const extraBoldWidth = getWidth(lineTwo.toString(), 17, interExtraBold)
+
+    // MOVED TO OPENTYPEJS FROM TEXT2SVG
+
+    /*const finalMetrics =
       lineOneMetrics.width + lineOneMetrics.x >=
         lineTwoMetrics.width + lineTwoMetrics.x
         ? lineOneMetrics
-        : lineTwoMetrics;
-    const width = (finalMetrics.width + finalMetrics.x) * 1.14;
+        : lineTwoMetrics; */
+    //const width = (finalMetrics.width + finalMetrics.x) * 1.14;
+
+    var OTFinalWidth;
+
+    if (mediumWidth > extraBoldWidth) {
+      OTFinalWidth = mediumWidth + 8;
+    } else {
+      OTFinalWidth = extraBoldWidth;
+    }
+
+    const width = (OTFinalWidth + 64) * 1.06;
+
 
     //console.log(svg)
 
@@ -100,8 +161,8 @@ export default defineEventHandler(async (event) => {
       </g>
       <g filter="url(#TextShadow)">
           <!-- Generate these -->
-          ${svg}
-          ${boldSvg}
+          ${mediumPath}
+          ${extraBoldPath}
       </g>
   </g>
   <defs>
