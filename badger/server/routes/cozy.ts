@@ -100,7 +100,7 @@ export default defineEventHandler(async (event) => {
     //const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
 
     const mediumPathData = interMedium.getPath(lineOne.toString(), 64, 24.5, 16);
-    const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 64, 43.5, 16);
+    const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 64, 43.5, 17);
     mediumPathData.fill = `#${colorOne}`
     extraBoldPathData.fill = `#${colorTwo}`
     //console.log(mediumPathData);
