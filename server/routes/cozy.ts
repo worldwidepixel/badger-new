@@ -2,47 +2,15 @@
 //import TextToSVG from "text-to-svg";
 
 //import TextToSVG from 'text-to-svg';
-import opentype, { Font } from "opentype.js";
+import { Font } from "opentype.js";
+import { getInterExtraBold, getInterMedium } from "../lib/fonts";
 
 export default defineEventHandler(async (event) => {
-	//var textToSVG: TextToSVG;
-
-	const interMediumBuffer = fetch(
-		"https://badger-staging.worldwidepixel.ca/fonts/static/Inter-Medium.ttf",
-	).then((res) => res.arrayBuffer());
-	const interExtraBoldBuffer = fetch(
-		"https://badger-staging.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf",
-	).then((res) => res.arrayBuffer());
-
-	const interMedium = opentype.parse(await interMediumBuffer);
-	const interExtraBold = opentype.parse(await interExtraBoldBuffer);
-
-	/*
-
-  if (process.env.NODE_ENV === 'development') {
-
-    textToSVG = TextToSVG.loadSync("public/fonts/static/Inter-Medium.ttf");
-
-  } else {
-    textToSVG = TextToSVG.loadSync(require('fs').promises.readFile('./fonts/static/Inter-Medium.ttf'));
-  }
-
-  var textToSVGBold: TextToSVG;
-
-  if (process.env.NODE_ENV === 'development') {
-
-    textToSVGBold = TextToSVG.loadSync(
-      "public/fonts/static/Inter-ExtraBold.ttf",
-    );
-
-  } else {
-    textToSVGBold = TextToSVG.loadSync(
-      "../../fonts/static/Inter-ExtraBold.ttf",
-    );
-  } */
+	const interMedium = await getInterMedium();
+	const interExtraBold = await getInterExtraBold();
 
 	try {
-		//setHeader(event, 'Content-Type', 'image/svg+xml')
+		setHeader(event, "Content-Type", "image/svg+xml");
 		const query = getQuery(event);
 		const gradientStart = query.gradientStart;
 		const gradientEnd = query.gradientEnd;
@@ -68,38 +36,6 @@ export default defineEventHandler(async (event) => {
 			return width;
 		}
 
-		//const bufferMedium = await useStorage('assets:server').getItem(`fonts/static/Inter-Medium.ttf`)
-		//const bufferMedium = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
-		//const bufferExtraBold = await useStorage('assets:server').getItem(`fonts/static/Inter-ExtraBold.ttf`)
-		//const bufferExtraBold = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf').then(res => res.arrayBuffer());
-
-		//const mediumFont = opentype.parse(await bufferMedium)
-		//return mediumFont
-		//const extraBoldFont = opentype.parse(await bufferExtraBold)
-
-		// MOVED FROM TEXT2SVG TO OPENTYPEJS
-
-		//const attributesOne = { fill: `#${colorOne}` };
-		//const attributesTwo = { fill: `#${colorTwo}` };
-
-		/*const optionsOne = {
-      x: 64,
-      y: 24.5,
-      fontSize: 16,
-      attributes: attributesOne,
-    };
-    const optionsTwo = {
-      x: 64,
-      y: 43.5,
-      fontSize: 17,
-      attributes: attributesTwo,
-    };*/
-
-		// MOVED FROM TEXT2SVG TO OPENTYPEJS
-
-		//const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
-		//const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
-
 		const mediumPathData = interMedium.getPath(
 			lineOne.toString(),
 			64,
@@ -114,49 +50,16 @@ export default defineEventHandler(async (event) => {
 		);
 		mediumPathData.fill = `#${colorOne}`;
 		extraBoldPathData.fill = `#${colorTwo}`;
-		//console.log(mediumPathData);
 
 		const mediumPath = mediumPathData.toSVG(2);
 		const extraBoldPath = extraBoldPathData.toSVG(2);
 
-		//console.log(mediumPath)
-
-		// MOVED FROM TEXT2SVG TO OPENTYPEJS
-
-		//const lineOneMetrics = textToSVG.getMetrics(lineOne.toString(), optionsOne);
-		//const lineTwoMetrics = textToSVGBold.getMetrics(lineTwo.toString(), optionsOne);
-
 		const mediumWidth = getWidth(lineOne.toString(), 16, interMedium);
 		const extraBoldWidth = getWidth(lineTwo.toString(), 17, interExtraBold);
+		const OTFinalWidth =
+			mediumWidth > extraBoldWidth ? mediumWidth : extraBoldWidth;
 
-		// MOVED TO OPENTYPEJS FROM TEXT2SVG
-
-		/*const finalMetrics =
-      lineOneMetrics.width + lineOneMetrics.x >=
-        lineTwoMetrics.width + lineTwoMetrics.x
-        ? lineOneMetrics
-        : lineTwoMetrics; */
-		//const width = (finalMetrics.width + finalMetrics.x) * 1.14;
-
-		var OTFinalWidth;
-
-		if (mediumWidth > extraBoldWidth) {
-			OTFinalWidth = mediumWidth + 8;
-		} else {
-			OTFinalWidth = extraBoldWidth;
-		}
-
-		const width = (OTFinalWidth + 64) * 1.06;
-
-		//console.log(svg)
-
-		//const mediumPath = mediumFont.getPath(lineOne, 0, 0, 16)
-		//const extraBoldPath = extraBoldFont.getPath(lineTwo, 0, 0, 17)
-
-		//const lineOneSVG = mediumPath.toSVG()
-		//const lineTwoSVG = extraBoldPath.toSVG()
-
-		//console.log(await bufferMedium)
+		const width = OTFinalWidth + 64 + 40;
 
 		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 			const fetchImageUrl = await fetch(imgUrl);
@@ -165,21 +68,17 @@ export default defineEventHandler(async (event) => {
 			return toBase64;
 		}
 
-		var imageUrl = iconUrl;
+		let imageUrl = iconUrl;
 
 		if (imageUrl?.toString().includes("http" || "https")) {
 			imageUrl = await toBase64ImageUrl(imageUrl.toString());
 		}
 
-		var finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+		let finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <g filter="url(#DropShadow)">
-      <rect x="4" width="${
-			width - 10
-		}" height="56" rx="8" fill="url(#BackgroundGradient)" />
-      <rect x="5.05" y="1.05" width="${
-			width - 12
-		}" height="53.9" rx="6.95" stroke="white"
+      <rect x="0" width="${width - 10}" height="56" rx="8" fill="url(#BackgroundGradient)" />
+      <rect x="1.05" y="1.05" width="${width - 12}" height="53.9" rx="6.95" stroke="white"
           stroke-opacity="0.15" stroke-width="2.1" />
       <g filter="url(#IconShadow)">
           <rect x="16" y="8" width="40" height="40" fill="url(#IconPattern)" />

@@ -1,4 +1,4 @@
-export default eventHandler(async (event) => {
+export default eventHandler(async (_event) => {
 	return {
 		"Badger originally created by": "WorldWidePixel",
 		"Vue rewrite and backend support": "CallMeEcho",
