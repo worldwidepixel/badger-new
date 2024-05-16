@@ -2,19 +2,22 @@
 //import TextToSVG from "text-to-svg";
 
 //import TextToSVG from 'text-to-svg';
-import opentype, { Font, FontOptions } from 'opentype.js'
+import opentype, { Font } from "opentype.js";
 
 export default defineEventHandler(async (event) => {
+	//var textToSVG: TextToSVG;
 
-  //var textToSVG: TextToSVG;
+	const interMediumBuffer = fetch(
+		"https://badger-staging.worldwidepixel.ca/fonts/static/Inter-Medium.ttf",
+	).then((res) => res.arrayBuffer());
+	const interExtraBoldBuffer = fetch(
+		"https://badger-staging.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf",
+	).then((res) => res.arrayBuffer());
 
-  const interMediumBuffer = fetch('https://badger-staging.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
-  const interExtraBoldBuffer = fetch('https://badger-staging.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf').then(res => res.arrayBuffer());
+	const interMedium = opentype.parse(await interMediumBuffer);
+	const interExtraBold = opentype.parse(await interExtraBoldBuffer);
 
-  const interMedium = opentype.parse(await interMediumBuffer);
-  const interExtraBold = opentype.parse(await interExtraBoldBuffer);
-
-  /*
+	/*
 
   if (process.env.NODE_ENV === 'development') {
 
@@ -38,50 +41,48 @@ export default defineEventHandler(async (event) => {
     );
   } */
 
-  try {
+	try {
+		//setHeader(event, 'Content-Type', 'image/svg+xml')
+		const query = getQuery(event);
+		const gradientStart = query.gradientStart;
+		const gradientEnd = query.gradientEnd;
+		const lineOne = query.lineOne ?? "undefined";
+		const lineTwo = query.lineTwo ?? "undefined";
+		const colorOne = query.colorOne ?? query.colourOne;
+		const colorTwo = query.colorTwo ?? query.colourTwo;
+		const iconUrl = query.iconUrl;
 
-    //setHeader(event, 'Content-Type', 'image/svg+xml')
-    const query = getQuery(event);
-    const gradientStart = query.gradientStart;
-    const gradientEnd = query.gradientEnd;
-    const lineOne = query.lineOne ?? 'undefined';
-    const lineTwo = query.lineTwo ?? 'undefined';
-    const colorOne = query.colorOne ?? query.colourOne;
-    const colorTwo = query.colorTwo ?? query.colourTwo;
-    const iconUrl = query.iconUrl;
+		function getWidth(text: any, size: any, font: Font) {
+			const fontSize = size;
+			const fontScale = (1 / font.unitsPerEm) * fontSize;
 
-    function getWidth(text: any, size: any, font: Font) {
-      const fontSize = size;
-      const fontScale = 1 / font.unitsPerEm * fontSize;
+			let width = 0;
+			const glyphs = font.stringToGlyphs(text);
+			for (let i = 0; i < glyphs.length; i++) {
+				const glyph = glyphs[i];
 
-      let width = 0;
-      const glyphs = font.stringToGlyphs(text);
-      for (let i = 0; i < glyphs.length; i++) {
-        const glyph = glyphs[i];
+				if (glyph.advanceWidth) {
+					width += glyph.advanceWidth * fontScale;
+				}
+			}
+			return width;
+		}
 
-        if (glyph.advanceWidth) {
-          width += glyph.advanceWidth * fontScale;
-        }
+		//const bufferMedium = await useStorage('assets:server').getItem(`fonts/static/Inter-Medium.ttf`)
+		//const bufferMedium = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
+		//const bufferExtraBold = await useStorage('assets:server').getItem(`fonts/static/Inter-ExtraBold.ttf`)
+		//const bufferExtraBold = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf').then(res => res.arrayBuffer());
 
-      }
-      return width;
-    }
+		//const mediumFont = opentype.parse(await bufferMedium)
+		//return mediumFont
+		//const extraBoldFont = opentype.parse(await bufferExtraBold)
 
-    //const bufferMedium = await useStorage('assets:server').getItem(`fonts/static/Inter-Medium.ttf`)
-    //const bufferMedium = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-Medium.ttf').then(res => res.arrayBuffer());
-    //const bufferExtraBold = await useStorage('assets:server').getItem(`fonts/static/Inter-ExtraBold.ttf`)
-    //const bufferExtraBold = fetch('https://badger.worldwidepixel.ca/fonts/static/Inter-ExtraBold.ttf').then(res => res.arrayBuffer());
+		// MOVED FROM TEXT2SVG TO OPENTYPEJS
 
-    //const mediumFont = opentype.parse(await bufferMedium)
-    //return mediumFont
-    //const extraBoldFont = opentype.parse(await bufferExtraBold)
+		//const attributesOne = { fill: `#${colorOne}` };
+		//const attributesTwo = { fill: `#${colorTwo}` };
 
-    // MOVED FROM TEXT2SVG TO OPENTYPEJS
-
-    //const attributesOne = { fill: `#${colorOne}` };
-    //const attributesTwo = { fill: `#${colorTwo}` };
-
-    /*const optionsOne = {
+		/*const optionsOne = {
       x: 64,
       y: 24.5,
       fontSize: 16,
@@ -94,83 +95,91 @@ export default defineEventHandler(async (event) => {
       attributes: attributesTwo,
     };*/
 
-    // MOVED FROM TEXT2SVG TO OPENTYPEJS
+		// MOVED FROM TEXT2SVG TO OPENTYPEJS
 
-    //const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
-    //const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
+		//const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
+		//const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
 
-    const mediumPathData = interMedium.getPath(lineOne.toString(), 64, 24.5, 16);
-    const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 64, 43.5, 17);
-    mediumPathData.fill = `#${colorOne}`
-    extraBoldPathData.fill = `#${colorTwo}`
-    //console.log(mediumPathData);
+		const mediumPathData = interMedium.getPath(
+			lineOne.toString(),
+			64,
+			24.5,
+			16,
+		);
+		const extraBoldPathData = interExtraBold.getPath(
+			lineTwo.toString(),
+			64,
+			43.5,
+			17,
+		);
+		mediumPathData.fill = `#${colorOne}`;
+		extraBoldPathData.fill = `#${colorTwo}`;
+		//console.log(mediumPathData);
 
-    const mediumPath = mediumPathData.toSVG(2);
-    const extraBoldPath = extraBoldPathData.toSVG(2);
+		const mediumPath = mediumPathData.toSVG(2);
+		const extraBoldPath = extraBoldPathData.toSVG(2);
 
-    //console.log(mediumPath)
+		//console.log(mediumPath)
 
-    // MOVED FROM TEXT2SVG TO OPENTYPEJS
+		// MOVED FROM TEXT2SVG TO OPENTYPEJS
 
-    //const lineOneMetrics = textToSVG.getMetrics(lineOne.toString(), optionsOne);
-    //const lineTwoMetrics = textToSVGBold.getMetrics(lineTwo.toString(), optionsOne);
+		//const lineOneMetrics = textToSVG.getMetrics(lineOne.toString(), optionsOne);
+		//const lineTwoMetrics = textToSVGBold.getMetrics(lineTwo.toString(), optionsOne);
 
-    const mediumWidth = getWidth(lineOne.toString(), 16, interMedium)
-    const extraBoldWidth = getWidth(lineTwo.toString(), 17, interExtraBold)
+		const mediumWidth = getWidth(lineOne.toString(), 16, interMedium);
+		const extraBoldWidth = getWidth(lineTwo.toString(), 17, interExtraBold);
 
-    // MOVED TO OPENTYPEJS FROM TEXT2SVG
+		// MOVED TO OPENTYPEJS FROM TEXT2SVG
 
-    /*const finalMetrics =
+		/*const finalMetrics =
       lineOneMetrics.width + lineOneMetrics.x >=
         lineTwoMetrics.width + lineTwoMetrics.x
         ? lineOneMetrics
         : lineTwoMetrics; */
-    //const width = (finalMetrics.width + finalMetrics.x) * 1.14;
+		//const width = (finalMetrics.width + finalMetrics.x) * 1.14;
 
-    var OTFinalWidth;
+		var OTFinalWidth;
 
-    if (mediumWidth > extraBoldWidth) {
-      OTFinalWidth = mediumWidth + 8;
-    } else {
-      OTFinalWidth = extraBoldWidth;
-    }
+		if (mediumWidth > extraBoldWidth) {
+			OTFinalWidth = mediumWidth + 8;
+		} else {
+			OTFinalWidth = extraBoldWidth;
+		}
 
-    const width = (OTFinalWidth + 64) * 1.06;
+		const width = (OTFinalWidth + 64) * 1.06;
 
+		//console.log(svg)
 
-    //console.log(svg)
+		//const mediumPath = mediumFont.getPath(lineOne, 0, 0, 16)
+		//const extraBoldPath = extraBoldFont.getPath(lineTwo, 0, 0, 17)
 
-    //const mediumPath = mediumFont.getPath(lineOne, 0, 0, 16)
-    //const extraBoldPath = extraBoldFont.getPath(lineTwo, 0, 0, 17)
+		//const lineOneSVG = mediumPath.toSVG()
+		//const lineTwoSVG = extraBoldPath.toSVG()
 
-    //const lineOneSVG = mediumPath.toSVG()
-    //const lineTwoSVG = extraBoldPath.toSVG()
+		//console.log(await bufferMedium)
 
-    //console.log(await bufferMedium)
+		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
+			const fetchImageUrl = await fetch(imgUrl);
+			const responseArrBuffer = await fetchImageUrl.arrayBuffer();
+			const toBase64 = `data:${fetchImageUrl.headers.get("Content-Type") || "image/png"};base64,${Buffer.from(responseArrBuffer).toString("base64")}`;
+			return toBase64;
+		}
 
-    async function toBase64ImageUrl(imgUrl: string): Promise<string> {
-      const fetchImageUrl = await fetch(imgUrl)
-      const responseArrBuffer = await fetchImageUrl.arrayBuffer()
-      const toBase64 = 
-        `data:${ fetchImageUrl.headers.get('Content-Type') || 'image/png' };base64,${Buffer.from(responseArrBuffer).toString('base64')}`
-      return toBase64
-    }
+		var imageUrl = iconUrl;
 
-    var imageUrl = iconUrl;
+		if (imageUrl?.toString().includes("http" || "https")) {
+			imageUrl = await toBase64ImageUrl(imageUrl.toString());
+		}
 
-    if (imageUrl?.toString().includes("http" || "https")) {
-
-      imageUrl = await toBase64ImageUrl(imageUrl.toString())
-
-    }
-
-    var finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+		var finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <g filter="url(#DropShadow)">
-      <rect x="4" width="${width - 10
-      }" height="56" rx="8" fill="url(#BackgroundGradient)" />
-      <rect x="5.05" y="1.05" width="${width - 12
-      }" height="53.9" rx="6.95" stroke="white"
+      <rect x="4" width="${
+			width - 10
+		}" height="56" rx="8" fill="url(#BackgroundGradient)" />
+      <rect x="5.05" y="1.05" width="${
+			width - 12
+		}" height="53.9" rx="6.95" stroke="white"
           stroke-opacity="0.15" stroke-width="2.1" />
       <g filter="url(#IconShadow)">
           <rect x="16" y="8" width="40" height="40" fill="url(#IconPattern)" />
@@ -232,13 +241,12 @@ export default defineEventHandler(async (event) => {
   </defs>
 </svg>`;
 
-    return finalSvg;
+		return finalSvg;
+	} catch {
+		return Error;
+	}
 
-  } catch {
-    return Error;
-  }
-
-  /*return {
+	/*return {
     "welcome": "hello",
     "start": gradientStart,
     "end": gradientEnd ,
