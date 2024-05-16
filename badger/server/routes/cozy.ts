@@ -98,7 +98,7 @@ export default defineEventHandler(async (event) => {
 
     //const svg = textToSVG.getPath(lineOne.toString(), optionsOne);
     //const boldSvg = textToSVGBold.getPath(lineTwo.toString(), optionsTwo);
-    
+
     const mediumPathData = interMedium.getPath(lineOne.toString(), 64, 24.5, 16);
     const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 64, 43.5, 16);
     mediumPathData.fill = `#${colorOne}`
@@ -147,6 +147,22 @@ export default defineEventHandler(async (event) => {
     //const lineTwoSVG = extraBoldPath.toSVG()
 
     //console.log(await bufferMedium)
+
+    async function toBase64ImageUrl(imgUrl: string): Promise<string> {
+      const fetchImageUrl = await fetch(imgUrl)
+      const responseArrBuffer = await fetchImageUrl.arrayBuffer()
+      const toBase64 = 
+        `data:${ fetchImageUrl.headers.get('Content-Type') || 'image/png' };base64,${Buffer.from(responseArrBuffer).toString('base64')}`
+      return toBase64
+    }
+
+    var imageUrl = iconUrl;
+
+    if (imageUrl?.toString().includes("http" || "https")) {
+
+      imageUrl = await toBase64ImageUrl(imageUrl.toString())
+
+    }
 
     var finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -212,7 +228,7 @@ export default defineEventHandler(async (event) => {
       </linearGradient>
       <!-- Generate this tag in code -->
       <image id="Icon" width="512" height="512"
-          xlink:href="${iconUrl}" />
+          xlink:href="${imageUrl}" />
   </defs>
 </svg>`;
 
