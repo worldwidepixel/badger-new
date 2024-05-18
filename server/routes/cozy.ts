@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
 			mediumWidth > extraBoldWidth ? mediumWidth : extraBoldWidth;
 
 		//const width = OTFinalWidth + 64 + 40;
-    const width = OTFinalWidth + 64 + 24;
+        const width = OTFinalWidth + 64 + 24;
 
 		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 			const fetchImageUrl = await fetch(imgUrl);
