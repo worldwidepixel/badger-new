@@ -21,9 +21,9 @@ export default defineEventHandler(async (event) => {
 		}
 
 		let finalSvg = `
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="56" height="56" rx="8.4" fill="url(#paint0_linear_1_62)"/>
-            <rect x="1.05" y="1.05" width="53.9" height="53.9" rx="7.35" stroke="white" stroke-opacity="0.15" stroke-width="2.1"/>
+            <rect x="1.05" y="1.05" width="54" height="54" rx="7.35" stroke="white" stroke-opacity="0.15" stroke-width="2.1"/>
         <g filter="url(#filter0_d_1_62)">
             <rect x="8" y="8" width="40" height="40" fill="url(#pattern0_1_62)"/>
         </g>

@@ -75,11 +75,11 @@ export default defineEventHandler(async (event) => {
 			imageUrl = await toBase64ImageUrl(imageUrl.toString());
 		}
 
-		let finalSvg = `<svg width="${width}" height="64" viewBox="0 0 ${width} 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+		let finalSvg = `<svg width="${width}" height="56" viewBox="0 0 ${width} 56" fill="none" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g filter="url(#DropShadow)">
-      <rect x="0" width="${width - 10}" height="56" rx="8" fill="url(#BackgroundGradient)" />
-      <rect x="1.05" y="1.05" width="${width - 12}" height="53.9" rx="6.95" stroke="white"
+  <g>
+      <rect x="0" width="${width}" height="56" rx="8" fill="url(#BackgroundGradient)" />
+      <rect x="1.05" y="1.05" width="${width - 2}" height="54" rx="6.95" stroke="white"
           stroke-opacity="0.15" stroke-width="2.1" />
       <g filter="url(#IconShadow)">
           <rect x="16" y="8" width="40" height="40" fill="url(#IconPattern)" />
@@ -91,18 +91,6 @@ export default defineEventHandler(async (event) => {
       </g>
   </g>
   <defs>
-      <filter id="DropShadow" x="0" y="0" width="${width}" height="64" filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feColorMatrix in="SourceAlpha" type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-          <feOffset dy="4" />
-          <feGaussianBlur stdDeviation="2" />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-          <feBlend mode="normal" in2="BackgroundImageFix" result="DropShadowEffect" />
-          <feBlend mode="normal" in="SourceGraphic" in2="DropShadowEffect" result="shape" />
-      </filter>
       <filter id="IconShadow" x="10.2857" y="2.28571" width="51.4286" height="51.4286"
           filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
           <feFlood flood-opacity="0" result="BackgroundImageFix" />
