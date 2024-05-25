@@ -1,3 +1,9 @@
+<script setup>
+
+const runtimeConfig = useRuntimeConfig()
+
+</script>
+
 <template>
 
   <div class="flex flex-row h-full">
@@ -45,10 +51,10 @@
       <span class="flex flex-row gap-2">
 
         <img
-          src="../../cozy?gradientStart=8f004c&gradientEnd=61003d&lineOne=Made%20for&lineTwo=You&colourOne=ffffff&colourTwo=ff0066&iconUrl=https://badger.worldwidepixel.ca/img/badger.png">
+          src="https://badger-staging.worldwidepixel.ca/cozy?gradientStart=8f004c&gradientEnd=61003d&lineOne=Made%20for&lineTwo=You&colourOne=ffffff&colourTwo=ff0066&iconUrl=https://badger.worldwidepixel.ca/img/badger.png">
 
         <img
-          src="../../cozy_minimal?gradientStart=8f004c&gradientEnd=61003d&lineOne=Made%20for&lineTwo=You&colourOne=ffffff&colourTwo=ff0066&iconUrl=https://badger.worldwidepixel.ca/img/badger.png">
+          :src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8f004c&gradientEnd=61003d&lineOne=Made%20for&lineTwo=You&colourOne=ffffff&colourTwo=ff0066&iconUrl=https://badger.worldwidepixel.ca/img/badger.png`">
 
       </span>
 
