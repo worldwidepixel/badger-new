@@ -36,6 +36,7 @@ function UpdateColor() {
 function Popup() {
 	popup.value = !popup.value;
 }
+
 </script>
 
 <template>
