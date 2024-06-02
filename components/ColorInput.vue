@@ -5,15 +5,17 @@ import ColorPicker from "./ColorPicker.vue";
 
 const hexRegex = /^#(?:(?:[\da-f]{3}){1,2}|(?:[\da-f]{4}){1,2})$/i;
 
-const props = defineProps<{
-	defaultColor: Color;
-}>();
-
 const popup = ref(false);
 const input = ref<HTMLInputElement>(null!);
 const colorPicker = ref<typeof ColorPicker>(null!);
 let color = defineModel<string>();
-color.value = props.defaultColor;
+
+onMounted(() => {
+
+	//console.log(color.value)
+	Validate()
+
+})
 
 function Validate() {
 	if (input.value.value.match(hexRegex)) {
@@ -72,7 +74,7 @@ function Popup() {
 				@update-color="UpdateColor"
 				class="absolute z-10 mt-14 h-40 w-44 -translate-y-3 flex-col items-center justify-evenly rounded-xl border bg-white"
 				v-model="color"
-				default-color="#FFFFFF"
+				:defaultColor="`#${color}`"
 			/>
 		</transition>
 	</div>

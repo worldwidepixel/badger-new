@@ -15,7 +15,7 @@
 </template>
 
 <style>
-@font-face {
+/*@font-face {
   font-family: 'Inter-nal';
   src: url('./fonts/static/Inter-Black.ttf') format('truetype');
   font-weight: 900;
@@ -67,10 +67,12 @@
   font-family: 'Inter-nal';
   src: url('./fonts/static/Inter-Thin.ttf') format('truetype');
   font-weight: 100;
-}
+} */
+
+@import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
 
 body {
-  font-family: 'Inter-nal', sans-serif;
+  font-family: 'Inter', sans-serif;
   height: 100%;
 }
 
