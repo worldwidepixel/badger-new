@@ -1,4 +1,7 @@
-<script setup>
+<script setup lang="ts">
+//import mitt from 'mitt';
+//const emitter = mitt();
+const {$resetBus} = useNuxtApp()
 
 const runtimeConfig = useRuntimeConfig()
 
@@ -9,19 +12,22 @@ const bottomText = ref('You')
 const bottomTextColor = ref('#FF0066')
 const bottomBackgroundColor = ref('#61003D')
 
-function test() {
-	//console.log(cozySvgBuilder.value)
+$resetBus.$on('reset', () => resetToDefault())
 
-	//setTimeout(test, 2000);
+function resetToDefault() {
+	topText.value = "Made for"
+	topTextColor.value = "#FFFFFF"
+	topBackgroundColor.value = "#8F004C"
+	bottomText.value = "You"
+	bottomTextColor.value = "#FF0066"
+	bottomBackgroundColor.value = "#61003D"
 }
-
-test();
 
 </script>
 
 <template>
 
-	<div class="flex flex-row h-full">
+	<div class="dark:text-white dark:bg-slate-950 flex flex-row h-full">
 
 		<div class="flex flex-col gap-4 grow shrink-0 p-4">
 
@@ -45,7 +51,7 @@ test();
 
 				<span class="text-xl font-medium"> Icon </span>
 
-				<!--<ColorInput class="h-10" default-color="#8F004C" /> (placeholder)-->
+				<FileInput />
 
 			</div>
 
@@ -74,7 +80,7 @@ test();
 			<span class="flex flex-row gap-2">
 
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/cozy?gradientStart=${topBackgroundColor.replace('#','')}&gradientEnd=${bottomBackgroundColor.replace('#','')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#','')}&colourTwo=${bottomTextColor.replace('#','')}&iconUrl=https://badger.worldwidepixel.ca/img/badger.png`">
+					:src="`https://badger-staging.worldwidepixel.ca/cozy?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=https://badger.worldwidepixel.ca/img/badger.png`">
 
 				<img
 					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8f004c&gradientEnd=61003d&iconUrl=https://badger.worldwidepixel.ca/img/badger.png`">

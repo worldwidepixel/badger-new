@@ -1,6 +1,6 @@
 <template>
 
-  <div class="h-full flex flex-col">
+  <div class="dark:text-white dark:bg-slate-950 h-full flex flex-col">
 
     <NavBar />
 

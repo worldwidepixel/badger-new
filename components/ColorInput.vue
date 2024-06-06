@@ -46,7 +46,7 @@ function Popup() {
 		<div class="flex h-10 w-64 flex-row gap-0 rounded-xl p-2 border">
 			<input
 				ref="input"
-				class="w-[10rem] outline-none"
+				class="w-[10rem] outline-none dark:bg-transparent"
 				:value="color"
 				@focusout="Validate"
 				@keydown="CheckForValidate"

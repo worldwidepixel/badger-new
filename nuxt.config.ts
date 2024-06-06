@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-lucide-icons'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-lucide-icons', '@nuxtjs/color-mode'],
+  colorMode: {
+    classSuffix: ''
+  },
   runtimeConfig: {
     baseUrl: process.env.NODE_ENV === 'production' ? 'https://badger-staging.worldwidepixel.ca' : 'http://localhost:3000'
   }
