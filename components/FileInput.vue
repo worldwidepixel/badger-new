@@ -1,5 +1,7 @@
+<!--DEPRECATED IN FAVOUR OF URL-->
+
 <template>
-	<input type="file" class="file:cursor-pointer file:active:border-slate-300 file:border-solid file:border-[#e5e7eb] dark:file:bg-transparent dark:file:text-white file:bg-white file:rounded-md file:border cursor-pointer outline-none h-10 w-64 gap-0 rounded-xl p-[5px] border fileInput">
+	<input accept="image/*" type="file" @change="previewFiles" class="file:cursor-pointer file:active:border-slate-300 file:border-solid file:border-[#e5e7eb] dark:file:bg-transparent dark:file:text-white file:bg-white file:rounded-md file:border cursor-pointer outline-none h-10 w-64 gap-0 rounded-xl p-[5px] border fileInput">
 </template>
 
 <style>
@@ -20,6 +22,13 @@ input.fileInput::before {
 
 <script setup>
 
-console.log(':(')
+const file = defineModel()
+
+function previewFiles(event) {
+	file.value = event.target.files[0]
+	//console.log(file.value)
+}
+
+//console.log(':(')
 
 </script>

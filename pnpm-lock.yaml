@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  base64-encode-file:
+    specifier: ^1.0.7
+    version: 1.0.7
   mitt:
     specifier: ^3.0.1
     version: 3.0.1
@@ -2733,6 +2736,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /base64-encode-file@1.0.7:
+    resolution: {integrity: sha512-5f9xGrLRBPc6OYM+qqAbsdxjGDCdRqYnThwCmSpBGVa9JDbKochGJXyMc9ufZ+RGYJcZuh/Pt/qeroJy7jyORg==}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
