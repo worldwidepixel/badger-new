@@ -2,7 +2,6 @@ import sharp from 'sharp';
 
 export default defineEventHandler(async (event) => {
 	try {
-		setHeader(event, "Content-Type", "image/svg+xml");
 		const query = getQuery(event);
 		const gradientStart = query.gradientStart;
 		const gradientEnd = query.gradientEnd;
@@ -53,6 +52,7 @@ export default defineEventHandler(async (event) => {
         `;
 
 		if (format === 'png') {
+			setHeader(event, "Content-Type", "image/png");
 			let svgBuffer = Buffer.from(finalSvg, 'utf-8')
 			let convertedPng = sharp(svgBuffer).png().toBuffer()
 			return convertedPng;

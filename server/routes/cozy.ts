@@ -142,6 +142,7 @@ export default defineEventHandler(async (event) => {
 		//}
 
 		if (format === 'png') {
+			setHeader(event, "Content-Type", "image/png");
 			let svgBuffer = Buffer.from(finalSvg, 'utf-8')
 			let convertedPng = sharp(svgBuffer).png().toBuffer()
 			return convertedPng;
