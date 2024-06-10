@@ -3,6 +3,7 @@
 
 //import TextToSVG from 'text-to-svg';
 import { Font } from "opentype.js";
+import sharp from 'sharp';
 import { getInterExtraBold, getInterMedium } from "../lib/fonts";
 
 export default defineEventHandler(async (event) => {
@@ -10,7 +11,6 @@ export default defineEventHandler(async (event) => {
 	const interExtraBold = await getInterExtraBold();
 
 	try {
-		setHeader(event, "Content-Type", "image/svg+xml");
 		const query = getQuery(event);
 		const gradientStart = query.gradientStart;
 		const gradientEnd = query.gradientEnd;
@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
 		const colorOne = query.colorOne ?? query.colourOne;
 		const colorTwo = query.colorTwo ?? query.colourTwo;
 		const iconUrl = query.iconUrl;
+		const format = query.format ?? 'svg';
 
 		function getWidth(text: any, size: any, font: Font) {
 			const fontSize = size;
@@ -60,7 +61,7 @@ export default defineEventHandler(async (event) => {
 			mediumWidth > extraBoldWidth ? mediumWidth : extraBoldWidth;
 
 		//const width = OTFinalWidth + 64 + 40;
-        const width = OTFinalWidth + 64 + 24;
+		const width = OTFinalWidth + 64 + 24;
 
 		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 			const fetchImageUrl = await fetch(imgUrl);
@@ -129,20 +130,39 @@ export default defineEventHandler(async (event) => {
   </defs>
 </svg>`;
 
-		return finalSvg;
+
+		//if (pngRequested === true) {
+		//	//setHeader(event, "Content-Type", "image/png");
+		//	const svgBuffer = Buffer.from(finalSvg, 'utf-8')
+		//	console.log(svgBuffer)
+		//	await sharp(svgBuffer).png().toBuffer().then(output => {
+		//return output
+		//	})
+		//console.log(returnablePng)
+		//}
+
+		if (format === 'png') {
+			let svgBuffer = Buffer.from(finalSvg, 'utf-8')
+			let convertedPng = sharp(svgBuffer).png().toBuffer()
+			return convertedPng;
+		} else {
+			setHeader(event, "Content-Type", "image/svg+xml");
+			return finalSvg;
+		}
+
 	} catch {
 		return Error;
 	}
 
 	/*return {
-    "welcome": "hello",
-    "start": gradientStart,
-    "end": gradientEnd ,
-    "one": lineOne ,
-    "two": lineTwo,
-    "colourOne": colourOne,
-    "colourTwo": colourTwo,
-    "icon": iconUrl,
-    "svg": finalSvg
+	"welcome": "hello",
+	"start": gradientStart,
+	"end": gradientEnd ,
+	"one": lineOne ,
+	"two": lineTwo,
+	"colourOne": colourOne,
+	"colourTwo": colourTwo,
+	"icon": iconUrl,
+	"svg": finalSvg
   }; */
 });

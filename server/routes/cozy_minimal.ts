@@ -1,11 +1,13 @@
-export default defineEventHandler(async (event) => {
+import sharp from 'sharp';
 
+export default defineEventHandler(async (event) => {
 	try {
 		setHeader(event, "Content-Type", "image/svg+xml");
 		const query = getQuery(event);
 		const gradientStart = query.gradientStart;
 		const gradientEnd = query.gradientEnd;
 		const iconUrl = query.iconUrl;
+		const format = query.format ?? 'svg';
 
 		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 			const fetchImageUrl = await fetch(imgUrl);
@@ -50,7 +52,14 @@ export default defineEventHandler(async (event) => {
         </svg>
         `;
 
-		return finalSvg;
+		if (format === 'png') {
+			let svgBuffer = Buffer.from(finalSvg, 'utf-8')
+			let convertedPng = sharp(svgBuffer).png().toBuffer()
+			return convertedPng;
+		} else {
+			setHeader(event, "Content-Type", "image/svg+xml");
+			return finalSvg;
+		}
 	} catch {
 		return Error;
 	}
