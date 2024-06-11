@@ -1,18 +1,19 @@
 <script setup lang="ts">
 const { $resetBus } = useNuxtApp()
 const runtimeConfig = useRuntimeConfig()
-
-//const defaultIcon = await urlToData('/badger.png')
+const route = useRoute();
 
 async function urlToData(url: string) {
-    let blob = await fetch(url).then(r => r.blob());
-    let dataUrl = await new Promise(resolve => {
-      let reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
-    });
+	let blob = await fetch(url).then(r => r.blob());
+	let dataUrl = await new Promise(resolve => {
+		let reader = new FileReader();
+		reader.onload = () => resolve(reader.result);
+		reader.readAsDataURL(blob);
+	});
 	return dataUrl
 };
+
+// INITAL DECLARATIONS
 
 const topText = ref('Made for')
 const topTextColor = ref('#FFFFFF')
@@ -20,26 +21,64 @@ const topBackgroundColor = ref('#8F004C')
 const bottomText = ref('You')
 const bottomTextColor = ref('#FF0066')
 const bottomBackgroundColor = ref('#61003D')
-//const badgeIconRaw = ref()
 const badgeIconUrl = ref('https://badger-staging.worldwidepixel.ca/badger.png')
+
+// LOAD FROM SAVED
+
+onMounted(() => {
+	topText.value = localStorage.getItem('topText') || "Made for";
+	topTextColor.value = localStorage.getItem('topTextColor') || '#FFFFFF';
+	topBackgroundColor.value = localStorage.getItem('topBackgroundColor') || '#8F004C';
+	bottomText.value = localStorage.getItem('bottomText') || 'You';
+	bottomTextColor.value = localStorage.getItem('bottomTextColor') || '#FF0066';
+	bottomBackgroundColor.value = localStorage.getItem('bottomBackgroundColor') || '#61003D';
+	badgeIconUrl.value = localStorage.getItem('badgeIconUrl') || 'https://badger-staging.worldwidepixel.ca/badger.png';
+})
+
+// LOAD FROM URL
+
+onMounted(() => {
+	topBackgroundColor.value = route.query.gradientStart?.toString() || '#8F004C';
+	bottomBackgroundColor.value = route.query.gradientEnd?.toString() || '#61003D';
+	topText.value = route.query.lineOne?.toString() || 'Made for';
+	bottomText.value = route.query.lineTwo?.toString() || 'You';
+	topTextColor.value = (route.query.colorOne?.toString() || route.query.colourOne?.toString()) || '#FFFFFF';
+	bottomTextColor.value = (route.query.colorTwo?.toString() || route.query.colourTwo?.toString()) || '#FF0066';
+	badgeIconUrl.value = route.query.iconUrl?.toString() || 'https://badger-staging.worldwidepixel.ca/badger.png';
+})
+
+// SAVE ON EDIT
+
+watch([topText, topTextColor, topBackgroundColor, bottomText, bottomTextColor, bottomBackgroundColor, badgeIconUrl], (newValues) => {
+	const [topText, topTextColor, topBackgroundColor, bottomText, bottomTextColor, bottomBackgroundColor, badgeIconUrl] = newValues
+	if (process.client) {
+		localStorage.topText = topText;
+		localStorage.topTextColor = topTextColor;
+		localStorage.topBackgroundColor = topBackgroundColor;
+		localStorage.bottomText = bottomText;
+		localStorage.bottomTextColor = bottomTextColor;
+		localStorage.bottomBackgroundColor = bottomBackgroundColor;
+		localStorage.badgeIconUrl = badgeIconUrl;
+	}
+})
 
 $resetBus.$on('reset', () => resetToDefault())
 
 //watchEffect(async () => badgeIcon.value = await toBase64(badgeIconRaw.value))
 
 async function toBase64(file: File) {
-try {
-  const encoded = new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  })
-  return await encoded
-} catch {
-	//console.log(await urlToData('/badger.png'))
-	return await urlToData('/badger.png')
-}
+	try {
+		const encoded = new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		})
+		return await encoded
+	} catch {
+		//console.log(await urlToData('/badger.png'))
+		return await urlToData('/badger.png')
+	}
 }
 
 async function resetToDefault() {
@@ -88,7 +127,14 @@ useSeoMeta({
 
 				<span class="text-xl font-medium"> Icon </span>
 
-				<TextInput v-model="badgeIconUrl" />
+				<span class="w-fit flex flex-row gap-4 items-center">
+
+					<TextInput v-model="badgeIconUrl" />
+
+					<!--This could come back... eventually.-->
+					<!--<img class="p-1 w-10 h-10 rounded-xl border" :src="badgeIconUrl">-->
+
+				</span>
 
 			</div>
 
@@ -120,7 +166,7 @@ useSeoMeta({
 					:src="`https://badger-staging.worldwidepixel.ca/cozy?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`">
 
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8f004c&gradientEnd=61003d&iconUrl=https://badger.worldwidepixel.ca/img/badger.png`">
+					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`">
 
 			</span>
 

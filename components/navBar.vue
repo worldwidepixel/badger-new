@@ -20,8 +20,8 @@
 			</NuxtLink>-->
 
 			<LucideMonitor v-if="colorMode.preference === 'system'" class="cursor-pointer" @click="changeColorMode" />
-			<LucideSun v-else-if="colorMode.preference === 'dark'" class="cursor-pointer" @click="changeColorMode" />
-			<LucideMoon v-else-if="colorMode.preference === 'light'" class="cursor-pointer" @click="changeColorMode" />
+			<LucideSun v-else-if="colorMode.preference === 'light'" class="cursor-pointer" @click="changeColorMode" />
+			<LucideMoon v-else-if="colorMode.preference === 'dark'" class="cursor-pointer" @click="changeColorMode" />
 
 			<a href="https://github.com/worldwidepixel/badger">
 				<LucideGithub />
