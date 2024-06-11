@@ -93,9 +93,9 @@ async function resetToDefault() {
 
 function getEmbeddableIcon() {
 	if (route.query.iconUrl != null) {
-		return `https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.value.replace('#', '')}&gradientEnd=${bottomBackgroundColor.value.replace('#', '')}&iconUrl=${badgeIconUrl.value}`
+		return `https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.value.replace('#', '')}&gradientEnd=${bottomBackgroundColor.value.replace('#', '')}&iconUrl=${badgeIconUrl.value}&format=png`
 	} else {
-		return 'https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8F004C&gradientEnd=61003D&iconUrl=https://badger-staging.worldwidepixel.ca/badger.png'
+		return 'https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8F004C&gradientEnd=61003D&iconUrl=https://badger-staging.worldwidepixel.ca/badger.png&format=png'
 	}
 }
 
