@@ -91,12 +91,20 @@ async function resetToDefault() {
 	badgeIconUrl.value = 'https://badger-staging.worldwidepixel.ca/badger.png'
 }
 
+function getEmbeddableIcon() {
+	if (route.query.iconUrl != null) {
+		return `https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.value.replace('#', '')}&gradientEnd=${bottomBackgroundColor.value.replace('#', '')}&iconUrl=${badgeIconUrl.value}`
+	} else {
+		return 'https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8F004C&gradientEnd=61003D&iconUrl=https://badger-staging.worldwidepixel.ca/badger.png'
+	}
+}
+
 useSeoMeta({
 	title: "Badger",
 	ogTitle: "Badger: A badge creator for the web",
 	description: "Create beautiful modern, and unique badges using Badger.",
 	ogDescription: "Create beautiful modern, and unique badges using Badger.",
-	ogImage: "https://badger.worldwidepixel.ca/img/ogimg.png"
+	ogImage: () => `${getEmbeddableIcon()}`
 })
 
 </script>
