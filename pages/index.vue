@@ -177,7 +177,15 @@ useSeoMeta({
 					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`">
 
 			</span>
+			<span class="flex flex-row gap-2">
 
+				<img
+					:src="`https://badger-staging.worldwidepixel.ca/compact?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`">
+
+				<img
+					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`">
+
+			</span>
 		</div>
 
 	</div>
