@@ -15,6 +15,8 @@
 
 			<LucideRotateCcw class="cursor-pointer" @click="defaultSetup" v-if="isHome() === true" />
 
+			<NuxtLink to="/library"> <LucideLibrary /> </NuxtLink>
+
 			<!--<NuxtLink to="/test">
 				<LucideTestTube />
 			</NuxtLink>-->
