@@ -1,22 +1,20 @@
 <template>
-
 	<div>
-
-		<NuxtLink class="flex flex-row items-center gap-4" :to="`https://badger-staging.worldwidepixel.ca/${badge}`">
-
-			<img class="h-14" :src="`https://badger-staging.worldwidepixel.ca/cozy${badge}`">
-
+		<NuxtLink
+			class="flex flex-row items-center gap-4"
+			:to="`${baseUrl}/${badge}`"
+		>
+			<img class="h-14" :src="`${baseUrl}/cozy${badge}`" />
 		</NuxtLink>
-
 	</div>
-
 </template>
 
 <script setup>
+const runtimeConfig = useRuntimeConfig();
+const baseUrl = runtimeConfig.public.apiBase;
 
 const props = defineProps({
-	"badge": String,
-	"name": String
-})
-
+	badge: String,
+	name: String,
+});
 </script>

@@ -3,7 +3,7 @@ const { $resetBus } = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 
-console.log(runtimeConfig.public.apiBase);
+const baseUrl = runtimeConfig.public.apiBase;
 
 async function urlToData(url: string) {
 	let blob = await fetch(url).then((r) => r.blob());
@@ -129,9 +129,9 @@ async function resetToDefault() {
 
 function getEmbeddableIcon() {
 	if (route.query.iconUrl != null) {
-		return `https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.value.replace("#", "")}&gradientEnd=${bottomBackgroundColor.value.replace("#", "")}&iconUrl=${badgeIconUrl.value}&format=png`;
+		return `${baseUrl}/cozy_minimal?gradientStart=${topBackgroundColor.value.replace("#", "")}&gradientEnd=${bottomBackgroundColor.value.replace("#", "")}&iconUrl=${badgeIconUrl.value}&format=png`;
 	} else {
-		return "https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=8F004C&gradientEnd=61003D&iconUrl=https://badger-staging.worldwidepixel.ca/badger.png&format=png";
+		return `${baseUrl}/img/ogimg.png`;
 	}
 }
 
@@ -191,27 +191,25 @@ useSeoMeta({
 			</div>
 		</div>
 
-		<div
-			class="flex flex-col gap-4 border-l grow-0 shrink flex-shrink-0 p-4"
-		>
+		<div class="flex flex-col gap-4 border-l grow-0 flex-shrink-0 p-4">
 			<span class="font-bold text-3xl"> View </span>
 
 			<span class="flex flex-row gap-2">
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/cozy?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+					:src="`${baseUrl}/cozy?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
 				/>
 
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+					:src="`${baseUrl}/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
 				/>
 			</span>
 			<span class="flex flex-row gap-2">
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/compact?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+					:src="`${baseUrl}/compact?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
 				/>
 
 				<img
-					:src="`https://badger-staging.worldwidepixel.ca/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+					:src="`${baseUrl}/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
 				/>
 			</span>
 		</div>
