@@ -8,7 +8,7 @@
 			</span>
 
 			<div class="flex flex-row flex-wrap gap-2">
-				<libraryCard
+				<LibraryCard
 					v-for="badge in dataGroup"
 					:name="getKeyByValue(dataGroup, badge)"
 					:badge="badge"
