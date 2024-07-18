@@ -25,10 +25,16 @@ placeholderWidth.value =
 <template>
 	<NuxtImg
 		:style="{ height: badgeHeight }"
+		:placeholder="
+			img(`/img/placeholderBadge.svg`, {
+				h: badgeHeight,
+				f: 'png',
+				q: 50,
+			})
+		"
 		:src="
 			baseUrl +
 			`/${type}?gradientStart=${topColour}&gradientEnd=${bottomColour}&lineOne=${topText}&lineTwo=${bottomText}&colourOne=${topTextColour}&colourTwo=${bottomTextColour}&iconUrl=${iconUrl}`
 		"
-		:placeholder="[placeholderWidth, badgeHeight]"
 	/>
 </template>
