@@ -195,21 +195,52 @@ useSeoMeta({
 			<span class="font-bold text-3xl"> View </span>
 
 			<span class="flex flex-row gap-2">
-				<img
-					:src="`${baseUrl}/cozy?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+				<Badge
+					type="cozy"
+					:topText="encodeURI(topText)"
+					:bottomText="encodeURI(bottomText)"
+					:topTextColour="topTextColor.replace('#', '')"
+					:bottomTextColour="bottomTextColor.replace('#', '')"
+					:topColour="topBackgroundColor.replace('#', '')"
+					:bottomColour="bottomBackgroundColor.replace('#', '')"
+					:iconUrl="encodeURI(badgeIconUrl)"
+					:version="3"
 				/>
 
-				<img
-					:src="`${baseUrl}/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+				<Badge
+					type="cozy_minimal"
+					:topText="encodeURI(topText)"
+					:bottomText="encodeURI(bottomText)"
+					:topTextColour="topTextColor.replace('#', '')"
+					:bottomTextColour="bottomTextColor.replace('#', '')"
+					:topColour="topBackgroundColor.replace('#', '')"
+					:bottomColour="bottomBackgroundColor.replace('#', '')"
+					:iconUrl="encodeURI(badgeIconUrl)"
+					:version="3"
 				/>
 			</span>
 			<span class="flex flex-row gap-2">
-				<img
-					:src="`${baseUrl}/compact?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&lineOne=${encodeURI(topText)}&lineTwo=${encodeURI(bottomText)}&colourOne=${topTextColor.replace('#', '')}&colourTwo=${bottomTextColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+				<Badge
+					type="compact"
+					:topText="encodeURI(topText)"
+					:bottomText="encodeURI(bottomText)"
+					:topTextColour="topTextColor.replace('#', '')"
+					:bottomTextColour="bottomTextColor.replace('#', '')"
+					:topColour="topBackgroundColor.replace('#', '')"
+					:bottomColour="bottomBackgroundColor.replace('#', '')"
+					:iconUrl="encodeURI(badgeIconUrl)"
+					:version="3"
 				/>
-
-				<img
-					:src="`${baseUrl}/cozy_minimal?gradientStart=${topBackgroundColor.replace('#', '')}&gradientEnd=${bottomBackgroundColor.replace('#', '')}&iconUrl=${badgeIconUrl}`"
+				<Badge
+					type="cozy_minimal"
+					:topText="encodeURI(topText)"
+					:bottomText="encodeURI(bottomText)"
+					:topTextColour="topTextColor.replace('#', '')"
+					:bottomTextColour="bottomTextColor.replace('#', '')"
+					:topColour="topBackgroundColor.replace('#', '')"
+					:bottomColour="bottomBackgroundColor.replace('#', '')"
+					:iconUrl="encodeURI(badgeIconUrl)"
+					:version="3"
 				/>
 			</span>
 		</div>

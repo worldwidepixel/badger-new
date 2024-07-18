@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 	ssr: false,
-	modules: ["@nuxtjs/tailwindcss", "nuxt-lucide-icons", "@nuxtjs/color-mode"],
+	modules: [
+        "@nuxtjs/tailwindcss",
+        "nuxt-lucide-icons",
+        "@nuxtjs/color-mode",
+        "@nuxt/image"
+    ],
 	colorMode: {
 		classSuffix: "",
 	},

@@ -10,6 +10,7 @@
 		"postinstall": "nuxt prepare"
 	},
 	"dependencies": {
+		"@nuxt/image": "^1.7.0",
 		"base64-encode-file": "^1.0.7",
 		"mitt": "^3.0.1",
 		"nuxt": "^3.11.2",

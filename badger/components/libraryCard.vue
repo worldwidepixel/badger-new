@@ -4,7 +4,18 @@
 			class="flex flex-row items-center gap-4"
 			:to="`${baseUrl}/${badge}`"
 		>
-			<img class="h-14" :src="`${baseUrl}/cozy${badge}`" />
+			<Badge
+				style="height: 3.5rem !important"
+				type="cozy"
+				:topText="badge.topText"
+				:bottomText="badge.bottomText"
+				:topTextColour="badge.topTextColour"
+				:bottomTextColour="badge.bottomTextColour"
+				:topColour="badge.topColour"
+				:bottomColour="badge.bottomColour"
+				:iconUrl="badge.icon"
+				:version="3"
+			/>
 		</NuxtLink>
 	</div>
 </template>
@@ -14,7 +25,7 @@ const runtimeConfig = useRuntimeConfig();
 const baseUrl = runtimeConfig.public.apiBase;
 
 const props = defineProps({
-	badge: String,
+	badge: Object,
 	name: String,
 });
 </script>

@@ -10,7 +10,7 @@
 			<div class="flex flex-row flex-wrap gap-2">
 				<LibraryCard
 					v-for="badge in dataGroup"
-					:name="getKeyByValue(dataGroup, badge)"
+					:name="badge.title"
 					:badge="badge"
 				/>
 			</div>
@@ -23,6 +23,34 @@ const runtimeConfig = useRuntimeConfig();
 const baseUrl = runtimeConfig.public.apiBase;
 
 const libraryData = await $fetch(`${baseUrl}/internal/library`);
+
+/*let newBadges = [];
+let i = 0;
+
+console.log(libraryData);
+
+for (const badge in libraryData.Social) {
+	//console.log(Object.keys(libraryData.Social[badge][i]));
+	const params = new URLSearchParams(libraryData.Social[badge]);
+	//console.log(params);
+	const newBadge = {
+		title: Object.keys(libraryData.Social)[i],
+		topText: params.get("lineOne"),
+		bottomText: params.get("lineTwo"),
+		topTextColour: params.get("colourOne"),
+		bottomTextColour: params.get("colourTwo"),
+		topColour: params.get("gradientStart"),
+		bottomColour: params.get("gradientEnd"),
+		icon: params.get("iconUrl"),
+	};
+	//console.log(newBadge);
+	newBadges.push(newBadge);
+	//newBadges[i].title = Object.keys(section);
+	//badge[Object.keys(badge)];
+	i++;
+}
+
+console.log(newBadges); */
 
 function getKeyByValue(object, value) {
 	return Object.keys(object).find((key) => object[key] === value);
