@@ -1,6 +1,7 @@
 <script setup>
 const runtimeConfig = useRuntimeConfig();
 const baseUrl = runtimeConfig.public.apiBase;
+const img = useImage();
 
 const props = defineProps({
 	topText: String,
