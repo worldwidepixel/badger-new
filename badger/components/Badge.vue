@@ -24,7 +24,7 @@ placeholderWidth.value =
 
 <template>
 	<NuxtImg
-		:height="badgeHeight"
+		:style="{ height: badgeHeight }"
 		:src="
 			baseUrl +
 			`/${type}?gradientStart=${topColour}&gradientEnd=${bottomColour}&lineOne=${topText}&lineTwo=${bottomText}&colourOne=${topTextColour}&colourTwo=${bottomTextColour}&iconUrl=${iconUrl}`

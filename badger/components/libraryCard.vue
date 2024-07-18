@@ -2,7 +2,7 @@
 	<div>
 		<NuxtLink
 			class="flex flex-row items-center gap-4"
-			:to="`/?gradientStart=${badge.topColour}&gradientEnd=${badge.bottomColour}&lineOne=${badge.topText}&lineTwo=${badge.bottomText}&colourOne=${badge.topTextColour}&colourTwo=${badge.bottomTextColour}&iconUrl=${badge.iconUrl}`"
+			:to="`/?gradientStart=${badge.topColour}&gradientEnd=${badge.bottomColour}&lineOne=${badge.topText}&lineTwo=${badge.bottomText}&colourOne=${badge.topTextColour}&colourTwo=${badge.bottomTextColour}&iconUrl=${badge.icon}`"
 		>
 			<Badge
 				style="height: 3.5rem !important"
