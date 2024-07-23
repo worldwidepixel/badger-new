@@ -232,7 +232,7 @@ useSeoMeta({
 					:version="3"
 				/>
 				<Badge
-					type="cozy_minimal"
+					type="compact_minimal"
 					:topText="encodeURI(topText)"
 					:bottomText="encodeURI(bottomText)"
 					:topTextColour="topTextColor.replace('#', '')"
