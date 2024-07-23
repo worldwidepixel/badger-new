@@ -1,6 +1,7 @@
 import { Font } from "opentype.js";
 import sharp from "sharp";
 import { getInterExtraBold, getInterMedium } from "../../lib/fonts";
+import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
   const interMedium = await getInterMedium();
@@ -67,6 +68,8 @@ export default defineEventHandler(async (event) => {
     if (imageUrl?.toString().includes("http" || "https")) {
       imageUrl = await toBase64ImageUrl(imageUrl.toString());
     }
+
+    imageUrl = await purifyOutput(imageUrl.toString());
 
     //console.log(width);
 

@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -22,6 +23,8 @@ export default defineEventHandler(async (event) => {
     if (imageUrl?.toString().includes("http" || "https")) {
       imageUrl = await toBase64ImageUrl(imageUrl.toString());
     }
+
+    imageUrl = await purifyOutput(imageUrl.toString());
 
     let finalSvg = `
 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

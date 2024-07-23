@@ -1,6 +1,7 @@
 import { Font } from "opentype.js";
 import sharp from "sharp";
 import { getInterExtraBold, getInterMedium } from "../lib/fonts";
+import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
   const interMedium = await getInterMedium();
@@ -74,6 +75,8 @@ export default defineEventHandler(async (event) => {
     }
 
     //console.log(width)
+
+    imageUrl = await purifyOutput(imageUrl.toString());
 
     let finalSvg = `
 		<svg width="${width}" height="40" viewBox="0 0 ${width} 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
