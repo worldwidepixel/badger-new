@@ -1,5 +1,7 @@
 <template>
-	<nav class="border-b p-4 flex flex-row gap-4 justify-between items-center">
+	<nav
+		class="border-b dark:border-b-[var(--dark-3)] p-4 flex flex-row gap-4 justify-between items-center"
+	>
 		<NuxtLink to="/">
 			<span class="flex flex-row gap-2 items-center text-xl select-none">
 				<LogoType />

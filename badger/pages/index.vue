@@ -145,104 +145,136 @@ useSeoMeta({
 </script>
 
 <template>
-	<div class="dark:text-white dark:bg-slate-950 flex flex-row h-full">
-		<div class="flex flex-col gap-4 grow shrink-0 p-4">
-			<span class="font-bold text-3xl"> Edit </span>
+	<div
+		class="grid auto-cols-fr grid-flow-row mx-0 sm:px-[20%] md:px-0 md:grid-flow-col h-full"
+	>
+		<div
+			class="flex flex-col gap-4 grow-0 flex-shrink-0 xl:px-4 pt-4 xl:pb-4 border-b md:border-b-none"
+		>
+			<span class="font-bold text-3xl xl:px-0 px-4"> Edit </span>
 
-			<div class="w-fit flex flex-col gap-2 p-4 rounded-3xl border">
-				<span class="w-fit text-xl font-medium"> Background </span>
+			<div
+				class="flex flex-col xl:flex-row xl:flex-wrap xl:gap-4 xl:w-auto w-full"
+			>
+				<div
+					class="h-fit flex flex-col gap-2 p-4 xl:rounded-3xl xl:border border-y xl:w-auto w-full"
+				>
+					<span class="w-fit text-xl font-medium"> Background </span>
 
-				<span class="w-fit flex flex-row gap-4 items-center">
-					Top
-					<ColorInput class="h-10" v-model="topBackgroundColor" />
-				</span>
+					<span class="w-fit flex flex-row gap-2 items-center">
+						Top
+						<ColorInput class="h-10" v-model="topBackgroundColor" />
+					</span>
 
-				<span class="w-fit flex flex-row gap-4 items-center">
-					Bottom
-					<ColorInput class="h-10" v-model="bottomBackgroundColor" />
-				</span>
-			</div>
+					<span class="w-fit flex flex-row gap-2 items-center">
+						Bottom
+						<ColorInput
+							class="h-10"
+							v-model="bottomBackgroundColor"
+						/>
+					</span>
+				</div>
 
-			<div class="w-fit flex flex-col gap-2 p-4 rounded-3xl border">
-				<span class="text-xl font-medium"> Icon </span>
+				<div
+					class="h-fit flex flex-col gap-2 p-4 xl:rounded-3xl xl:border border-b xl:w-auto w-full"
+				>
+					<span class="text-xl font-medium"> Icon </span>
 
-				<span class="w-fit flex flex-row gap-4 items-center">
-					<TextInput v-model="badgeIconUrl" />
+					<span class="w-fit flex flex-row gap-4 items-center">
+						<TextInput v-model="badgeIconUrl" />
 
-					<!--This could come back... eventually.-->
-					<!--<img class="p-1 w-10 h-10 rounded-xl border" :src="badgeIconUrl">-->
-				</span>
-			</div>
+						<!--This could come back... eventually.-->
+						<NuxtImg
+							class="p-1 w-10 h-10 rounded-xl border"
+							placeholder="/badger.png"
+							:src="badgeIconUrl"
+						/>
+					</span>
+				</div>
 
-			<div class="w-fit flex flex-col gap-2 p-4 rounded-3xl border">
-				<span class="text-xl font-medium"> Text </span>
+				<div
+					class="h-fit flex flex-col gap-2 p-4 xl:rounded-3xl xl:border xl:w-auto w-full"
+				>
+					<span class="text-xl font-medium"> Text </span>
 
-				<span class="w-fit flex flex-col gap-2">
-					Top
-					<TextInput v-model="topText" />
-					<ColorInput class="h-10" v-model="topTextColor" />
-				</span>
+					<span class="w-fit flex flex-col gap-2">
+						Top
+						<TextInput v-model="topText" />
+						<ColorInput class="h-10" v-model="topTextColor" />
+					</span>
 
-				<span class="w-fit flex flex-col gap-2">
-					Bottom
-					<TextInput v-model="bottomText" />
-					<ColorInput class="h-10" v-model="bottomTextColor" />
-				</span>
+					<span class="w-fit flex flex-col gap-2">
+						Bottom
+						<TextInput v-model="bottomText" />
+						<ColorInput class="h-10" v-model="bottomTextColor" />
+					</span>
+				</div>
 			</div>
 		</div>
+		<div
+			class="h-full lg:col-span-2 border-l-none md:border-l lg:grid lg:auto-cols-fr lg:grid-flow-col"
+		>
+			<div
+				class="flex flex-col gap-4 grow-0 flex-shrink-0 p-4 border-b lg:border-b-none"
+			>
+				<span class="font-bold text-3xl"> View </span>
 
-		<div class="flex flex-col gap-4 border-l grow-0 flex-shrink-0 p-4">
-			<span class="font-bold text-3xl"> View </span>
+				<span class="flex flex-row gap-2">
+					<Badge
+						type="cozy"
+						:topText="encodeURI(topText)"
+						:bottomText="encodeURI(bottomText)"
+						:topTextColour="topTextColor.replace('#', '')"
+						:bottomTextColour="bottomTextColor.replace('#', '')"
+						:topColour="topBackgroundColor.replace('#', '')"
+						:bottomColour="bottomBackgroundColor.replace('#', '')"
+						:iconUrl="encodeURI(badgeIconUrl)"
+						:version="3"
+					/>
 
-			<span class="flex flex-row gap-2">
-				<Badge
-					type="cozy"
-					:topText="encodeURI(topText)"
-					:bottomText="encodeURI(bottomText)"
-					:topTextColour="topTextColor.replace('#', '')"
-					:bottomTextColour="bottomTextColor.replace('#', '')"
-					:topColour="topBackgroundColor.replace('#', '')"
-					:bottomColour="bottomBackgroundColor.replace('#', '')"
-					:iconUrl="encodeURI(badgeIconUrl)"
-					:version="3"
-				/>
-
-				<Badge
-					type="cozy_minimal"
-					:topText="encodeURI(topText)"
-					:bottomText="encodeURI(bottomText)"
-					:topTextColour="topTextColor.replace('#', '')"
-					:bottomTextColour="bottomTextColor.replace('#', '')"
-					:topColour="topBackgroundColor.replace('#', '')"
-					:bottomColour="bottomBackgroundColor.replace('#', '')"
-					:iconUrl="encodeURI(badgeIconUrl)"
-					:version="3"
-				/>
-			</span>
-			<span class="flex flex-row gap-2">
-				<Badge
-					type="compact"
-					:topText="encodeURI(topText)"
-					:bottomText="encodeURI(bottomText)"
-					:topTextColour="topTextColor.replace('#', '')"
-					:bottomTextColour="bottomTextColor.replace('#', '')"
-					:topColour="topBackgroundColor.replace('#', '')"
-					:bottomColour="bottomBackgroundColor.replace('#', '')"
-					:iconUrl="encodeURI(badgeIconUrl)"
-					:version="3"
-				/>
-				<Badge
-					type="compact_minimal"
-					:topText="encodeURI(topText)"
-					:bottomText="encodeURI(bottomText)"
-					:topTextColour="topTextColor.replace('#', '')"
-					:bottomTextColour="bottomTextColor.replace('#', '')"
-					:topColour="topBackgroundColor.replace('#', '')"
-					:bottomColour="bottomBackgroundColor.replace('#', '')"
-					:iconUrl="encodeURI(badgeIconUrl)"
-					:version="3"
-				/>
-			</span>
+					<Badge
+						type="cozy_minimal"
+						:topText="encodeURI(topText)"
+						:bottomText="encodeURI(bottomText)"
+						:topTextColour="topTextColor.replace('#', '')"
+						:bottomTextColour="bottomTextColor.replace('#', '')"
+						:topColour="topBackgroundColor.replace('#', '')"
+						:bottomColour="bottomBackgroundColor.replace('#', '')"
+						:iconUrl="encodeURI(badgeIconUrl)"
+						:version="3"
+					/>
+				</span>
+				<span class="flex flex-row gap-2">
+					<Badge
+						type="compact"
+						:topText="encodeURI(topText)"
+						:bottomText="encodeURI(bottomText)"
+						:topTextColour="topTextColor.replace('#', '')"
+						:bottomTextColour="bottomTextColor.replace('#', '')"
+						:topColour="topBackgroundColor.replace('#', '')"
+						:bottomColour="bottomBackgroundColor.replace('#', '')"
+						:iconUrl="encodeURI(badgeIconUrl)"
+						:version="3"
+					/>
+					<Badge
+						type="compact_minimal"
+						:topText="encodeURI(topText)"
+						:bottomText="encodeURI(bottomText)"
+						:topTextColour="topTextColor.replace('#', '')"
+						:bottomTextColour="bottomTextColor.replace('#', '')"
+						:topColour="topBackgroundColor.replace('#', '')"
+						:bottomColour="bottomBackgroundColor.replace('#', '')"
+						:iconUrl="encodeURI(badgeIconUrl)"
+						:version="3"
+					/>
+				</span>
+			</div>
+			<div
+				class="flex flex-col gap-4 lg:border-l grow-0 flex-shrink-0 p-4"
+			>
+				<span class="font-bold text-3xl"> Export </span>
+				Coming soon!
+			</div>
 		</div>
 	</div>
 </template>
