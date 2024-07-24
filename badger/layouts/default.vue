@@ -2,7 +2,7 @@
 	<div class="flex flex-col dark:bg-[var(--dark-1)] dark:text-white">
 		<NavBar />
 
-		<main class="relative flex min-h-[95vh] w-screen flex-1">
+		<main class="relative flex min-h-[95vh] w-full flex-1">
 			<NuxtPage />
 		</main>
 
@@ -19,7 +19,7 @@
 				</ExternalLink>
 			</div>
 			<div class="flex flex-col items-center gap-1 sm:items-start">
-				<span class="text-lg font-bold underline decoration-[var(--brand-red)] decoration-wavy">About</span>
+				<span class="decoration-badger-red text-lg font-bold underline decoration-wavy">About</span>
 				Badger is a badge creator for the web.
 				<ExternalLink target="_blank" to="https://github.com/worldwidepixel/badger-new">
 					Created by WorldWidePixel.

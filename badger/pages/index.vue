@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { prominent } from "color.js";
 const { $resetBus } = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
@@ -112,6 +113,25 @@ function getEmbeddableIcon() {
 	}
 }
 
+async function getIconColours(index: number): Promise<string> {
+	const colours = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 20 });
+	console.log(colours);
+	return colours[index].toString();
+}
+
+const boxOneStyles = reactive({
+	"background-color": await getIconColours(1),
+});
+const boxTwoStyles = reactive({
+	"background-color": await getIconColours(1),
+});
+const boxThreeStyles = reactive({
+	"background-color": await getIconColours(2),
+});
+const boxFourStyles = reactive({
+	"background-color": await getIconColours(3),
+});
+
 useSeoMeta({
 	title: "Badger",
 	ogTitle: "Badger: A badge creator for the web",
@@ -123,14 +143,14 @@ useSeoMeta({
 
 <template>
 	<div class="flex w-full flex-col md:flex-row">
-		<div class="flex w-full flex-col p-8 md:border-r">
-			<span class="py-4 text-3xl font-bold">Edit</span>
+		<div class="flex w-full flex-col gap-4 p-6 pb-0 md:border-r md:pb-6">
+			<span class="text-3xl font-bold">Edit</span>
 
 			<div class="grid grid-flow-row gap-4 border-t pt-4">
 				<div class="border-b">
 					<span class="w-fit text-xl font-medium">Background</span>
 
-					<div class="grid grid-cols-2 grid-rows-2 items-center gap-2 pb-5">
+					<div class="grid grid-cols-2 grid-rows-2 items-center gap-2 pb-6">
 						<span class="h-10 content-center">Top</span>
 						<ColorInput class="h-10 justify-self-end" v-model="topBackgroundColor" />
 
@@ -142,29 +162,35 @@ useSeoMeta({
 				<div class="border-b">
 					<span class="w-fit text-xl font-medium">Icon</span>
 
-					<div class="flex flex-col items-center gap-2 py-5">
+					<div class="flex flex-col items-center gap-2 py-6">
 						<TextInput v-model="badgeIconUrl" class="w-full" />
 						<div class="flex w-full justify-center rounded-xl border">
-							<NuxtImg class="w-[50%] rounded-xl p-8" placeholder="/badger.png" :src="badgeIconUrl" />
+							<span class="w-[50%] p-8">
+								<NuxtImg
+									@click="getIconColours(1)"
+									class="rounded-xl"
+									placeholder="/badger.png"
+									:src="badgeIconUrl" />
+							</span>
 							<div class="grid w-[50%] grid-cols-2 grid-rows-2 divide-x">
-								<div class="h-full w-full border-b border-l"></div>
-								<div class="h-full w-full border-b"></div>
-								<div class="h-full w-full"></div>
-								<div class="h-full w-full"></div>
+								<div :style="boxOneStyles" class="h-full w-full border-b border-l"></div>
+								<div :style="boxTwoStyles" class="h-full w-full rounded-tr-[0.7rem] border-b"></div>
+								<div :style="boxThreeStyles" class="h-full w-full"></div>
+								<div :style="boxFourStyles" class="h-full w-full rounded-br-[0.7rem]"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="border-b">
+				<div class="border-b md:border-b-transparent">
 					<span class="w-fit text-xl font-medium">Text</span>
 
-					<div class="flex items-center gap-2 pt-5">
+					<div class="flex items-center gap-2 pt-6">
 						<TextInput v-model="topText" class="w-full" />
 						<ColorInput class="h-10 justify-self-end" v-model="topTextColor" />
 					</div>
 
-					<div class="flex items-center gap-2 pb-5 pt-2">
+					<div class="flex items-center gap-2 pb-6 pt-2 md:pb-0">
 						<TextInput v-model="bottomText" class="w-full" />
 						<ColorInput class="h-10 justify-self-end" v-model="bottomTextColor" />
 					</div>
@@ -172,10 +198,11 @@ useSeoMeta({
 			</div>
 		</div>
 
-		<div class="flex w-full flex-col p-8 md:border-r">
-			<span class="py-4 text-3xl font-bold">View</span>
+		<div class="flex w-full flex-col gap-4 p-6">
+			<span class="text-3xl font-bold">View</span>
 
-			<div class="grid grid-cols-2 grid-rows-2 items-center gap-4 border-t pt-4">
+			<div
+				class="grid grid-cols-1 grid-rows-4 items-center gap-4 border-b border-t py-11 sm:grid-cols-2 sm:grid-rows-2">
 				<div
 					class="flex flex-col place-items-center gap-4"
 					v-for="type in ['cozy', 'compact', 'cozy_minimal', 'compact_minimal']">
@@ -202,6 +229,7 @@ useSeoMeta({
 						:version="3" />
 				</div>
 			</div>
+			<span class="text-3xl font-bold">Export</span>
 		</div>
 	</div>
 </template>

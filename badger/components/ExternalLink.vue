@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink class="flex flex-row text-base font-[700]" :to="to">
 		<slot />
-		<LucideArrowUpRight class="text-[var(--brand-red)]" />
+		<LucideArrowUpRight class="text-badger-red" />
 	</NuxtLink>
 </template>
 

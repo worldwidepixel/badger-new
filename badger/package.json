@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@nuxt/image": "^1.7.0",
 		"base64-encode-file": "^1.0.7",
+		"color.js": "^1.2.0",
 		"file-saver": "^2.0.5",
 		"mitt": "^3.0.1",
 		"nuxt": "^3.12.4",
