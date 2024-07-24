@@ -54,7 +54,7 @@
 	border-color: var(--dark-3);
 }
 
-.dark html {
+html.dark {
 	background-color: var(--dark-1);
 }
 
