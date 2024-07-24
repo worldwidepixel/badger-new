@@ -19,3 +19,9 @@ export default defineNuxtConfig({
 
 	compatibilityDate: "2024-07-24",
 });
+
+const STAGING_API_URL = "https://badger-api-staging.worldwidepixel.ca";
+
+function getApiBase() {
+	return process.env.BROWSER_BASE_URL ?? STAGING_API_URL;
+}

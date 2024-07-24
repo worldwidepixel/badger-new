@@ -4,7 +4,7 @@ const { $resetBus } = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 
-console.log(process.env);
+console.log(process.env.BROWSER_BASE_URL);
 
 const baseUrl = runtimeConfig.public.apiBase;
 
