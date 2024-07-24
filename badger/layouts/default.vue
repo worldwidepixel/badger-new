@@ -54,6 +54,10 @@
 	border-color: var(--dark-3);
 }
 
+.dark html {
+	background-color: var(--dark-1);
+}
+
 body {
 	font-family: "Inter", sans-serif;
 	height: 100%;
