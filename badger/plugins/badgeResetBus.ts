@@ -1,7 +1,7 @@
-import mitt from 'mitt'
+import mitt from "mitt";
 
 export default defineNuxtPlugin(() => {
-	const emitter = mitt()
+	const emitter = mitt();
 
 	return {
 		provide: {

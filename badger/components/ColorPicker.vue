@@ -75,8 +75,7 @@ function UpdateLightness(l: number) {
 					rgb(255, 0, 255) 83%,
 					red
 				);
-			"
-		/>
+			" />
 		<Slider
 			:default="1"
 			class="h-10 w-20"
@@ -87,8 +86,7 @@ function UpdateLightness(l: number) {
 					hsl(${hue * 360}, 0%, 50%) 0%,
 					hsl(${hue * 360}, 100%, 50%) 100%
 				)`,
-			}"
-		/>
+			}" />
 		<Slider
 			:default="1"
 			class="h-10 w-20"
@@ -100,7 +98,6 @@ function UpdateLightness(l: number) {
 					hsl(${hue * 360}, 100%, 50%) 50%,
 					#FFF 100%
 				)`,
-			}"
-		/>
+			}" />
 	</div>
 </template>

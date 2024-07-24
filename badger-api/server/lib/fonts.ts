@@ -1,9 +1,7 @@
 import opentype from "opentype.js";
 
-const INTER_MEDIUM_URL =
-	"https://fonts.bunny.net/inter/files/inter-latin-500-normal.woff";
-const INTER_EXTRA_BOLD_URL =
-	"https://fonts.bunny.net/inter/files/inter-latin-800-normal.woff";
+const INTER_MEDIUM_URL = "https://fonts.bunny.net/inter/files/inter-latin-500-normal.woff";
+const INTER_EXTRA_BOLD_URL = "https://fonts.bunny.net/inter/files/inter-latin-800-normal.woff";
 
 let bufferMedium: ArrayBuffer | null = null;
 let interMedium: opentype.Font | null = null;

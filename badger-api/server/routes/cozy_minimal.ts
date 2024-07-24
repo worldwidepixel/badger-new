@@ -2,31 +2,31 @@ import sharp from "sharp";
 import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
-  try {
-    const query = getQuery(event);
-    const gradientStart = query.gradientStart;
-    const gradientEnd = query.gradientEnd;
-    const iconUrl = query.iconUrl;
-    const format = query.format ?? "svg";
+	try {
+		const query = getQuery(event);
+		const gradientStart = query.gradientStart;
+		const gradientEnd = query.gradientEnd;
+		const iconUrl = query.iconUrl;
+		const format = query.format ?? "svg";
 
-    async function toBase64ImageUrl(imgUrl: string): Promise<string> {
-      const fetchImageUrl = await fetch(imgUrl);
-      const responseArrBuffer = await fetchImageUrl.arrayBuffer();
-      const toBase64 = `data:${
-        fetchImageUrl.headers.get("Content-Type") || "image/png"
-      };base64,${Buffer.from(responseArrBuffer).toString("base64")}`;
-      return toBase64;
-    }
+		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
+			const fetchImageUrl = await fetch(imgUrl);
+			const responseArrBuffer = await fetchImageUrl.arrayBuffer();
+			const toBase64 = `data:${
+				fetchImageUrl.headers.get("Content-Type") || "image/png"
+			};base64,${Buffer.from(responseArrBuffer).toString("base64")}`;
+			return toBase64;
+		}
 
-    let imageUrl = iconUrl;
+		let imageUrl = iconUrl;
 
-    if (imageUrl?.toString().includes("http" || "https")) {
-      imageUrl = await toBase64ImageUrl(imageUrl.toString());
-    }
+		if (imageUrl?.toString().includes("http" || "https")) {
+			imageUrl = await toBase64ImageUrl(imageUrl.toString());
+		}
 
-    imageUrl = await purifyOutput(imageUrl.toString());
+		imageUrl = await purifyOutput(imageUrl.toString());
 
-    let finalSvg = `
+		let finalSvg = `
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="56" height="56" rx="8.4" fill="url(#paint0_linear_1_62)"/>
             <rect x="1.05" y="1.05" width="54" height="54" rx="7.35" stroke="white" stroke-opacity="0.15" stroke-width="2.1"/>
@@ -56,16 +56,16 @@ export default defineEventHandler(async (event) => {
         </svg>
         `;
 
-    if (format === "png") {
-      setHeader(event, "Content-Type", "image/png");
-      let svgBuffer = Buffer.from(finalSvg, "utf-8");
-      let convertedPng = sharp(svgBuffer).png().toBuffer();
-      return convertedPng;
-    } else {
-      setHeader(event, "Content-Type", "image/svg+xml");
-      return finalSvg;
-    }
-  } catch {
-    return Error;
-  }
+		if (format === "png") {
+			setHeader(event, "Content-Type", "image/png");
+			let svgBuffer = Buffer.from(finalSvg, "utf-8");
+			let convertedPng = sharp(svgBuffer).png().toBuffer();
+			return convertedPng;
+		} else {
+			setHeader(event, "Content-Type", "image/svg+xml");
+			return finalSvg;
+		}
+	} catch {
+		return Error;
+	}
 });

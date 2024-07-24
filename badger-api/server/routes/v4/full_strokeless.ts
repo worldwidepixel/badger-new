@@ -4,76 +4,70 @@ import { getInterExtraBold, getInterMedium } from "../../lib/fonts";
 import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
-  const interMedium = await getInterMedium();
-  const interExtraBold = await getInterExtraBold();
+	const interMedium = await getInterMedium();
+	const interExtraBold = await getInterExtraBold();
 
-  try {
-    const query = getQuery(event);
-    const backgroundColour = query.color ?? query.colour;
-    const lineOne = query.lineOne ?? "undefined";
-    const lineTwo = query.lineTwo ?? "undefined";
-    const colorOne = query.colorOne ?? query.colourOne;
-    const colorTwo = query.colorTwo ?? query.colourTwo;
-    const iconUrl = query.iconUrl;
-    const format = query.format ?? "svg";
+	try {
+		const query = getQuery(event);
+		const backgroundColour = query.color ?? query.colour;
+		const lineOne = query.lineOne ?? "undefined";
+		const lineTwo = query.lineTwo ?? "undefined";
+		const colorOne = query.colorOne ?? query.colourOne;
+		const colorTwo = query.colorTwo ?? query.colourTwo;
+		const iconUrl = query.iconUrl;
+		const format = query.format ?? "svg";
 
-    function getWidth(text: any, size: any, font: Font) {
-      const fontSize = size;
-      const fontScale = (1 / font.unitsPerEm) * fontSize;
+		function getWidth(text: any, size: any, font: Font) {
+			const fontSize = size;
+			const fontScale = (1 / font.unitsPerEm) * fontSize;
 
-      let width = 0;
-      const glyphs = font.stringToGlyphs(text);
-      for (let i = 0; i < glyphs.length; i++) {
-        const glyph = glyphs[i];
+			let width = 0;
+			const glyphs = font.stringToGlyphs(text);
+			for (let i = 0; i < glyphs.length; i++) {
+				const glyph = glyphs[i];
 
-        if (glyph.advanceWidth) {
-          width += glyph.advanceWidth * fontScale;
-        }
-      }
-      return width;
-    }
+				if (glyph.advanceWidth) {
+					width += glyph.advanceWidth * fontScale;
+				}
+			}
+			return width;
+		}
 
-    const mediumPathData = interMedium.getPath(lineOne.toString(), 44, 19, 14);
-    const extraBoldPathData = interExtraBold.getPath(
-      lineTwo.toString(),
-      44,
-      35,
-      16
-    );
-    mediumPathData.fill = `#${colorOne}`;
-    extraBoldPathData.fill = `#${colorTwo}`;
+		const mediumPathData = interMedium.getPath(lineOne.toString(), 44, 19, 14);
+		const extraBoldPathData = interExtraBold.getPath(lineTwo.toString(), 44, 35, 16);
+		mediumPathData.fill = `#${colorOne}`;
+		extraBoldPathData.fill = `#${colorTwo}`;
 
-    const mediumPath = mediumPathData.toSVG(2);
-    const extraBoldPath = extraBoldPathData.toSVG(2);
+		const mediumPath = mediumPathData.toSVG(2);
+		const extraBoldPath = extraBoldPathData.toSVG(2);
 
-    const mediumWidth = getWidth(lineOne.toString(), 14, interMedium);
-    const extraBoldWidth = getWidth(lineTwo.toString(), 16, interExtraBold);
-    const OTFinalWidth =
-      mediumWidth > extraBoldWidth ? mediumWidth : extraBoldWidth;
+		const mediumWidth = getWidth(lineOne.toString(), 14, interMedium);
+		const extraBoldWidth = getWidth(lineTwo.toString(), 16, interExtraBold);
+		const OTFinalWidth = mediumWidth > extraBoldWidth ? mediumWidth : extraBoldWidth;
 
-    //const width = OTFinalWidth + 64 + 40;
-    const width = OTFinalWidth + 50;
+		//const width = OTFinalWidth + 64 + 40;
+		const width = OTFinalWidth + 50;
 
-    async function toBase64ImageUrl(imgUrl: string): Promise<string> {
-      const fetchImageUrl = await fetch(imgUrl);
-      const responseArrBuffer = await fetchImageUrl.arrayBuffer();
-      const toBase64 = `data:${
-        fetchImageUrl.headers.get("Content-Type") || "image/png"
-      };base64,${Buffer.from(responseArrBuffer).toString("base64")}`;
-      return toBase64;
-    }
+		async function toBase64ImageUrl(imgUrl: string): Promise<string> {
+			const fetchImageUrl = await fetch(imgUrl);
+			const responseArrBuffer = await fetchImageUrl.arrayBuffer();
+			const toBase64 = `data:${
+				fetchImageUrl.headers.get("Content-Type") || "image/png"
+			};base64,${Buffer.from(responseArrBuffer).toString("base64")}`;
+			return toBase64;
+		}
 
-    let imageUrl = iconUrl;
+		let imageUrl = iconUrl;
 
-    if (imageUrl?.toString().includes("http" || "https")) {
-      imageUrl = await toBase64ImageUrl(imageUrl.toString());
-    }
+		if (imageUrl?.toString().includes("http" || "https")) {
+			imageUrl = await toBase64ImageUrl(imageUrl.toString());
+		}
 
-    imageUrl = await purifyOutput(imageUrl.toString());
+		imageUrl = await purifyOutput(imageUrl.toString());
 
-    //console.log(width);
+		//console.log(width);
 
-    let finalSvg = `
+		let finalSvg = `
 <svg width="${width}" height="44" viewBox="0 0 ${width} 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect width="${width}" height="44" rx="8" fill="#${backgroundColour}"/>
   <rect width="${width}" height="44" rx="8" fill="black" fill-opacity="0.7"/>
@@ -106,16 +100,16 @@ export default defineEventHandler(async (event) => {
 </svg>
 `;
 
-    if (format === "png") {
-      setHeader(event, "Content-Type", "image/png");
-      let svgBuffer = Buffer.from(finalSvg, "utf-8");
-      let convertedPng = sharp(svgBuffer).png().toBuffer();
-      return convertedPng;
-    } else {
-      setHeader(event, "Content-Type", "image/svg+xml");
-      return finalSvg;
-    }
-  } catch {
-    return Error;
-  }
+		if (format === "png") {
+			setHeader(event, "Content-Type", "image/png");
+			let svgBuffer = Buffer.from(finalSvg, "utf-8");
+			let convertedPng = sharp(svgBuffer).png().toBuffer();
+			return convertedPng;
+		} else {
+			setHeader(event, "Content-Type", "image/svg+xml");
+			return finalSvg;
+		}
+	} catch {
+		return Error;
+	}
 });

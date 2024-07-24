@@ -1,39 +1,27 @@
 <template>
-	<div class="dark:text-white dark:bg-[var(--dark-1)] flex flex-col">
+	<div class="flex flex-col dark:bg-[var(--dark-1)] dark:text-white">
 		<NavBar />
 
-		<div class="flex-auto flex-grow h-fit">
+		<main class="relative flex min-h-[95vh] w-screen flex-1">
 			<NuxtPage />
-		</div>
+		</main>
 
 		<footer
-			class="flex flex-col sm:flex-row justify-center sm:items-center border-t dark:bg-[var(--dark-2)] p-4 py-8 gap-6 text-sm"
-		>
-			<div class="flex flex-col gap-1 items-center sm:items-start">
+			class="flex flex-col justify-center gap-6 border-t p-4 py-8 text-sm sm:flex-row sm:items-center dark:bg-[var(--dark-2)]">
+			<div class="flex flex-col items-center gap-1 sm:items-start">
 				<NuxtLink to="/">
-					<span
-						class="flex flex-row gap-2 items-center text-xl select-none"
-					>
+					<span class="flex select-none flex-row items-center gap-2 text-xl">
 						<LogoType class="h-12" />
 					</span>
 				</NuxtLink>
-				<ExternalLink
-					target="_blank"
-					to="https://github.com/worldwidepixel/badger-new"
-				>
+				<ExternalLink target="_blank" to="https://github.com/worldwidepixel/badger-new">
 					Badger is open-source.
 				</ExternalLink>
 			</div>
-			<div class="flex flex-col gap-1 items-center sm:items-start">
-				<span
-					class="font-bold text-lg underline decoration-wavy decoration-[var(--brand-red)]"
-					>About</span
-				>
+			<div class="flex flex-col items-center gap-1 sm:items-start">
+				<span class="text-lg font-bold underline decoration-[var(--brand-red)] decoration-wavy">About</span>
 				Badger is a badge creator for the web.
-				<ExternalLink
-					target="_blank"
-					to="https://github.com/worldwidepixel/badger-new"
-				>
+				<ExternalLink target="_blank" to="https://github.com/worldwidepixel/badger-new">
 					Created by WorldWidePixel.
 				</ExternalLink>
 			</div>
@@ -42,60 +30,6 @@
 </template>
 
 <style>
-/*@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Black.ttf') format('truetype');
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Bold.ttf') format('truetype');
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Medium.ttf') format('truetype');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Regular.ttf') format('truetype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Light.ttf') format('truetype');
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-}
-
-@font-face {
-  font-family: 'Inter-nal';
-  src: url('./fonts/static/Inter-Thin.ttf') format('truetype');
-  font-weight: 100;
-} */
-
 @import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
 
 :root {

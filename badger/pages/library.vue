@@ -2,17 +2,13 @@
 	<div class="flex flex-col gap-4 p-4">
 		<span class="text-3xl font-bold"> Library </span>
 
-		<div class="flex flex-col gap-2" v-for="dataGroup in libraryData">
-			<span class="font-[500] text-xl">
+		<div class="flex flex-col" v-for="dataGroup in libraryData">
+			<span class="pb-8 text-center text-3xl font-bold">
 				{{ getKeyByValue(libraryData, dataGroup) }}
 			</span>
 
-			<div class="flex flex-row flex-wrap gap-2">
-				<LibraryCard
-					v-for="badge in dataGroup"
-					:name="badge.title"
-					:badge="badge"
-				/>
+			<div class="flex flex-row flex-wrap justify-center gap-2">
+				<LibraryCard v-for="badge in dataGroup" :name="badge.title" :badge="badge" class="min-w-[15%] pb-8" />
 			</div>
 		</div>
 	</div>

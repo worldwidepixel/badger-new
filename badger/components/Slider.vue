@@ -19,10 +19,7 @@ onMounted(() => {
 });
 
 function UpdateCursor(position: number) {
-	cursorPosition.value = Math.min(
-		Math.max(position - rect.left, 0),
-		rect.width,
-	);
+	cursorPosition.value = Math.min(Math.max(position - rect.left, 0), rect.width);
 	emit("updateValue", cursorPosition.value / rect.width);
 }
 
@@ -64,14 +61,12 @@ function OnChange(event: MouseEvent | TouchEvent) {
 		class="z-1 h-7 w-40 gap-0 rounded-md shadow-md"
 		role="slider"
 		@mousedown="OnChange"
-		@touchstart="OnChange"
-	>
+		@touchstart="OnChange">
 		<div
 			ref="cursor"
-			class="thumb absolute h-7 w-[2px] bg-black rounded will-change-transform"
+			class="thumb absolute h-7 w-[2px] rounded bg-black will-change-transform"
 			:style="{
 				transform: `translate(${cursorPosition!}px, 0)`,
-			}"
-		/>
+			}" />
 	</div>
 </template>

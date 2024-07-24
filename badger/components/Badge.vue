@@ -16,11 +16,9 @@ const props = defineProps({
 });
 
 const badgeHeight = ref("56px");
-badgeHeight.value =
-	props.type === "cozy" || props.type === "cozy_minimal" ? "56px" : "40px";
+badgeHeight.value = props.type === "cozy" || props.type === "cozy_minimal" ? "56px" : "40px";
 const placeholderWidth = ref(150);
-placeholderWidth.value =
-	props.type === "cozy" || props.type === "cozy_minimal" ? 150 : 48;
+placeholderWidth.value = props.type === "cozy" || props.type === "cozy_minimal" ? 150 : 48;
 </script>
 
 <template>
@@ -36,6 +34,5 @@ placeholderWidth.value =
 		:src="
 			baseUrl +
 			`/${type}?gradientStart=${topColour}&gradientEnd=${bottomColour}&lineOne=${topText}&lineTwo=${bottomText}&colourOne=${topTextColour}&colourTwo=${bottomTextColour}&iconUrl=${iconUrl}`
-		"
-	/>
+		" />
 </template>
