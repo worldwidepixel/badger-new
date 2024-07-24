@@ -4,6 +4,8 @@ const { $resetBus } = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 
+console.log(process.env);
+
 const baseUrl = runtimeConfig.public.apiBase;
 
 async function urlToData(url: string) {
@@ -114,8 +116,8 @@ function getEmbeddableIcon() {
 }
 
 async function getIconColours(index: number): Promise<string> {
-	const colours = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 20 });
-	console.log(colours);
+	const colours = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 50 });
+	//console.log(colours);
 	return colours[index].toString();
 }
 
