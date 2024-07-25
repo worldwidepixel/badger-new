@@ -1,3 +1,6 @@
+import { useRoute } from "vue-router";
+const STAGING_API_URL = "https://badger-api-staging.worldwidepixel.ca";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
@@ -10,18 +13,15 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			apiBase:
-				process.env.NODE_ENV === "production"
-					? "https://badger-api-staging.worldwidepixel.ca"
-					: "http://localhost:3001",
+			apiBase: getApiBase(),
 		},
 	},
 
 	compatibilityDate: "2024-07-24",
 });
 
-const STAGING_API_URL = "https://badger-api-staging.worldwidepixel.ca";
-
 function getApiBase() {
-	return process.env.BROWSER_BASE_URL ?? STAGING_API_URL;
+	return process.env.BROWSER_BASE_URL || process.env.NODE_ENV === "production"
+		? STAGING_API_URL
+		: "http://localhost:3001";
 }

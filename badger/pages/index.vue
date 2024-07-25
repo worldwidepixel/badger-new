@@ -4,8 +4,6 @@ const { $resetBus } = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 
-console.log(process.env);
-
 const baseUrl = runtimeConfig.public.apiBase;
 
 async function urlToData(url: string) {
@@ -181,6 +179,11 @@ useSeoMeta({
 								<div :style="boxFourStyles" class="h-full w-full rounded-br-[0.7rem]"></div>
 							</div>
 						</div>
+						<span class="flex flex-row flex-wrap items-center justify-center gap-1 text-sm">
+							If you're looking for icons to use, check out
+							<ExternalLink class="text-sm" to="https://simpleicons.org">simpleicons.org</ExternalLink>
+							and <ExternalLink class="text-sm" to="https://lucide.dev">Lucide</ExternalLink>.
+						</span>
 					</div>
 				</div>
 
