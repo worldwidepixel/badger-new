@@ -26,8 +26,8 @@ placeholderWidth.value = props.type === "cozy" || props.type === "cozy_minimal" 
 		:style="{ height: badgeHeight }"
 		:placeholder="
 			img(`/img/placeholderBadge.svg`, {
-				h: badgeHeight,
-				f: 'png',
+				h: 56,
+				f: 'svg',
 				q: 50,
 			})
 		"

@@ -1,4 +1,3 @@
-import { useRoute } from "vue-router";
 const STAGING_API_URL = "https://badger-api-staging.worldwidepixel.ca";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -10,6 +9,7 @@ export default defineNuxtConfig({
 	colorMode: {
 		classSuffix: "",
 	},
+	css: ["~/assets/global.css"],
 
 	runtimeConfig: {
 		public: {

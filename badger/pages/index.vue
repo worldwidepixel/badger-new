@@ -113,24 +113,12 @@ function getEmbeddableIcon() {
 	}
 }
 
-async function getIconColours(index: number): Promise<string> {
-	const colours = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 50 });
-	//console.log(colours);
-	return colours[index].toString();
-}
+const iconColors = ref(["#000000", "#000000", "#000000", "#000000"]);
 
-const boxOneStyles = reactive({
-	"background-color": await getIconColours(1),
-});
-const boxTwoStyles = reactive({
-	"background-color": await getIconColours(1),
-});
-const boxThreeStyles = reactive({
-	"background-color": await getIconColours(2),
-});
-const boxFourStyles = reactive({
-	"background-color": await getIconColours(3),
-});
+async function updateIconColors() {
+	const colors = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 50 });
+	iconColors.value = [colors[0].toString(), colors[1].toString(), colors[2].toString(), colors[3].toString()];
+}
 
 useSeoMeta({
 	title: "Badger",
@@ -166,23 +154,29 @@ useSeoMeta({
 						<TextInput v-model="badgeIconUrl" class="w-full" />
 						<div class="flex w-full justify-center rounded-xl border">
 							<span class="w-[50%] p-8">
-								<NuxtImg
-									@click="getIconColours(1)"
-									class="rounded-xl"
+								<img
+									class="w-[100%] rounded-xl"
 									placeholder="/badger.png"
+									@load="updateIconColors()"
 									:src="badgeIconUrl" />
 							</span>
 							<div class="grid w-[50%] grid-cols-2 grid-rows-2 divide-x">
-								<div :style="boxOneStyles" class="h-full w-full border-b border-l"></div>
-								<div :style="boxTwoStyles" class="h-full w-full rounded-tr-[0.7rem] border-b"></div>
-								<div :style="boxThreeStyles" class="h-full w-full"></div>
-								<div :style="boxFourStyles" class="h-full w-full rounded-br-[0.7rem]"></div>
+								<div
+									:style="'background-color:' + iconColors[0]"
+									class="h-full w-full border-b border-l"></div>
+								<div
+									:style="'background-color:' + iconColors[1]"
+									class="h-full w-full rounded-tr-[0.7rem] border-b"></div>
+								<div :style="'background-color:' + iconColors[2]" class="h-full w-full"></div>
+								<div
+									:style="'background-color:' + iconColors[3]"
+									class="h-full w-full rounded-br-[0.7rem]"></div>
 							</div>
 						</div>
 						<span class="flex flex-row flex-wrap items-center justify-center gap-1 text-sm">
 							If you're looking for icons to use, check out
 							<ExternalLink class="text-sm" to="https://simpleicons.org">simpleicons.org</ExternalLink>
-							and <ExternalLink class="text-sm" to="https://lucide.dev">Lucide</ExternalLink>.
+							and <ExternalLink class="text-sm" to="https://lucide.dev">Lucide</ExternalLink>
 						</span>
 					</div>
 				</div>

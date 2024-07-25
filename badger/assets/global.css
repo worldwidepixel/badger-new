@@ -1,0 +1,36 @@
+@import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--badger-background: #ffffff;
+		--badger-background-secondary: #ffffff;
+		--badger-text: #000000;
+		--badger-border: #e5e7eb;
+	}
+
+	:root[class~="dark"] {
+		--badger-background: #0b0d0e;
+		--badger-background-secondary: #161b1d;
+		--badger-text: #ffffff;
+		--badger-border: #21292c;
+	}
+}
+
+* {
+	border-color: var(--badger-border);
+}
+
+html {
+	background-color: var(--badger-background);
+	color: var(--badger-text);
+}
+
+.designGrid {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+}
