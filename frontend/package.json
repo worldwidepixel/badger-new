@@ -1,5 +1,5 @@
 {
-	"name": "badger",
+	"name": "badger-frontend",
 	"private": true,
 	"type": "module",
 	"scripts": {

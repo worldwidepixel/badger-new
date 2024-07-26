@@ -18,6 +18,7 @@ export default {
 
 				"badger-background": "var(--badger-background)",
 				"badger-background-secondary": "var(--badger-background-secondary)",
+				"badger-border": "var(--badger-border)",
 				"badger-text": "var(--badger-text)",
 			},
 		},

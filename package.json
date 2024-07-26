@@ -3,10 +3,10 @@
 	"version": "2.0.0",
 	"description": "",
 	"scripts": {
-		"frontend:dev": "cd badger && pnpm dev",
-		"frontend:build": "cd badger && pnpm build",
-		"api:dev": "cd badger-api && pnpm dev",
-		"api:build": "cd badger-api && pnpm build",
+		"frontend:dev": "cd frontend && pnpm dev",
+		"frontend:build": "cd frontend && pnpm build",
+		"api:dev": "cd api && pnpm dev",
+		"api:build": "cd api && pnpm build",
 		"dev": "concurrently \"pnpm api:dev\" \"pnpm frontend:dev\" ",
 		"build": "concurrently \"pnpm frontend:build\" \"pnpm api:build\""
 	},

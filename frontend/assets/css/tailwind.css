@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+
+@layer base {
+	:root {
+		--badger-background: #ffffff;
+		--badger-background-secondary: #fafafa;
+		--badger-text: #000000;
+		--badger-border: #e5e7eb;
+	}
+
+	:root[class~="dark"] {
+		--badger-background: #0b0d0e;
+		--badger-background-secondary: #161b1d;
+		--badger-text: #ffffff;
+		--badger-border: #21292c;
+	}
+}
+
+.v-popper--theme-badger-ui .v-popper__inner {
+	@apply bg-badger-background-secondary rounded-lg border px-2 py-1;
+}
+
+* {
+	@apply border-badger-border;
+}
+
+html {
+	@apply bg-badger-background text-badger-text;
+}
+
+@tailwind utilities;
