@@ -173,7 +173,7 @@ useSeoMeta({
 									class="h-full w-full rounded-br-[0.7rem]"></div>
 							</div>
 						</div>
-						<span class="flex flex-row flex-wrap items-center justify-center gap-1 text-sm">
+						<span class="flex flex-row flex-wrap items-center justify-center gap-1 text-center text-sm">
 							If you're looking for icons to use, check out
 							<ExternalLink class="text-sm" to="https://simpleicons.org">simpleicons.org</ExternalLink>
 							and <ExternalLink class="text-sm" to="https://lucide.dev">Lucide</ExternalLink>
@@ -206,6 +206,10 @@ useSeoMeta({
 					class="flex flex-col place-items-center gap-4"
 					v-for="type in ['cozy', 'compact', 'cozy_minimal', 'compact_minimal']">
 					<Badge
+						v-tooltip="{
+							content: type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ') + ' Badge',
+							theme: 'badger-ui',
+						}"
 						:type="type"
 						:topText="encodeURI(topText)"
 						:bottomText="encodeURI(bottomText)"

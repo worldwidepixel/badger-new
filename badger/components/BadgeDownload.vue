@@ -31,6 +31,10 @@ const copy = (text) => {
 		<li
 			v-for="format in ['png', 'svg']"
 			class="h-full w-full cursor-pointer p-2"
+			v-tooltip="{
+				content: 'Export as ' + format.toUpperCase(),
+				theme: 'badger-ui',
+			}"
 			@click.prevent="saveAs(url + `&format=${format}`, `badge.${format}`)">
 			<LucideImageDown v-if="format == 'png'" />
 			<LucidePenTool v-else />
@@ -38,12 +42,20 @@ const copy = (text) => {
 
 		<li
 			class="h-full w-full cursor-pointer p-2"
+			v-tooltip="{
+				content: 'Copy markdown',
+				theme: 'badger-ui',
+			}"
 			@click.prevent="copy(`![${topText} ${bottomText}](${url + `&format=png`})`)">
 			<LucideAArrowDown />
 		</li>
 
 		<li
 			class="h-full w-full cursor-pointer p-2"
+			v-tooltip="{
+				content: 'Copy HTML',
+				theme: 'badger-ui',
+			}"
 			@click.prevent="copy(`<img src='${url + `&format=png`}' alt='${topText} ${bottomText}' />`)">
 			<LucideCodeXml />
 		</li>

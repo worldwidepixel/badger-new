@@ -51,6 +51,10 @@ function Popup() {
 
 			<div
 				class="h-full w-full cursor-pointer rounded-md border"
+				v-tooltip="{
+					content: 'Select Colour',
+					theme: 'badger-ui',
+				}"
 				:style="{
 					backgroundColor: color,
 				}"

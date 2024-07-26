@@ -4,7 +4,7 @@ const STAGING_API_URL = "https://badger-api-staging.worldwidepixel.ca";
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 	ssr: false,
-	modules: ["@nuxtjs/tailwindcss", "nuxt-lucide-icons", "@nuxtjs/color-mode", "@nuxt/image"],
+	modules: ["@nuxtjs/tailwindcss", "nuxt-lucide-icons", "@nuxtjs/color-mode", "@nuxt/image", "floating-vue/nuxt"],
 
 	colorMode: {
 		classSuffix: "",

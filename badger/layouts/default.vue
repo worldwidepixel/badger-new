@@ -8,7 +8,7 @@
 
 		<footer
 			class="bg-badger-background-secondary flex flex-col justify-center gap-6 border-t p-4 py-8 text-sm sm:flex-row sm:items-center">
-			<div class="flex flex-col items-center gap-1 sm:items-start">
+			<div class="mt-[-1.25rem] flex flex-col items-center gap-1 sm:items-start">
 				<NuxtLink to="/">
 					<span class="flex select-none flex-row items-center gap-2 text-xl">
 						<LogoType class="h-12" />
