@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col gap-4 p-4">
+	<div class="flex flex-col gap-4 p-6">
 		<span class="text-3xl font-bold"> Library </span>
 
 		<div class="flex flex-col" v-for="dataGroup in libraryData">
@@ -53,7 +53,7 @@ function getKeyByValue(object, value) {
 }
 
 useSeoMeta({
-	title: "Badger - Library",
+	title: "Library",
 	ogTitle: "Badger: A badge creator for the web",
 	description: "Create beautiful modern, and unique badges using Badger.",
 	ogDescription: "Create beautiful modern, and unique badges using Badger.",
