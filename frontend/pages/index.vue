@@ -123,8 +123,8 @@ async function updateIconColors() {
 useSeoMeta({
 	title: "Home",
 	ogTitle: "Badger: A badge creator for the web",
-	description: "Create beautiful modern, and unique badges using Badger.",
-	ogDescription: "Create beautiful modern, and unique badges using Badger.",
+	description: "Create beautiful, modern, and unique badges using Badger.",
+	ogDescription: "Create beautiful, modern, and unique badges using Badger.",
 	ogImage: () => `${getEmbeddableIcon()}`,
 });
 </script>

@@ -24,7 +24,7 @@ export default defineNuxtConfig({
 			meta: [
 				{
 					name: "description",
-					content: "Create beautiful modern, and unique badges using Badger.",
+					content: "Create beautiful, modern, and unique badges using Badger.",
 				},
 				{ name: "theme-color", content: "#ff3a40" },
 			],
