@@ -9,6 +9,7 @@
 					class="flex select-none flex-row items-center gap-0 text-9xl font-extrabold [&>svg]:h-28 [&>svg]:w-28"
 					v-html="errorCode" />
 				<span>{{ error.message }}</span>
+				<div class="h-20" />
 			</div>
 		</main>
 
