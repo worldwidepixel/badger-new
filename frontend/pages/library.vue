@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col gap-4 p-6">
+	<div class="flex flex-col gap-4 py-6">
 		<span class="text-3xl font-bold"> Library </span>
 
 		<div class="flex flex-col" v-for="dataGroup in libraryData">

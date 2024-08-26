@@ -131,7 +131,7 @@ useSeoMeta({
 
 <template>
 	<div class="flex w-full flex-col md:flex-row">
-		<div class="flex w-full flex-col gap-4 p-6 pb-0 md:border-r md:pb-6">
+		<div class="flex w-full flex-col gap-4 p-6 pl-0 md:border-r md:pb-6">
 			<span class="text-3xl font-bold">Edit</span>
 
 			<div class="grid grid-flow-row gap-4 border-t pt-4">
@@ -197,7 +197,7 @@ useSeoMeta({
 			</div>
 		</div>
 
-		<div class="flex w-full flex-col gap-4 p-6">
+		<div class="flex w-full flex-col gap-4 p-6 pr-0">
 			<span class="text-3xl font-bold">View</span>
 
 			<div

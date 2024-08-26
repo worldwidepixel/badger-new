@@ -2,8 +2,8 @@
 	<div class="flex flex-col">
 		<NavBar />
 
-		<main class="relative flex min-h-[95vh] w-full flex-1">
-			<NuxtPage />
+		<main class="relative flex min-h-[95vh] w-full flex-1 flex-col items-center px-6">
+			<NuxtPage class="min-h-[95vh] max-w-[80rem]" />
 		</main>
 
 		<footer
