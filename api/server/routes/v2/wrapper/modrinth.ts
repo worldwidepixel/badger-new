@@ -9,12 +9,13 @@ export default defineEventHandler(async (event) => {
 		const formatter = new Intl.NumberFormat("en-GB", { notation: "standard" });
 		const colour = data.color.toString(16) ?? "1bd96a";
 		const icon = data.icon_url ?? "https://modrinth.com/favicon.ico";
-		console.log(icon);
 		const line_one_text = `${formatter.format(data.downloads ?? 0)} download${(data.downloads ?? 0) != 1 ? "s" : ""}`;
 		const line_two_text = "on Modrinth";
-		const final_badge = await $fetch(
-			`/v4/full?colour=${colour}&lineOne=${line_one_text}&lineTwo=${line_two_text}&colourOne=FFFFFF&colourTwo=FFFFFF&iconUrl=${icon}`,
-		);
+		let badge_url = `/v4/full?colour=${colour}&lineOne=${line_one_text}&lineTwo=${line_two_text}&colourOne=FFFFFF&colourTwo=FFFFFF&iconUrl=${icon}`;
+		if (query.format) {
+			badge_url = badge_url + "&format=png";
+		}
+		const final_badge = await $fetch(badge_url);
 		return final_badge;
 	} catch {
 		return Error;
