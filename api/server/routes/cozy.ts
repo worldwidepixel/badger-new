@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
 
 		let imageUrl = iconUrl;
 
-		if (imageUrl?.toString().includes("http" || "https")) {
+		if (imageUrl?.toString().includes("http")) {
 			imageUrl = await toBase64ImageUrl(imageUrl.toString());
 		}
 
@@ -120,7 +120,7 @@ export default defineEventHandler(async (event) => {
       </linearGradient>
       <!-- Generate this tag in code -->
       <image id="Icon" width="512" height="512"
-          xlink:href="${imageUrl}" />
+          xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
   </defs>
 </svg>`;
 

@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
 
 		let imageUrl = iconUrl;
 
-		if (imageUrl?.toString().includes("http" || "https")) {
+		if (imageUrl?.toString().includes("http")) {
 			imageUrl = await toBase64ImageUrl(imageUrl.toString());
 		}
 
@@ -76,7 +76,7 @@ export default defineEventHandler(async (event) => {
     <rect x="6" y="6" width="32" height="32" fill="url(#pattern0_19_2)"/>
   </g>
   ${mediumPath}
-  ${extraBoldPath} 
+  ${extraBoldPath}
   <defs>
     <filter id="filter0_d_19_2" x="0.285715" y="0.285715" width="43.4286" height="43.4286" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>
@@ -95,7 +95,7 @@ export default defineEventHandler(async (event) => {
       <stop stop-color="white"/>
       <stop offset="1" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <image id="image0_19_2" width="512" height="512" xlink:href="${imageUrl}" />
+    <image id="image0_19_2" width="512" height="512" xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
   </defs>
 </svg>
 `;

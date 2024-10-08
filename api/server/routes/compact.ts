@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
 
 		let imageUrl = iconUrl;
 
-		if (imageUrl?.toString().includes("http" || "https")) {
+		if (imageUrl?.toString().includes("http")) {
 			imageUrl = await toBase64ImageUrl(imageUrl.toString());
 		}
 
@@ -108,7 +108,7 @@ export default defineEventHandler(async (event) => {
 				<stop stop-color="#${gradientStart}"/>
 				<stop offset="1" stop-color="#${gradientEnd}"/>
 			</linearGradient>
-      		<image id="image0_1_56" width="512" height="512" xlink:href="${imageUrl}" />
+      		<image id="image0_1_56" width="512" height="512" xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
 		</defs>
 	</svg>`;
 
