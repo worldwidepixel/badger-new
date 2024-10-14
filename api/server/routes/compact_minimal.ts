@@ -3,6 +3,8 @@ import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
 	try {
+		setHeader(event, "Access-Control-Allow-Origin", "*");
+
 		const query = getQuery(event);
 		const gradientStart = query.gradientStart;
 		const gradientEnd = query.gradientEnd;

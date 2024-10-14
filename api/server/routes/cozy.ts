@@ -8,6 +8,8 @@ import { getInterExtraBold, getInterMedium } from "../lib/fonts";
 import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
+	setHeader(event, "Access-Control-Allow-Origin", "*");
+
 	const interMedium = await getInterMedium();
 	const interExtraBold = await getInterExtraBold();
 

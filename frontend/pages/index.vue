@@ -120,12 +120,22 @@ async function updateIconColors() {
 	iconColors.value = [colors[0].toString(), colors[1].toString(), colors[2].toString(), colors[3].toString()];
 }
 
+function titleCase(str: string) {
+	return str.toLowerCase().replace(/(?:^|\s)\w/g, function (match) {
+		return match.toUpperCase();
+	});
+}
+
 useSeoMeta({
-	title: "Home",
+	title: "Badger",
 	ogTitle: "Badger: A badge creator for the web",
 	description: "Create beautiful, modern, and unique badges using Badger.",
 	ogDescription: "Create beautiful, modern, and unique badges using Badger.",
 	ogImage: () => `${getEmbeddableIcon()}`,
+});
+
+useHead({
+	titleTemplate: "Badger",
 });
 </script>
 
@@ -207,7 +217,7 @@ useSeoMeta({
 					v-for="type in ['cozy', 'compact', 'cozy_minimal', 'compact_minimal']">
 					<Badge
 						v-tooltip="{
-							content: type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ') + ' Badge',
+							content: titleCase(type.replace('_', ' ')) + ' Badge',
 							theme: 'badger-ui',
 						}"
 						:type="type"

@@ -22,7 +22,7 @@
 }
 
 * {
-	@apply border-badger-border;
+	@apply border-badger-border tracking-tight;
 }
 
 html {
