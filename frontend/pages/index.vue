@@ -121,7 +121,18 @@ const iconColors = ref(["#000000", "#000000", "#000000", "#000000"]);
 
 async function updateIconColors() {
 	const colors = await prominent(badgeIconUrl.value, { format: "hex", amount: 4, group: 50 });
-	iconColors.value = [colors[0].toString(), colors[1].toString(), colors[2].toString(), colors[3].toString()];
+	const safeColours = [
+		colors[0].toString() ?? "#000000",
+		colors[1].toString() ?? "#000000",
+		colors[2].toString() ?? "#000000",
+		colors[3].toString() ?? "#000000",
+	];
+	iconColors.value = [
+		safeColours[0].toString(),
+		safeColours[1].toString(),
+		safeColours[2].toString(),
+		safeColours[3].toString(),
+	];
 }
 
 function titleCase(str: string) {
