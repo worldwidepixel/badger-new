@@ -14,6 +14,6 @@ useHead({
 		},
 		{ name: "theme-color", content: "#ff3a40" },
 	],
-	link: [{ rel: "shortcut icon", href: "./favicon.ico", type: "image/x-icon" }],
+	link: [{ rel: "shortcut icon", href: "./badge.png", type: "image/png" }],
 });
 </script>
