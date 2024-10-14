@@ -41,12 +41,16 @@ onMounted(() => {
 // LOAD FROM URL
 
 onMounted(() => {
-	topBackgroundColor.value = route.query.gradientStart?.toString() || "#8F004C";
-	bottomBackgroundColor.value = route.query.gradientEnd?.toString() || "#61003D";
+	topBackgroundColor.value = formatColour(route.query.gradientStart?.toString() ?? "#8F004C");
+	bottomBackgroundColor.value = formatColour(route.query.gradientEnd?.toString() ?? "#61003D");
 	topText.value = route.query.lineOne?.toString() || "Made for";
 	bottomText.value = route.query.lineTwo?.toString() || "You";
-	topTextColor.value = route.query.colorOne?.toString() || route.query.colourOne?.toString() || "#FFFFFF";
-	bottomTextColor.value = route.query.colorTwo?.toString() || route.query.colourTwo?.toString() || "#FF0066";
+	topTextColor.value = formatColour(
+		(route.query.colorOne?.toString() || route.query.colourOne?.toString()) ?? "#FFFFFF",
+	);
+	bottomTextColor.value = formatColour(
+		(route.query.colorTwo?.toString() || route.query.colourTwo?.toString()) ?? "#FF0066",
+	);
 	badgeIconUrl.value = route.query.iconUrl?.toString() || "https://badger-staging.worldwidepixel.ca/badger.png";
 });
 
@@ -124,6 +128,13 @@ function titleCase(str: string) {
 	return str.toLowerCase().replace(/(?:^|\s)\w/g, function (match) {
 		return match.toUpperCase();
 	});
+}
+
+function formatColour(colour: string) {
+	if (!colour.includes("#")) {
+		return "#" + colour;
+	}
+	return colour;
 }
 
 useSeoMeta({

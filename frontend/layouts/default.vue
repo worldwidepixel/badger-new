@@ -21,7 +21,7 @@
 			<div class="flex flex-col items-center gap-1 sm:items-start">
 				<span class="decoration-badger-red text-lg font-bold underline decoration-wavy">About</span>
 				Badger is a badge creator for the web.
-				<ExternalLink target="_blank" to="https://github.com/worldwidepixel/badger-new">
+				<ExternalLink target="_blank" to="https://worldwidepixel.ca">
 					Created by WorldWidePixel.
 				</ExternalLink>
 			</div>
