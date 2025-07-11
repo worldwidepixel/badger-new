@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-badger-background: #ffffff;
+	--color-badger-background-secondary: #fafafa;
+	--color-badger-text: #000000;
+	--color-badger-border: #e5e7eb;
+}
+
+.dark {
+	--color-badger-background: #0b0d0e;
+	--color-badger-background-secondary: #161b1d;
+	--color-badger-text: #ffffff;
+	--color-badger-border: #21292c;
+}
