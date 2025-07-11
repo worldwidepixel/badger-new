@@ -38,5 +38,8 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"@fontsource-variable/inter": "^5.2.6"
 	}
 }

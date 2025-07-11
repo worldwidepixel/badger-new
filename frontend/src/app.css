@@ -1,10 +1,18 @@
 @import 'tailwindcss';
 
 @theme {
+	--color-badger-red: #ff125e;
+	--color-badger-orange: #ff8e31;
+	--color-badger-green: #00e54a;
+	--color-badger-blue: #047eff;
+	--color-badger-violet: #6900ff;
+
 	--color-badger-background: #ffffff;
 	--color-badger-background-secondary: #fafafa;
 	--color-badger-text: #000000;
 	--color-badger-border: #e5e7eb;
+
+	--default-font-family: 'Inter Variable';
 }
 
 .dark {
@@ -12,4 +20,16 @@
 	--color-badger-background-secondary: #161b1d;
 	--color-badger-text: #ffffff;
 	--color-badger-border: #21292c;
+}
+
+html {
+	@apply bg-badger-background text-badger-text h-full;
+
+	body {
+		@apply h-full;
+	}
+
+	* {
+		@apply border-badger-border tracking-tight;
+	}
 }
