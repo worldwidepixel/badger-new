@@ -26,20 +26,18 @@
 	--color-badger-border: #21292c;
 }
 
-html {
-	@apply bg-badger-background text-badger-text h-full max-h-[100vh];
-
-	body {
-		@apply h-full;
-	}
-
+@layer utilities {
 	* {
 		@apply border-badger-border tracking-tight select-none;
 		scrollbar-color: var(--color-badger-red) var(--color-badger-background);
 	}
-}
+	html {
+		@apply bg-badger-background text-badger-text h-full max-h-[100vh];
 
-@layer utilities {
+		body {
+			@apply h-full;
+		}
+	}
 	h1 {
 		@apply text-badger-text-primary text-3xl font-bold;
 	}
@@ -48,5 +46,8 @@ html {
 	}
 	h3 {
 		@apply text-xl font-semibold;
+	}
+	hr {
+		@apply w-full;
 	}
 }
