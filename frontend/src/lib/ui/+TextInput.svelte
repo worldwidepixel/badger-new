@@ -6,7 +6,12 @@
 		className?: string;
 	}
 
-	let { value, label, placeholder = 'Type anything here', className }: Props = $props();
+	let {
+		value = $bindable(),
+		label,
+		placeholder = 'Type anything here',
+		className
+	}: Props = $props();
 </script>
 
 <input

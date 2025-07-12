@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
+	import type { Badge } from '$lib/types';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 
@@ -9,7 +10,15 @@
 		Math.max(pageDimensions.height - (tallestHeight - appDimensions.height), 0)
 	);
 
-	let colour = $state('#8F004D');
+	let badgeState = $state<Badge>({
+		topText: 'Made for',
+		bottomText: 'You',
+		topTextColour: '#FFFFFF',
+		bottomTextColour: '#FF0066',
+		topBackgroundColour: '#8F004C',
+		bottomBackgroundColour: '#61003D',
+		icon: 'https://badger-staging.worldwidepixel.ca/badger.png'
+	});
 </script>
 
 <div class="grid h-full w-full grid-cols-2">
@@ -24,9 +33,15 @@
 				<h3>Background</h3>
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 					<span class="w-fit">Top</span>
-					<ColourInput label="Background top colour" bind:value={colour} />
+					<ColourInput
+						label="Background top colour"
+						bind:value={badgeState.topBackgroundColour}
+					/>
 					<span class="w-fit">Bottom</span>
-					<ColourInput label="Background bottom colour" value="#61003D" />
+					<ColourInput
+						label="Background bottom colour"
+						bind:value={badgeState.bottomBackgroundColour}
+					/>
 				</div>
 			</div>
 			<hr />
@@ -38,7 +53,7 @@
 						<TextInput
 							placeholder="Icon URL"
 							label="Icon URL"
-							value="https://badger-staging.worldwidepixel.ca/badger.png"
+							bind:value={badgeState.icon}
 							className="w-full"
 						/>
 					</div>
@@ -50,26 +65,36 @@
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 					<TextInput
 						placeholder="Top: Type anything here"
-						label="Top line text"
-						value=""
+						label="Bottom line text"
+						bind:value={badgeState.topText}
 						className="w-full"
 					/>
-					<ColourInput label="Background top colour" value="#8F004D" />
+					<ColourInput
+						label="Top line text colour"
+						bind:value={badgeState.topTextColour}
+					/>
 					<TextInput
 						placeholder="Bottom: Type anything here"
 						label="Bottom line text"
-						value=""
+						bind:value={badgeState.bottomText}
 						className="w-full"
 					/>
-					<ColourInput label="Background bottom colour" value="#61003D" />
+					<ColourInput
+						label="Bottom line text colour"
+						value={badgeState.bottomTextColour}
+					/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div style="max-height: {appHeight}px" class="flex flex-col overflow-y-scroll p-6">
 		<h1>Preview</h1>
-		<span>this</span>
-		<span>is</span>
+		<span style="background-color: {badgeState.topBackgroundColour}"
+			>{badgeState.topText || '[empty]'}</span
+		>
+		<span style="background-color: {badgeState.bottomBackgroundColour}"
+			>{badgeState.bottomText || '[empty]'}</span
+		>
 		<span>test</span>
 		<span>scroll</span>
 		<span>content</span>
