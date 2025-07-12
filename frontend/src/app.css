@@ -34,14 +34,14 @@ html {
 	}
 
 	* {
-		@apply border-badger-border tracking-tight;
+		@apply border-badger-border tracking-tight select-none;
 		scrollbar-color: var(--color-badger-red) var(--color-badger-background);
 	}
 }
 
 @layer utilities {
 	h1 {
-		@apply text-3xl font-bold;
+		@apply text-badger-text-primary text-3xl font-bold;
 	}
 	h2 {
 		@apply text-2xl font-bold;

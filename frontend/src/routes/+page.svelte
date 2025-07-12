@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
+	import ColourInput from '$lib/ui/+ColourInput.svelte';
 
 	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
 
@@ -13,7 +14,8 @@
 		style={`max-height: ${appHeight}px`}
 		class="col-span-2 flex flex-col overflow-y-scroll border-r py-6 pr-6"
 	>
-		<h1>{tallestHeight} {appHeight}</h1>
+		<h1>Edit</h1>
+		<ColourInput />
 		<span>this</span>
 		<span>is</span>
 		<span>test</span>
