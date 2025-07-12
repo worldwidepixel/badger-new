@@ -89,10 +89,12 @@
 	</div>
 	<div style="max-height: {appHeight}px" class="flex flex-col overflow-y-scroll p-6">
 		<h1>Preview</h1>
-		<span style="background-color: {badgeState.topBackgroundColour}"
+		<span
+			style="color: {badgeState.topTextColour}; background-color: {badgeState.topBackgroundColour}"
 			>{badgeState.topText || '[empty]'}</span
 		>
-		<span style="background-color: {badgeState.bottomBackgroundColour}"
+		<span
+			style="color: {badgeState.bottomTextColour}; background-color: {badgeState.bottomBackgroundColour}"
 			>{badgeState.bottomText || '[empty]'}</span
 		>
 		<span>test</span>
