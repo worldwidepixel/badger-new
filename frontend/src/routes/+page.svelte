@@ -1,2 +1,93 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+	import { appDimensions, pageDimensions } from '$lib/state.svelte';
+
+	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
+
+	const appHeight = $derived(
+		Math.max(pageDimensions.height - (tallestHeight - appDimensions.height), 0)
+	);
+</script>
+
+<div class="grid h-full w-full grid-cols-3">
+	<div
+		style={`max-height: ${appHeight}px`}
+		class="col-span-2 flex flex-col overflow-y-scroll border-r py-6 pr-6"
+	>
+		<h1>{tallestHeight} {appHeight}</h1>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+	</div>
+	<div style={`max-height: ${appHeight}px`} class="flex flex-col overflow-y-scroll p-6">
+		<h1>Preview</h1>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>is</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+		<span>this</span>
+		<span>test</span>
+		<span>scroll</span>
+		<span>content</span>
+	</div>
+</div>

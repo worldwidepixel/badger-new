@@ -29,7 +29,7 @@
 	id="svg891"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns="http://www.w3.org/2000/svg"
-	class="h-10 w-fit dark:fill-white"
+	class="fill-badger-text-primary h-10 w-fit"
 >
 	<defs id="defs888">
 		<linearGradient id="linearGradient4669-7">

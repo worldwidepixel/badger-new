@@ -9,7 +9,9 @@
 
 	--color-badger-background: #ffffff;
 	--color-badger-background-secondary: #fafafa;
-	--color-badger-text: #000000;
+	--color-badger-background-transparent: #0d0e1207;
+	--color-badger-text: #0d0e12;
+	--color-badger-text-primary: #000000;
 	--color-badger-border: #e5e7eb;
 
 	--default-font-family: 'Inter Variable';
@@ -18,12 +20,14 @@
 .dark {
 	--color-badger-background: #0b0d0e;
 	--color-badger-background-secondary: #161b1d;
-	--color-badger-text: #ffffff;
+	--color-badger-background-transparent: #ebecf407;
+	--color-badger-text: #e1e2ea;
+	--color-badger-text-primary: #ffffff;
 	--color-badger-border: #21292c;
 }
 
 html {
-	@apply bg-badger-background text-badger-text h-full;
+	@apply bg-badger-background text-badger-text h-full max-h-[100vh];
 
 	body {
 		@apply h-full;
@@ -31,5 +35,18 @@ html {
 
 	* {
 		@apply border-badger-border tracking-tight;
+		scrollbar-color: var(--color-badger-red) var(--color-badger-background);
+	}
+}
+
+@layer utilities {
+	h1 {
+		@apply text-3xl font-bold;
+	}
+	h2 {
+		@apply text-2xl font-bold;
+	}
+	h3 {
+		@apply text-xl font-semibold;
 	}
 }
