@@ -100,7 +100,7 @@
 				href="https://github.com/worldwidepixel/badger-new"
 				aria-label="Badger on GitHub"
 			>
-				{data.deployment_branch}/{data.deployment_hash.substring(0, 7)}
+				{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}
 			</a>
 		</div>
 		<div class="flex flex-col items-center gap-1 sm:items-start">
