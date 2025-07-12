@@ -11,6 +11,7 @@
 
 <input
 	aria-label="Text input for {label}"
+	name="text-input"
 	class="h-10 w-64 gap-0 rounded-xl border p-2 outline-offset-[-2px] {className}"
 	{placeholder}
 	bind:value

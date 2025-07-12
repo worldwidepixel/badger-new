@@ -97,7 +97,7 @@
 			<a
 				class="underline"
 				target="_blank"
-				href="https://github.com/worldwidepixel/badger-new"
+				href="https://github.com/worldwidepixel/badger/commit/{data.deployment_branch}"
 				aria-label="Badger on GitHub"
 			>
 				{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}
