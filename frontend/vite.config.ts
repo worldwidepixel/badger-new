@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	build: {
 		rollupOptions: {
-			external: ['xss']
+			external: ['xss', 'opentype.js']
 		}
 	}
 });
