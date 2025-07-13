@@ -27,7 +27,6 @@
 
 	async function refreshTestBadge() {
 		currentTestBadge = await build('cosy', badgeState);
-		console.log(await build('cosy', badgeState));
 	}
 </script>
 

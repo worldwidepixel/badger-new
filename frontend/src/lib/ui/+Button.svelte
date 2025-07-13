@@ -24,7 +24,7 @@
 	const roundnessStyle = roundness === 'circle' ? 'rounded-full' : 'rounded-xl';
 	const transparencyStyle =
 		style === 'solid'
-			? 'bg-badger-background-secondary border shadow'
+			? 'bg-badger-background-secondary border'
 			: 'hover:outline outline-badger-border hover:bg-badger-background-transparent hover:shadow';
 	const actionStyle = action || to ? 'cursor-pointer' : '';
 
