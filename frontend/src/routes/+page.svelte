@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
 	import type { Badge } from '@badgered/common';
+	import { build } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
+	import Button from '$lib/ui/+Button.svelte';
+	import { browser } from '$app/environment';
 
 	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
 
@@ -17,8 +20,15 @@
 		bottomTextColour: '#FF0066',
 		topBackgroundColour: '#8F004C',
 		bottomBackgroundColour: '#61003D',
-		icon: 'https://badger-staging.worldwidepixel.ca/badger.png'
+		icon: 'https://v2.badger.worldwidepixel.ca/badger.png'
 	});
+
+	let currentTestBadge = $state('https://v2.badger.worldwidepixel.ca/badger.png');
+
+	async function refreshTestBadge() {
+		currentTestBadge = await build('cosy', badgeState);
+		console.log(await build('cosy', badgeState));
+	}
 </script>
 
 <div class="grid h-full w-full grid-cols-2">
@@ -97,8 +107,10 @@
 			style="color: {badgeState.bottomTextColour}; background-color: {badgeState.bottomBackgroundColour}"
 			>{badgeState.bottomText || '[empty]'}</span
 		>
-		<span>test</span>
-		<span>scroll</span>
+		<Button action={() => refreshTestBadge()} type="action" label="Generate test badge"
+			>Generate test badge</Button
+		>
+		<span> {@html currentTestBadge} </span>
 		<span>content</span>
 		<span>this</span>
 		<span>test</span>
