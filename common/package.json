@@ -1,0 +1,11 @@
+{
+	"name": "@badgered/common",
+	"private": true,
+	"version": "3.0.0",
+	"main": "index.ts",
+	"types": "types.ts",
+	"description": "Common utilities for Badger services",
+	"devDependencies": {
+		"typescript": "^5.8.3"
+	}
+}

@@ -1,4 +1,5 @@
 {
+	"name": "@badgered/api",
 	"private": true,
 	"scripts": {
 		"build": "nitro build",

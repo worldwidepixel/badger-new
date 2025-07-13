@@ -1,7 +1,8 @@
 {
-	"name": "badger-new",
-	"version": "2.0.0",
-	"description": "",
+	"name": "@badgered/monorepo",
+	"private": true,
+	"version": "3.0.0",
+	"description": "A badge creator for the web.",
 	"scripts": {
 		"frontend:dev": "cd frontend && pnpm dev",
 		"frontend:build": "cd frontend && pnpm build",
@@ -15,7 +16,6 @@
 	"license": "MPL-2.0",
 	"devDependencies": {
 		"concurrently": "^8.2.2",
-		"prettier": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.8"
+		"prettier": "^3.3.3"
 	}
 }

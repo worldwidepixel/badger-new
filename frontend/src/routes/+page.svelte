@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
-	import type { Badge } from '$lib/types';
+	import type { Badge } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 
@@ -24,7 +24,7 @@
 <div class="grid h-full w-full grid-cols-2">
 	<div
 		style="max-height: {appHeight}px"
-		class="flex flex-col gap-4 overflow-y-scroll border-r py-6 pr-6"
+		class="flex flex-col gap-4 overflow-y-auto border-r py-6 pr-6"
 	>
 		<h1>Edit</h1>
 		<hr />
@@ -81,13 +81,13 @@
 					/>
 					<ColourInput
 						label="Bottom line text colour"
-						value={badgeState.bottomTextColour}
+						bind:value={badgeState.bottomTextColour}
 					/>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div style="max-height: {appHeight}px" class="flex flex-col overflow-y-scroll p-6">
+	<div style="max-height: {appHeight}px" class="flex flex-col overflow-y-auto p-6">
 		<h1>Preview</h1>
 		<span
 			style="color: {badgeState.topTextColour}; background-color: {badgeState.topBackgroundColour}"

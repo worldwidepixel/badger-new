@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@badgered/common':
+        specifier: link:..\common
+        version: link:../common
       '@fontsource-variable/inter':
         specifier: ^5.2.6
         version: 5.2.6

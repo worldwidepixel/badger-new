@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="flex w-fit flex-col">
+<div class="bg-badger-background-secondary flex w-fit flex-col overflow-clip rounded-xl">
 	<div class="flex h-10 w-64 flex-row gap-0 rounded-xl border p-2">
 		<input
 			aria-label="Hex input for {label}"
