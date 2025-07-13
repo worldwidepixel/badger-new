@@ -1,6 +1,6 @@
 # The new badger.
 
-Faster, smarter, easier. This is the new badger.
+Badger V3: Actually stable.
 
 ## Creating a development environment
 
