@@ -39,8 +39,6 @@ export async function build(variant: BadgeVariant, props: Badge) {
 		icon: imageUrl,
 	};
 
-	console.log(renderProps);
-
 	switch (variant) {
 		case "compact":
 			return compact(renderProps);
