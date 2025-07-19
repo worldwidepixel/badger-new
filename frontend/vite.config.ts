@@ -6,8 +6,5 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	ssr: {
 		noExternal: ['opentype.js']
-	},
-	esbuild: {
-		platform: 'node'
 	}
 });
