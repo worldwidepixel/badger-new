@@ -6,7 +6,7 @@ export default defineNitroConfig({
 	noExternals: false,
 	rollupConfig: {
 		external(id) {
-			return !id.startsWith("sharp") && !id.startsWith("@img/sharp");
+			return id.includes("xss");
 		},
 	},
 });
