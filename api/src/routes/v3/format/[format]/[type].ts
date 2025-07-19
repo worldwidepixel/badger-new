@@ -15,7 +15,10 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
-	return { code: 404, description: "route not found" };
+	throw createError({
+		status: 404,
+		statusMessage: "Badge format not found",
+	});
 });
 
 async function returnBuild(type: BadgeVariant, badge: Badge, event: any) {
