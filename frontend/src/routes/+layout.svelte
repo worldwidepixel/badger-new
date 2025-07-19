@@ -47,6 +47,10 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="darkreader-lock" />
+</svelte:head>
+
 <svelte:window bind:innerWidth={pageDimensions.width} bind:innerHeight={pageDimensions.height} />
 <svelte:body bind:offsetHeight={pageDimensions.contentHeight} />
 
