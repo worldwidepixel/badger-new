@@ -32,8 +32,10 @@
 	}
 </script>
 
-<span class="h-hit w-fit">
+<span class="w-fit rounded-lg">
 	<Tooltip class="tooltip-badger" tip={label}>
-		<span aria-label={label}> {@html renderedBadge} </span>
+		<span class="cursor-pointer rounded-sm transition hover:brightness-110" aria-label={label}>
+			{@html renderedBadge}
+		</span>
 	</Tooltip>
 </span>
