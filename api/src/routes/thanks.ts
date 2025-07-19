@@ -1,4 +1,5 @@
 export default eventHandler(async (_event) => {
+	// FIX THIS
 	return {
 		"THIS CREDIT ENDPOINT IS SUPER OUTDATED. Badger originally created by": "WorldWidePixel",
 		"Vue rewrite and backend support": "CallMeEcho",
