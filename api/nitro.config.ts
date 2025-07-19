@@ -6,9 +6,8 @@ export default defineNitroConfig({
 	noExternals: false,
 	rollupConfig: {
 		external(id) {
-			if (id.startsWith("node:")) {
-				return true;
-			}
+			id.startsWith("node:");
 		},
 	},
+	node: false,
 });
