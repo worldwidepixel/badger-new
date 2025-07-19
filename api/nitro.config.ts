@@ -14,4 +14,5 @@ export default defineNitroConfig({
 	alias: {
 		"node:tty": "~/lib/faketty.ts",
 	},
+	node: false,
 });
