@@ -1,7 +1,7 @@
 import { Font } from "opentype.js";
+import xss from "xss";
 import { Badge, BadgeVariant, PathData, RenderProps } from "./types";
 import { getInterExtraBold, getInterMedium } from "./fonts";
-import xss from "xss";
 import { compact, compactMinimal, cosy, cosyMinimal } from "./render";
 
 export async function build(variant: BadgeVariant, props: Badge) {
@@ -38,8 +38,6 @@ export async function build(variant: BadgeVariant, props: Badge) {
 		bottomBackgroundColour: props.bottomBackgroundColour,
 		icon: imageUrl,
 	};
-
-	console.log(renderProps);
 
 	switch (variant) {
 		case "compact":
