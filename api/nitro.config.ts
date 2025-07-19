@@ -6,8 +6,12 @@ export default defineNitroConfig({
 	noExternals: false,
 	rollupConfig: {
 		external(id) {
-			id.startsWith("node:") && !id.startsWith("node:tty");
+			if (id.startsWith("node:")) {
+				return true;
+			}
 		},
 	},
-	node: false,
+	alias: {
+		"node:tty": "~/lib/faketty.ts",
+	},
 });
