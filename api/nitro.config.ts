@@ -7,6 +7,6 @@ export default defineNitroConfig({
 	node: false,
 
 	externals: {
-		external: ["sharp"],
+		external: ["sharp", "@img/sharp-wasm32"],
 	},
 });
