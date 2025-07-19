@@ -1,5 +1,7 @@
 {
 	"name": "@badgered/api",
+	"description": "Backend for Badger services",
+	"version": "3.0.0",
 	"private": true,
 	"scripts": {
 		"build": "nitro build",
