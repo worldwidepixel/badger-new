@@ -2,5 +2,8 @@
 export default defineNitroConfig({
 	srcDir: "src",
 	compatibilityDate: "2025-07-19",
-	noExternals: false
+	cloudflare: {
+		deployConfig: true,
+		nodeCompat: true
+	}
 });
