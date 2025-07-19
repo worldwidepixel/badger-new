@@ -14,9 +14,10 @@
 		"nitropack": "latest"
 	},
 	"dependencies": {
+		"@badgered/common": "workspace:*",
 		"isomorphic-dompurify": "^2.13.0",
 		"opentype.js": "^1.3.4",
-		"sharp": "^0.33.4"
+		"sharp": "^0.34.3"
 	},
 	"compatibility_date": "2025-07-19"
 }
