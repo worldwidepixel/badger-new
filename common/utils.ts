@@ -1,4 +1,9 @@
+import xss from "xss";
 import { V2BadgeVariants } from "./types";
+
+export function santitiseText(text: string) {
+	return xss(text);
+}
 
 export function isBadgeType(test: string) {
 	return V2BadgeVariants.includes(test);

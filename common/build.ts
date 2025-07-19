@@ -3,6 +3,7 @@ import xss from "xss";
 import { Badge, BadgeVariant, PathData, RenderProps } from "./types";
 import { getInterExtraBold, getInterMedium } from "./fonts";
 import { compact, compactMinimal, cosy, cosyMinimal } from "./render";
+import { santitiseText } from "./utils";
 
 export async function build(variant: BadgeVariant, props: Badge) {
 	const mediumFont: Font = await getInterMedium();
@@ -29,7 +30,7 @@ export async function build(variant: BadgeVariant, props: Badge) {
 		imageUrl = await toBase64ImageUrl(imageUrl.toString());
 	}
 
-	imageUrl = xss(imageUrl.toString());
+	imageUrl = santitiseText(imageUrl.toString());
 
 	const renderProps: RenderProps = {
 		width: width,

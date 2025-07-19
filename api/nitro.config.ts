@@ -3,6 +3,8 @@ export default defineNitroConfig({
 	srcDir: "src",
 	compatibilityDate: "2025-07-19",
 	noExternals: false,
-	inlineDynamicImports: true,
 	errorHandler: "~/error.ts",
+	rollupConfig: {
+		external: "xss",
+	},
 });
