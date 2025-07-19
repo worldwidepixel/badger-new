@@ -1,0 +1,6 @@
+{
+	"name": "badger",
+	"pages_build_output_dir": "dist",
+	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_date": "2025-07-19"
+}
