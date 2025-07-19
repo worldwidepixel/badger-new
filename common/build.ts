@@ -15,12 +15,13 @@ export async function build(variant: BadgeVariant, props: Badge) {
 		props.topTextColour,
 		props.bottomText,
 		props.bottomTextColour,
+		variant,
 	);
 
-	const topTextWidth = calculateTextWidth(props.topText, 16, mediumFont);
+	const topTextWidth = calculateTextWidth(props.topText, variant !== "compact" ? 16 : 17, mediumFont);
 	const bottomTextWidth = calculateTextWidth(props.bottomText, 17, extraBoldFont);
 	const maxWidth = Math.max(topTextWidth, bottomTextWidth);
-	const width = maxWidth + 64 + 24;
+	const width = variant !== "compact" ? maxWidth + 64 + 24 : topTextWidth + 3.6 + bottomTextWidth + 42 + 8.5;
 
 	let imageUrl = props.icon;
 
@@ -51,6 +52,16 @@ export async function build(variant: BadgeVariant, props: Badge) {
 	}
 }
 
+export const defaultBadge = {
+	topText: "Made for",
+	bottomText: "You",
+	topTextColour: "#FFFFFF",
+	bottomTextColour: "#FF0066",
+	topBackgroundColour: "#8F004C",
+	bottomBackgroundColour: "#61003D",
+	icon: "https://v2.badger.worldwidepixel.ca/badger.png",
+};
+
 // Uhhh... this just assumes all images are PNGs.
 async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 	const fetchImageUrl = await fetch(imgUrl);
@@ -68,9 +79,15 @@ function generatePathData(
 	topTextColour: string,
 	bottomText: string,
 	bottomTextColour: string,
+	variant: BadgeVariant,
 ): PathData {
-	const mediumPathData = mediumFont.getPath(topText.toString(), 64, 24.5, 16);
-	const extraBoldPathData = extraBoldFont.getPath(bottomText.toString(), 64, 43.5, 17);
+	const mediumPathData =
+		variant !== "compact" ? mediumFont.getPath(topText, 64, 24.5, 16) : mediumFont.getPath(topText, 42, 26.5, 17);
+	const mediumTextWidth = calculateTextWidth(topText, 17, mediumFont);
+	const extraBoldPathData =
+		variant !== "compact"
+			? extraBoldFont.getPath(bottomText, 64, 43.5, 17)
+			: extraBoldFont.getPath(bottomText, mediumTextWidth + 42 + 3.6, 26.5, 17);
 	mediumPathData.fill = `${topTextColour}`;
 	extraBoldPathData.fill = `${bottomTextColour}`;
 

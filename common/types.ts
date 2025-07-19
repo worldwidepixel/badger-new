@@ -20,7 +20,10 @@ export type MinimalSafeBadge = {
 	icon: string;
 };
 
-export type BadgeVariant = "cosy" | "cosy_minimal" | "compact" | "compact_minimal";
+export const V2BadgeVariants = ["cosy", "cosy_minimal", "compact", "compact_minimal"];
+export type BadgeVariant = (typeof V2BadgeVariants)[number];
+
+export type V4BadgeVariant = "full" | "full_strokeless";
 
 export type PathData = {
 	topTextData: string;

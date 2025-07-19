@@ -4,7 +4,7 @@
 //import TextToSVG from 'text-to-svg';
 import { Font } from "opentype.js";
 import sharp from "sharp";
-import { getInterExtraBold, getInterMedium } from "../lib/fonts";
+import { getInterExtraBold, getInterMedium } from "~/lib/fonts";
 import { purifyOutput } from "~/lib/purify";
 
 export default defineEventHandler(async (event) => {
