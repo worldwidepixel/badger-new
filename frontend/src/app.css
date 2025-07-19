@@ -50,4 +50,10 @@
 	hr {
 		@apply w-full;
 	}
+	.tooltip-badger {
+		@apply !bg-badger-background-secondary !text-badger-text-primary pointer-events-none flex flex-col items-center !rounded-lg text-sm font-semibold shadow-xl dark:shadow-2xl;
+		.tip:before {
+			@apply !border-b-badger-background-secondary mt-[-12px] ml-[calc(50%-1rem)];
+		}
+	}
 }

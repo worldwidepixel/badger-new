@@ -29,7 +29,7 @@
 	const actionStyle = action || to ? 'cursor-pointer' : '';
 
 	const buttonStyle = [
-		'flex flex-row gap-1 items-center justify-center transition p-1.5',
+		'flex flex-row gap-1 items-center justify-center transition p-1.5 hover:brightness-99 active:brightness-95',
 		roundnessStyle,
 		transparencyStyle,
 		actionStyle,

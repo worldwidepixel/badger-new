@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
 	import type { Badge } from '@badgered/common';
-	import { build } from '@badgered/common';
+	import { build, defaultBadge } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
-	import Button from '$lib/ui/+Button.svelte';
-	import { browser } from '$app/environment';
+	import UIBadge from '$lib/ui/+Badge.svelte';
 
 	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
 
@@ -13,20 +12,27 @@
 		Math.max(pageDimensions.height - (tallestHeight - appDimensions.height), 0)
 	);
 
-	let badgeState = $state<Badge>({
-		topText: 'Made for',
-		bottomText: 'You',
-		topTextColour: '#FFFFFF',
-		bottomTextColour: '#FF0066',
-		topBackgroundColour: '#8F004C',
-		bottomBackgroundColour: '#61003D',
-		icon: 'https://v2.badger.worldwidepixel.ca/badger.png'
+	let badgeState = $state<Badge>(defaultBadge);
+
+	$effect(() => {
+		useBadgeState();
+		refreshTestBadge();
 	});
 
-	let currentTestBadge = $state('https://v2.badger.worldwidepixel.ca/badger.png');
+	let currentTestBadge = $state('');
 
 	async function refreshTestBadge() {
 		currentTestBadge = await build('cosy', badgeState);
+	}
+
+	function useBadgeState() {
+		badgeState.bottomBackgroundColour;
+		badgeState.bottomText;
+		badgeState.bottomTextColour;
+		badgeState.icon;
+		badgeState.topBackgroundColour;
+		badgeState.topText;
+		badgeState.topTextColour;
 	}
 </script>
 
@@ -96,51 +102,12 @@
 			</div>
 		</div>
 	</div>
-	<div style="max-height: {appHeight}px" class="flex flex-col overflow-y-auto p-6">
+	<div style="max-height: {appHeight}px" class="flex flex-col gap-4 overflow-y-auto p-6">
 		<h1>Preview</h1>
-		<span
-			style="color: {badgeState.topTextColour}; background-color: {badgeState.topBackgroundColour}"
-			>{badgeState.topText || '[empty]'}</span
-		>
-		<span
-			style="color: {badgeState.bottomTextColour}; background-color: {badgeState.bottomBackgroundColour}"
-			>{badgeState.bottomText || '[empty]'}</span
-		>
-		<Button action={() => refreshTestBadge()} type="action" label="Generate test badge"
-			>Generate test badge</Button
-		>
-		<span> {@html currentTestBadge} </span>
-		<span>content</span>
-		<span>this</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>is</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>is</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>is</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
-		<span>this</span>
-		<span>test</span>
-		<span>scroll</span>
-		<span>content</span>
+		<hr />
+		<UIBadge data={badgeState} type="cosy" label="Cosy badge" />
+		<UIBadge data={badgeState} type="cosy_minimal" label="Cosy Minimal badge" />
+		<UIBadge data={badgeState} type="compact" label="Compact badge" />
+		<UIBadge data={badgeState} type="compact_minimal" label="Compact Minimal badge" />
 	</div>
 </div>
