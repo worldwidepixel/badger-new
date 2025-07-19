@@ -1,2 +1,0 @@
-// L Node
-export default {};
