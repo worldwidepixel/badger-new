@@ -4,15 +4,5 @@ export default defineNitroConfig({
 	compatibilityDate: "2025-07-19",
 	errorHandler: "~/error.ts",
 	noExternals: false,
-	rollupConfig: {
-		external(id) {
-			if (id.startsWith("node:")) {
-				return true;
-			}
-		},
-	},
-	alias: {
-		"node:tty": "~/lib/faketty.ts",
-	},
 	node: false,
 });
