@@ -5,4 +5,8 @@ export default defineNitroConfig({
 	errorHandler: "~/error.ts",
 	noExternals: true,
 	node: false,
+
+	externals: {
+		external: ["sharp"],
+	},
 });
