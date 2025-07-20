@@ -42,7 +42,7 @@
 			onkeypress={tryValidate}
 		/>
 		<span
-			class="h-full w-full cursor-pointer overflow-clip rounded-md border focus-within:outline"
+			class=" h-full w-full cursor-pointer overflow-clip rounded-md border focus-within:outline"
 			style="background-color: {value}"
 		>
 			<!--

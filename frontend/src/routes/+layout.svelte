@@ -7,6 +7,7 @@
 	import { browser } from '$app/environment';
 	import type { DeploymentInfo } from '$lib/types';
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
+	import Tooltip from 'sv-tooltip';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -68,15 +69,17 @@
 				badger 3: echoes of the prequel
 			</div>
 			<div class="flex flex-row items-center justify-end">
-				<Button
-					action={toggleTheme}
-					style="transparent"
-					roundness="circle"
-					type="action"
-					label="Toggle light/dark mode"
-				>
-					<LucideSunMoon />
-				</Button>
+				<Tooltip left badger tip="Toggle light/dark theme">
+					<Button
+						action={toggleTheme}
+						style="transparent"
+						roundness="circle"
+						type="action"
+						label="Toggle light/dark mode"
+					>
+						<LucideSunMoon />
+					</Button>
+				</Tooltip>
 			</div>
 		</div>
 	</nav>

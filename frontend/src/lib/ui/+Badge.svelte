@@ -33,7 +33,7 @@
 </script>
 
 <span class="w-fit rounded-lg">
-	<Tooltip class="tooltip-badger" tip={label}>
+	<Tooltip bottom badger tip={label}>
 		<span class="cursor-pointer rounded-sm transition hover:brightness-110" aria-label={label}>
 			{@html renderedBadge}
 		</span>
