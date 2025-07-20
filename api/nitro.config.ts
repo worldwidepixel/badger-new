@@ -2,6 +2,5 @@
 export default defineNitroConfig({
 	srcDir: "src",
 	compatibilityDate: "2025-07-19",
-	errorHandler: "~/error.ts",
-	node: false,
+	noExternals: false,
 });
