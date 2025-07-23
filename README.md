@@ -1,5 +1,7 @@
 # The new badger.
 
+## PLEASE DO NOT CONTRIBUTE TO THIS BRANCH OR MAIN.
+
 Faster, smarter, easier. This is the new badger.
 
 ## Creating a development environment
