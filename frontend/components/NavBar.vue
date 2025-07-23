@@ -1,5 +1,11 @@
 <template>
 	<header>
+		<nav class="flex w-auto justify-center border-b bg-[#d7c8ff] p-5">
+			<div class="flex w-full max-w-[80rem] flex-col text-black">
+				<span class="text-xl font-extrabold">This is a pre-release version of Badger. Here be dragons!</span>
+				<span>A stable updated version of Badger is in the works. Stay tuned for updates!</span>
+			</div>
+		</nav>
 		<nav class="flex w-auto justify-center border-b p-5">
 			<div class="flex w-full max-w-[80rem] flex-row items-center justify-evenly sm:justify-between">
 				<NuxtLink to="/" class="flex items-center gap-4">
