@@ -97,7 +97,7 @@ export default defineEventHandler(async (event) => {
       <stop stop-color="white"/>
       <stop offset="1" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <image id="image0_19_2" width="512" height="512" xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
+    <image id="image0_19_2" width="512" height="512" xlink:href="${imageUrl}" />
   </defs>
 </svg>
 `;

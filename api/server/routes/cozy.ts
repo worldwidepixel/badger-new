@@ -122,7 +122,7 @@ export default defineEventHandler(async (event) => {
       </linearGradient>
       <!-- Generate this tag in code -->
       <image id="Icon" width="512" height="512"
-          xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
+          xlink:href="${imageUrl}" />
   </defs>
 </svg>`;
 

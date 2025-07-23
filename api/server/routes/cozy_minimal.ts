@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
                     <stop stop-color="#${gradientStart}"/>
                     <stop offset="1" stop-color="#${gradientEnd}"/>
                 </linearGradient>
-                <image id="image0_1_62" width="512" height="512" xlink:href="${imageUrl}" clip-path="inset(0% round 64px)" />
+                <image id="image0_1_62" width="512" height="512" xlink:href="${imageUrl}" />
             </defs>
         </svg>
         `;
