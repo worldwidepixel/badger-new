@@ -27,7 +27,9 @@
 	}
 </script>
 
-<ul class="flex w-fit flex-row justify-center divide-x rounded-xl border">
+<ul
+	class="bg-badger-background-secondary flex w-fit flex-row justify-center divide-x rounded-xl border"
+>
 	{#each ['png', 'svg'] as format}
 		<li>
 			<Tooltip bottom badger tip="Export as {format.toUpperCase()}">

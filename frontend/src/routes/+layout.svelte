@@ -46,6 +46,15 @@
 		}
 		setTheme('light');
 	}
+
+	console.log(
+		'%cBadger',
+		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1.5rem; font-weight: 700;"
+	);
+	console.log(
+		'%cA badge designer for the web',
+		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1rem;"
+	);
 </script>
 
 <svelte:head>
