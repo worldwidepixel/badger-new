@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
 	import type { Badge } from '@badgered/common';
-	import { build, defaultBadge } from '@badgered/common';
+	import { build, defaultBadge, V2BadgeVariants } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 	import UIBadge from '$lib/ui/+Badge.svelte';
+	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
 
 	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
 
@@ -13,27 +14,6 @@
 	);
 
 	let badgeState = $state<Badge>(defaultBadge);
-
-	$effect(() => {
-		useBadgeState();
-		refreshTestBadge();
-	});
-
-	let currentTestBadge = $state('');
-
-	async function refreshTestBadge() {
-		currentTestBadge = await build('cosy', badgeState);
-	}
-
-	function useBadgeState() {
-		badgeState.bottomBackgroundColour;
-		badgeState.bottomText;
-		badgeState.bottomTextColour;
-		badgeState.icon;
-		badgeState.topBackgroundColour;
-		badgeState.topText;
-		badgeState.topTextColour;
-	}
 </script>
 
 <div class="grid h-full w-full grid-cols-2">
@@ -105,9 +85,15 @@
 	<div style="max-height: {appHeight}px" class="flex flex-col gap-4 overflow-y-auto p-6">
 		<h1>Preview</h1>
 		<hr />
-		<UIBadge data={badgeState} type="cosy" label="Cosy badge" />
-		<UIBadge data={badgeState} type="cosy_minimal" label="Cosy Minimal badge" />
-		<UIBadge data={badgeState} type="compact" label="Compact badge" />
-		<UIBadge data={badgeState} type="compact_minimal" label="Compact Minimal badge" />
+		<div class="grid w-full grid-cols-2 items-center gap-6">
+			{#each V2BadgeVariants as type}
+				<span
+					class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"
+				>
+					<UIBadge data={badgeState} {type} label="{type} badge" />
+					<BadgeOptions data={badgeState} {type} label="{type} badge" />
+				</span>
+			{/each}
+		</div>
 	</div>
 </div>

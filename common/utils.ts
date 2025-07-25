@@ -1,5 +1,5 @@
 import xss from "xss";
-import { V2BadgeVariants } from "./types";
+import { Badge, BadgeVariant, V2BadgeVariants } from "./types";
 
 export function santitiseText(text: string) {
 	return xss(text);
@@ -42,4 +42,31 @@ export function getWittyComment() {
 	];
 
 	return splashes[Math.floor(Math.random() * splashes.length)];
+}
+
+export function createEmbedUrl(
+	data: Badge,
+	type: BadgeVariant,
+	apiBase: string,
+	format?: string,
+	apiVersion?: string,
+	badgeFormat?: string,
+) {
+	return [
+		apiBase,
+		apiVersion ?? "v3",
+		"format",
+		badgeFormat ?? "v2",
+		type,
+		[
+			"?topText=" + data.topText,
+			"&bottomText=" + data.bottomText,
+			"&topTextColour=" + data.topTextColour,
+			"&bottomTextColour=" + data.bottomTextColour,
+			"&topBackgroundColour=" + data.topBackgroundColour,
+			"&bottomBackgroundColour=" + data.bottomBackgroundColour,
+			"&icon=" + encodeURIComponent(data.icon),
+			format ? "&format=" + format : "",
+		].join(""),
+	].join("/");
 }
