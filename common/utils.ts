@@ -54,10 +54,8 @@ export function createEmbedUrl(
 ) {
 	return [
 		apiBase,
-		apiVersion ?? "v3",
-		"format",
-		badgeFormat ?? "v2",
-		type,
+		!apiBase.endsWith("/") ? "/" : "",
+		[apiVersion ?? "v3", "format", badgeFormat ?? "v2", type].join("/"),
 		[
 			"?topText=" + data.topText,
 			"&bottomText=" + data.bottomText,
@@ -68,5 +66,5 @@ export function createEmbedUrl(
 			"&icon=" + encodeURIComponent(data.icon),
 			format ? "&format=" + format : "",
 		].join(""),
-	].join("/");
+	].join("");
 }

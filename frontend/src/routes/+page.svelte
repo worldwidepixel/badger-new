@@ -19,7 +19,6 @@
 		LucidePipette,
 		LucideText
 	} from '@lucide/svelte';
-	import chroma from 'chroma-js';
 
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
@@ -128,7 +127,7 @@
 							<img
 								draggable="false"
 								alt="User-selected badge icon"
-								class="size-35 aspect-square rounded-md p-2"
+								class="size-35 aspect-square rounded-2xl p-2"
 								src={badgeIconValid ? sanitiseText(badgeState.icon) : defaultIcon}
 							/>
 						</div>
