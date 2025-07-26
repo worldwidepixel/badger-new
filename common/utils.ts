@@ -1,7 +1,7 @@
 import xss from "xss";
 import { Badge, BadgeVariant, V2BadgeVariants } from "./types";
 
-export function santitiseText(text: string) {
+export function sanitiseText(text: string) {
 	return xss(text);
 }
 

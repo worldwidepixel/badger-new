@@ -39,13 +39,13 @@
 		}
 	}
 	h1 {
-		@apply text-badger-text-primary text-3xl font-bold;
+		@apply text-badger-text-primary flex flex-row flex-wrap items-center gap-2 text-3xl font-bold;
 	}
 	h2 {
-		@apply text-2xl font-bold;
+		@apply flex flex-row flex-wrap items-center gap-2 text-2xl font-bold;
 	}
 	h3 {
-		@apply text-xl font-semibold;
+		@apply flex flex-row flex-wrap items-center gap-2 text-xl font-semibold;
 	}
 	hr {
 		@apply w-full;

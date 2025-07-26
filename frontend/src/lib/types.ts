@@ -3,4 +3,6 @@ export type DeploymentInfo = {
 	deployment_hash: string;
 };
 
+// Colour
+
 export type HexColour = `#${string}`;
