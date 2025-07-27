@@ -47,6 +47,7 @@
 		"@types/file-saver": "^2.0.7",
 		"chroma-js": "^3.1.2",
 		"colorthief": "^2.6.0",
-		"file-saver": "^2.0.5"
+		"file-saver": "^2.0.5",
+		"ofetch": "^1.4.1"
 	}
 }

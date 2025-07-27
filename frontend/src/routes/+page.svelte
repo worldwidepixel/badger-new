@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions } from '$lib/state.svelte';
 	import type { Badge } from '@badgered/common';
-	import { defaultBadge, V2BadgeVariants, sanitiseText } from '@badgered/common';
+	import { defaultBadge, defaultIcon, V2BadgeVariants, sanitiseText } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 	import UIBadge from '$lib/ui/+Badge.svelte';
 	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
-	import ColorThief, { type RGBColor } from 'colorthief';
+	import ColorThief from 'colorthief';
 	import { browser } from '$app/environment';
-	import { defaultIcon, generatePalette, rgbToHex } from '$lib';
+	import { fileToBase64, generatePalette, rgbToHex, uploadToHost } from '$lib';
 	import type { HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
@@ -17,8 +17,11 @@
 		LucidePaintbrush,
 		LucidePen,
 		LucidePipette,
-		LucideText
+		LucideText,
+		LucideUpload
 	} from '@lucide/svelte';
+	import Button from '$lib/ui/+Button.svelte';
+	import Tooltip from 'sv-tooltip';
 
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
@@ -33,6 +36,7 @@
 	let badgeState = $state<Badge>(defaultBadge);
 	let badgePalette = $state<HexColour[]>([]);
 	let badgeIconValid = $state<boolean>(true);
+	let badgeIconUpload = $state<FileList>();
 
 	if (browser) {
 		const colorThief = new ColorThief();
@@ -73,6 +77,15 @@
 		badgeState.bottomBackgroundColour = colours.bottom;
 		badgeState.bottomTextColour = colours.text;
 	}
+
+	function submitIconUpload(event: Event) {
+		if (badgeIconUpload != null && badgeIconUpload[0] != null) {
+			fileToBase64(badgeIconUpload[0]).then(async (data) => {
+				const uploadData = await uploadToHost(data);
+				badgeState.icon = uploadData.image.url;
+			});
+		}
+	}
 </script>
 
 <div class="grid h-full w-full grid-cols-2">
@@ -112,8 +125,26 @@
 			<div class="flex flex-col gap-2">
 				<h3><LucideImage /> Icon</h3>
 				<div class="flex flex-col items-center gap-4">
-					<div class="grid w-full grid-cols-[1fr_16rem] items-center gap-2">
+					<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
 						<span class="w-fit">URL</span>
+
+						<Tooltip badger tip="Upload icon file">
+							<label for="file-input">
+								<Button className="size-10" label="Upload icon file">
+									<LucideUpload />
+								</Button></label
+							>
+							<input
+								onchange={submitIconUpload}
+								class="hidden"
+								id="file-input"
+								name="file-input"
+								type="file"
+								accept="image/*"
+								bind:files={badgeIconUpload}
+							/>
+						</Tooltip>
+
 						<TextInput
 							placeholder="Icon URL"
 							label="Icon URL"
@@ -121,7 +152,9 @@
 							className="w-full"
 						/>
 					</div>
-					<div class="flex w-full flex-row items-center gap-4 rounded-xl border p-4">
+					<div
+						class="bg-badger-background-secondary flex w-full flex-row items-center gap-4 rounded-xl border p-4"
+					>
 						<div class="flex shrink-0 flex-col gap-2">
 							<span class="text-center font-semibold">Preview</span>
 							<img
@@ -139,14 +172,14 @@
 							>
 								{#each badgePalette as colour}
 									<span
-										class="group relative flex size-12 items-center justify-center overflow-hidden rounded-2xl border"
+										class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
 									>
 										<LucidePipette
 											onclick={() => generateBackground(colour)}
-											class="group-active:bg-badger-background-secondary/90 bg-badger-background-secondary/60 size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-active:scale-95"
+											class="group-active:bg-badger-background-secondary/90 bg-badger-background-secondary/60 z-1 relative size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-active:scale-95"
 										/>
 										<span
-											class="absolute left-0 top-0 z-[-100] h-full w-full transition group-hover:brightness-90"
+											class="absolute left-0 top-0 z-0 h-full w-full transition group-hover:brightness-90"
 											style="background-color: {colour}"
 										></span>
 									</span>

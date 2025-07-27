@@ -53,6 +53,8 @@ export async function build(variant: BadgeVariant, props: Badge) {
 	}
 }
 
+export const defaultIcon = "https://v3.badger.worldwidepixel.ca/badger.png";
+
 export const defaultBadge = {
 	topText: "Made for",
 	bottomText: "You",
@@ -60,7 +62,7 @@ export const defaultBadge = {
 	bottomTextColour: "#FF0066",
 	topBackgroundColour: "#8F004C",
 	bottomBackgroundColour: "#61003D",
-	icon: "https://v2.badger.worldwidepixel.ca/badger.png",
+	icon: defaultIcon,
 };
 
 // Uhhh... this just assumes all images are PNGs.

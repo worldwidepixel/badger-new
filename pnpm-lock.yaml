@@ -82,6 +82,9 @@ importers:
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
+      ofetch:
+        specifier: ^1.4.1
+        version: 1.4.1
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
