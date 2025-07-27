@@ -11,7 +11,7 @@ export const POST: RequestHandler = async (requestData) => {
 		body: form
 	}).catch((e) => {
 		console.error(e.data);
-		error(e.data.status_code, 'Failed to upload image.' + e.data);
+		error(e.data.status_code, 'Failed to upload image.' + JSON.stringify(e.data));
 	});
 
 	const response = new Response(JSON.stringify(data), {

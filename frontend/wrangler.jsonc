@@ -2,5 +2,8 @@
 	"name": "badger",
 	"pages_build_output_dir": ".svelte-kit/cloudflare",
 	"compatibility_flags": ["nodejs_compat"],
-	"compatibility_date": "2025-07-19"
+	"compatibility_date": "2025-07-19",
+	"vars": {
+		"ORIGIN": "https://v3.badger.worldwidepixel.ca node ./build/index.js"
+	}
 }
