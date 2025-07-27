@@ -4,6 +4,6 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"compatibility_date": "2025-07-19",
 	"vars": {
-		"ORIGIN": "http://localhost:3000 node build/index.js"
+		"ORIGIN": "https://v3.badger.worldwidepixel.ca node ./build/index.js"
 	}
 }
