@@ -48,12 +48,8 @@ export async function uploadToHost(data: string) {
 		body: {
 			image: data.replace('data:', '').replace(/^.+,/, ''),
 			key: '6d207e02198a847aa98d0a2a901485a5' // THIS IS GENUINELY THE ONLY API KEY TO THIS SERVICE. SEE https://freeimage.host/page/api FOR MORE INFO. <3 WWP
-		},
-		headers: {
-			'Content-Type': 'multipart/form-data'
 		}
 	});
 
-	///console.log(imageResult);
 	return imageResult;
 }
