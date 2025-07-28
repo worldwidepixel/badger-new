@@ -9,7 +9,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		csrf: {
-			checkOrigin: false
+			checkOrigin: false // All endpoints on the frontend are public, anyways.
 		}
 	}
 };
