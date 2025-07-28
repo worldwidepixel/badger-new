@@ -1,12 +1,12 @@
-import { useFetch } from '$lib';
 import { error, type RequestHandler } from '@sveltejs/kit';
+import { ofetch } from 'ofetch';
 
 export const POST: RequestHandler = async (requestData) => {
 	const requestBody = await requestData.request.formData();
 	const form = new FormData();
 	form.append('image', requestBody.get('image') ?? '');
 	form.append('key', requestBody.get('key') ?? '');
-	const data = await useFetch('https://freeimage.host/api/1/upload', {
+	const data = await ofetch('https://freeimage.host/api/1/upload', {
 		method: 'POST',
 		body: form
 	}).catch((e) => {
