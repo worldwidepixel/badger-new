@@ -2,10 +2,10 @@ import { useFetch } from '$lib';
 import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async (requestData) => {
-	const requestBody = await requestData.request.json();
+	const requestBody = await requestData.request.formData();
 	const form = new FormData();
-	form.append('image', requestBody.image ?? '');
-	form.append('key', requestBody.key ?? '');
+	form.append('image', requestBody.get('image') ?? '');
+	form.append('key', requestBody.get('key') ?? '');
 	const data = await useFetch('https://freeimage.host/api/1/upload', {
 		method: 'POST',
 		body: form
