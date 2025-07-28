@@ -51,6 +51,6 @@ export async function uploadToHost(data: string) {
 		}
 	});
 
-	console.log(imageResult);
+	///console.log(imageResult);
 	return imageResult;
 }
