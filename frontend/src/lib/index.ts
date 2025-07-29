@@ -32,6 +32,19 @@ export function fileToBase64(file: File): Promise<string> {
 	});
 }
 
+// https://stackoverflow.com/a/38935990
+export function base64toFile(b64: string, filename: string) {
+	const array = b64.split(',');
+	const mime = (array[0].match(/:(.*?);/) ?? [])[1];
+	const bstr = atob(array[array.length - 1]);
+	let n = bstr.length;
+	const u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new File([u8arr], filename, { type: mime });
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function useFetch(url: string, opts?: any) {
 	const fetchOptions = opts ?? {};
@@ -42,12 +55,16 @@ export async function useFetch(url: string, opts?: any) {
 	return ofetch(url, fetchOptions);
 }
 
-export async function uploadToHost(data: string) {
+export async function uploadToHost(data: File) {
+	const form = new FormData();
+	form.append('image', data);
 	const imageResult = await useFetch('/internal/upload', {
 		method: 'POST',
 		body: {
-			image: data.replace('data:', '').replace(/^.+,/, ''),
-			key: '6d207e02198a847aa98d0a2a901485a5' // THIS IS GENUINELY THE ONLY API KEY TO THIS SERVICE. SEE https://freeimage.host/page/api FOR MORE INFO. <3 WWP
+			image: await fileToBase64(data)
+		},
+		headers: {
+			'Content-Type': 'multipart/form-data'
 		}
 	});
 

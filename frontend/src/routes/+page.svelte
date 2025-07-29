@@ -78,12 +78,10 @@
 		badgeState.bottomTextColour = colours.text;
 	}
 
-	function submitIconUpload(event: Event) {
+	async function submitIconUpload(event: Event) {
 		if (badgeIconUpload != null && badgeIconUpload[0] != null) {
-			fileToBase64(badgeIconUpload[0]).then(async (data) => {
-				const uploadData = await uploadToHost(data);
-				badgeState.icon = uploadData.image.url;
-			});
+			const uploadData = await uploadToHost(badgeIconUpload[0]);
+			badgeState.icon = uploadData;
 		}
 	}
 </script>
