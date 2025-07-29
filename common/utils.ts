@@ -1,5 +1,5 @@
 import xss from "xss";
-import { Badge, BadgeVariant, V2BadgeVariants } from "./types";
+import { Badge, BadgeExportType, BadgeVariant, V2BadgeVariants } from "./types";
 
 export function sanitiseText(text: string) {
 	return xss(text);
@@ -68,3 +68,16 @@ export function createEmbedUrl(
 		].join(""),
 	].join("");
 }
+
+export const badgeExportTypes: BadgeExportType[] = [
+	{
+		mime: "image/png",
+		extension: "png",
+		name: "PNG",
+	},
+	{
+		mime: "image/svg+xml",
+		extension: "svg",
+		name: "SVG",
+	},
+];

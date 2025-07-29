@@ -44,3 +44,9 @@ export type RenderProps = {
 	bottomBackgroundColour: string;
 	icon: string;
 };
+
+export type BadgeExportType = {
+	mime: string;
+	extension: string;
+	name: string;
+};

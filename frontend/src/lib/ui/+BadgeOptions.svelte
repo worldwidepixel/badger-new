@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { apiBase } from '$lib';
-	import { type BadgeVariant, type Badge, createEmbedUrl, build } from '@badgered/common';
+	import {
+		type BadgeVariant,
+		type Badge,
+		createEmbedUrl,
+		build,
+		badgeExportTypes
+	} from '@badgered/common';
 	import {
 		LucideAArrowDown,
 		LucideCodeXml,
@@ -12,6 +18,7 @@
 	const saveAs = fileSaver;
 	import Tooltip from 'sv-tooltip';
 	import mime from 'mime-types';
+	import { m } from '$lib/paraglide/messages';
 
 	type Props = {
 		label: string;
@@ -37,19 +44,22 @@
 <ul
 	class="bg-badger-background-secondary flex w-fit flex-row justify-center divide-x rounded-xl border"
 >
-	{#each ['image/png', 'image/svg+xml'] as format}
+	{#each badgeExportTypes as format}
 		<li>
-			<Tooltip bottom badger tip="Export as {format.toUpperCase()}">
+			<Tooltip bottom badger tip={m['label.badge.tools.export']({ format: format.name })}>
 				<button
 					onclick={async () =>
 						saveAs(
-							await createBlob(format),
-							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${mime.extension(format)}`
+							await createBlob(format.mime),
+							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${mime.extension(format.mime)}`
 						)}
-					aria-label="Export {label} badge as {format}"
+					aria-label={m['label.badge.tools.export.aria']({
+						format: format.name,
+						type: label
+					})}
 					class="cursor-pointer p-2"
 				>
-					{#if format === 'svg'}
+					{#if format.mime === 'image/svg+xml'}
 						<LucidePenTool />
 					{:else}
 						<LucideImageDown />
@@ -59,13 +69,13 @@
 		</li>
 	{/each}
 	<li>
-		<Tooltip bottom badger tip="Copy Markdown">
+		<Tooltip bottom badger tip={m['label.badge.tools.copy.markdown']()}>
 			<button
 				onclick={() =>
 					copy(
 						`![${data.topText} ${data.bottomText}](${createEmbedUrl(data, type, apiBase, 'png')})`
 					)}
-				aria-label="Copy {label} badge Markdown code"
+				aria-label={m['label.badge.tools.copy.markdown.aria']({ label: label })}
 				class="cursor-pointer p-2"
 			>
 				<LucideAArrowDown />
@@ -73,12 +83,13 @@
 		</Tooltip>
 	</li>
 	<li>
-		<Tooltip bottom badger tip="Copy HTML code">
+		<Tooltip bottom badger tip={m['label.badge.tools.copy.html']()}>
 			<button
 				onclick={() =>
 					copy(
 						`<img src='${createEmbedUrl(data, type, apiBase, 'png')}' alt='${data.topText} ${data.bottomText}' />`
 					)}
+				aria-label={m['label.badge.tools.copy.html.aria']({ label: label })}
 				class="cursor-pointer p-2"
 			>
 				<LucideCodeXml />

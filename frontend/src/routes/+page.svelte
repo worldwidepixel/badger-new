@@ -7,11 +7,19 @@
 	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
 	import ColorThief from 'colorthief';
 	import { browser } from '$app/environment';
-	import { generatePalette, rgbToHex, uploadToHost } from '$lib';
+	import {
+		generatePalette,
+		getCurrentLocale,
+		rgbToHex,
+		setCurrentLocale,
+		uploadToHost
+	} from '$lib';
 	import type { HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
 		LucideEye,
+		LucideGlobe,
+		LucideGlobe2,
 		LucideImage,
 		LucidePaintbrush,
 		LucidePen,
@@ -21,6 +29,7 @@
 	} from '@lucide/svelte';
 	import Button from '$lib/ui/+Button.svelte';
 	import Tooltip from 'sv-tooltip';
+	import { m } from '$lib/paraglide/messages';
 
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
@@ -82,6 +91,16 @@
 			badgeState.icon = uploadData;
 		}
 	}
+
+	// i18n debug
+
+	let requestedLocale = $state('en-test');
+
+	function locale() {
+		console.log(`changing locale to ${requestedLocale}`);
+		setCurrentLocale(requestedLocale as any, { reload: false });
+		console.log(`locale is now ${getCurrentLocale()}`);
+	}
 </script>
 
 <div class="grid h-full w-full grid-cols-2">
@@ -89,42 +108,42 @@
 		style="max-height: {appHeight}px"
 		class="flex flex-col gap-4 overflow-y-auto border-r py-6 pr-6"
 	>
-		<h1><LucidePen />Edit</h1>
+		<h1><LucidePen />{m['text.editor.edit.header']()}</h1>
 		<hr />
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
-				<h3><LucideText /> Text</h3>
+				<h3><LucideText /> {m['text.editor.edit.text.header']()}</h3>
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 					<TextInput
-						placeholder="Top: Type anything here"
-						label="Bottom line text"
+						placeholder={m['placeholder.editor.edit.text.top']()}
+						label={m['label.editor.edit.text.content.top']()}
 						bind:value={badgeState.topText}
 						className="w-full"
 					/>
 					<ColourInput
-						label="Top line text colour"
+						label={m['label.editor.edit.text.colour.top']()}
 						bind:value={badgeState.topTextColour}
 					/>
 					<TextInput
-						placeholder="Bottom: Type anything here"
-						label="Bottom line text"
+						placeholder={m['placeholder.editor.edit.text.bottom']()}
+						label={m['label.editor.edit.text.content.bottom']()}
 						bind:value={badgeState.bottomText}
 						className="w-full"
 					/>
 					<ColourInput
-						label="Bottom line text colour"
+						label={m['label.editor.edit.text.colour.bottom']()}
 						bind:value={badgeState.bottomTextColour}
 					/>
 				</div>
 			</div>
 			<hr />
 			<div class="flex flex-col gap-2">
-				<h3><LucideImage /> Icon</h3>
+				<h3><LucideImage /> {m['text.editor.edit.icon.header']()}</h3>
 				<div class="flex flex-col items-center gap-4">
 					<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
-						<span class="w-fit">URL</span>
+						<span class="w-fit">{m['text.editor.edit.icon.url']()}</span>
 
-						<Tooltip badger tip="Upload icon file">
+						<Tooltip badger tip={m['label.editor.edit.icon.upload']()}>
 							<span class="relative h-10 w-fit">
 								<input
 									onchange={submitIconUpload}
@@ -137,7 +156,10 @@
 								/>
 								<div class="rounded-xl peer-focus-visible:outline">
 									<label class="size-10" for="file-input">
-										<Button className="size-10" label="Upload icon file">
+										<Button
+											className="size-10"
+											label={m['label.editor.edit.icon.upload']()}
+										>
 											<LucideUpload />
 										</Button></label
 									>
@@ -146,8 +168,8 @@
 						</Tooltip>
 
 						<TextInput
-							placeholder="Icon URL"
-							label="Icon URL"
+							placeholder={m['label.editor.edit.icon.url']()}
+							label={m['label.editor.edit.icon.url']()}
 							bind:value={badgeState.icon}
 							className="w-full"
 						/>
@@ -156,17 +178,21 @@
 						class="bg-badger-background-secondary flex w-full flex-row items-center gap-4 rounded-xl border p-4"
 					>
 						<div class="flex shrink-0 flex-col gap-2">
-							<span class="text-center font-semibold">Preview</span>
+							<span class="text-center font-semibold"
+								>{m['text.editor.edit.icon.preview']()}</span
+							>
 							<img
 								draggable="false"
-								alt="User-selected badge icon"
+								alt={m['label.editor.edit.icon.preview']()}
 								class="size-35 aspect-square rounded-2xl p-2"
 								src={badgeIconValid ? sanitiseText(badgeState.icon) : defaultIcon}
 							/>
 						</div>
 						<span class="bg-badger-border h-full w-[1px]"></span>
 						<div class="flex w-full flex-col gap-2">
-							<span class="text-center font-semibold">Suggested Colours</span>
+							<span class="text-center font-semibold"
+								>{m['text.editor.edit.icon.suggested']()}</span
+							>
 							<div
 								class="h-35 flex w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
@@ -176,7 +202,9 @@
 											key.key.toLowerCase() === 'enter' || 'space'
 												? generateBackground(colour)
 												: {}}
-										aria-label="Colour {colour} from auto icon palette"
+										aria-label={m['label.editor.edit.icon.suggested']({
+											colour: colour
+										})}
 										class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
 									>
 										<LucidePipette
@@ -192,7 +220,7 @@
 								{#if badgePalette.length === 0}
 									<span
 										class="flex h-full w-full items-center justify-center text-center"
-										>Please provide a valid image URL.</span
+										>{m['text.editor.edit.icon.invalid']()}</span
 									>
 								{/if}
 							</div>
@@ -203,16 +231,16 @@
 
 			<hr />
 			<div class="flex flex-col gap-2">
-				<h3><LucidePaintbrush /> Background</h3>
+				<h3><LucidePaintbrush /> {m['text.editor.edit.background']()}</h3>
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
-					<span class="w-fit">Top</span>
+					<span class="w-fit">{m['text.editor.edit.background.top']()}</span>
 					<ColourInput
-						label="Background top colour"
+						label={m['label.editor.edit.background.top']()}
 						bind:value={badgeState.topBackgroundColour}
 					/>
-					<span class="w-fit">Bottom</span>
+					<span class="w-fit">{m['text.editor.edit.background.bottom']()}</span>
 					<ColourInput
-						label="Background bottom colour"
+						label={m['label.editor.edit.background.bottom']()}
 						bind:value={badgeState.bottomBackgroundColour}
 					/>
 				</div>
@@ -220,20 +248,43 @@
 		</div>
 	</div>
 	<div style="max-height: {appHeight}px" class="flex flex-col gap-4 overflow-y-auto p-6">
-		<h1><LucideEye /> Preview</h1>
+		<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>
 		<hr />
 		<div class="my-4 grid w-full grid-cols-2 items-center gap-6">
 			{#each V2BadgeVariants as type}
 				<span
 					class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"
 				>
-					<UIBadge data={badgeState} {type} label="{type} badge" />
-					<BadgeOptions data={badgeState} {type} label="{type} badge" />
+					<UIBadge
+						data={badgeState}
+						{type}
+						label={m['label.editor.preview.badge']({
+							//@ts-ignore
+							type: m[`text.badge.type.${type}`]()
+						})}
+					/>
+					<BadgeOptions
+						data={badgeState}
+						{type}
+						label={m['label.editor.preview.badge']({
+							//@ts-ignore
+							type: m[`text.badge.type.${type}`]()
+						})}
+					/>
 				</span>
 			{/each}
 		</div>
-		<h1><LucideArrowUpRight /> Export</h1>
+		<h1><LucideArrowUpRight /> {m['text.editor.export.header']()}</h1>
 		<hr />
 		export options for all badges will go here (think a ZIP file of all of them)
+		<h1><LucideGlobe />Localisation (Testing)</h1>
+		<hr />
+		Test String: {m.test()}
+		Current Locale: {getCurrentLocale()}
+
+		<TextInput bind:value={requestedLocale} label="test" />
+		<Button action={locale} type="action" label="test"
+			>Change locale to {requestedLocale}</Button
+		>
 	</div>
 </div>

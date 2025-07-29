@@ -2,8 +2,9 @@ import { env } from '$env/dynamic/public';
 import chroma from 'chroma-js';
 import type { HexColour } from './types';
 import { ofetch } from 'ofetch';
-import { badgeState } from './state.svelte';
+import { badgeState, currentLocale } from './state.svelte';
 import { defaultBadge } from '@badgered/common';
+import { setLocale, type Locale } from './paraglide/runtime';
 
 export const apiBase = env.PUBLIC_API_BASE ?? 'https://api.v3.badger.worldwidepixel.ca/';
 
@@ -76,4 +77,13 @@ export function resetBadge() {
 	badgeState.bottomTextColour = defaultBadge.bottomTextColour;
 	badgeState.topBackgroundColour = defaultBadge.topBackgroundColour;
 	badgeState.bottomBackgroundColour = defaultBadge.bottomBackgroundColour;
+}
+
+export function setCurrentLocale(locale: Locale, options?: { reload?: boolean }) {
+	currentLocale.locale = locale;
+	setLocale(locale, options);
+}
+
+export function getCurrentLocale() {
+	return currentLocale.locale;
 }
