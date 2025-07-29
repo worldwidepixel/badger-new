@@ -11,6 +11,7 @@
 	import fileSaver from 'file-saver';
 	const saveAs = fileSaver;
 	import Tooltip from 'sv-tooltip';
+	import mime from 'mime-types';
 
 	type Props = {
 		label: string;
@@ -25,21 +26,27 @@
 			navigator.clipboard.writeText(text);
 		}
 	}
+
+	async function createBlob(format: string) {
+		return new Blob([await build(type, data)], {
+			type: format
+		});
+	}
 </script>
 
 <ul
 	class="bg-badger-background-secondary flex w-fit flex-row justify-center divide-x rounded-xl border"
 >
-	{#each ['png', 'svg'] as format}
+	{#each ['image/png', 'image/svg+xml'] as format}
 		<li>
 			<Tooltip bottom badger tip="Export as {format.toUpperCase()}">
 				<button
-					onclick={() =>
+					onclick={async () =>
 						saveAs(
-							createEmbedUrl(data, type, apiBase, format),
-							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${format}`
+							await createBlob(format),
+							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${mime.extension(format)}`
 						)}
-					aria-label="Export {label} badge as {format.toUpperCase()}"
+					aria-label="Export {label} badge as {format}"
 					class="cursor-pointer p-2"
 				>
 					{#if format === 'svg'}

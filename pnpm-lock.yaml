@@ -73,6 +73,9 @@ importers:
       '@types/file-saver':
         specifier: ^2.0.7
         version: 2.0.7
+      '@types/mime-types':
+        specifier: ^3.0.1
+        version: 3.0.1
       chroma-js:
         specifier: ^3.1.2
         version: 3.1.2
@@ -82,6 +85,9 @@ importers:
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
+      mime-types:
+        specifier: ^3.0.1
+        version: 3.0.1
       ofetch:
         specifier: ^1.4.1
         version: 1.4.1
@@ -1793,6 +1799,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/mime-types@3.0.1':
+    resolution: {integrity: sha512-xRMsfuQbnRq1Ef+C+RKaENOxXX87Ygl38W1vDfPHRku02TgQr+Qd8iivLtAMcR0KF5/29xlnFihkTlbqFrGOVQ==}
 
   '@types/ndarray@1.0.14':
     resolution: {integrity: sha512-oANmFZMnFQvb219SSBIhI1Ih/r4CvHDOzkWyJS/XRqkMrGH5/kaPSA1hQhdIBzouaE+5KpE/f5ylI9cujmckQg==}
@@ -5599,6 +5608,8 @@ snapshots:
   '@types/file-saver@2.0.7': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/mime-types@3.0.1': {}
 
   '@types/ndarray@1.0.14': {}
 
