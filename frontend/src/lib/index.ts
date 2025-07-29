@@ -57,15 +57,10 @@ export async function useFetch(url: string, opts?: any) {
 
 export async function uploadToHost(data: File) {
 	const form = new FormData();
-	form.append('image', data);
+	form.append('image', data, data.name);
 	const imageResult = await useFetch('/internal/upload', {
 		method: 'POST',
-		body: {
-			image: await fileToBase64(data)
-		},
-		headers: {
-			'Content-Type': 'multipart/form-data'
-		}
+		body: form
 	});
 
 	return imageResult;

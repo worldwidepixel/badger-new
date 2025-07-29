@@ -1,11 +1,12 @@
 import { error } from '@sveltejs/kit';
-import { base64toFile, useFetch } from '$lib';
+import { useFetch } from '$lib';
 
 export async function POST({ request }) {
-	const { image } = await request.json();
+	const multipart = await request.formData();
+	const imageFile: File = multipart.get('image') as File;
 	//console.log(image);
 	const form = new FormData();
-	form.append('fileToUpload', base64toFile(image, 'Badger Embed Icon'));
+	form.append('fileToUpload', imageFile, imageFile.name);
 	form.append('reqtype', 'fileupload');
 	const data = await useFetch('https://catbox.moe/user/api.php', {
 		method: 'POST',
