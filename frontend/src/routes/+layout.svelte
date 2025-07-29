@@ -1,13 +1,14 @@
 <script lang="ts">
 	import LogoType from '$lib/ui/+LogoType.svelte';
 	import Button from '$lib/ui/+Button.svelte';
-	import { LucideSunMoon } from '@lucide/svelte';
+	import { LucideRotateCcw, LucideSunMoon } from '@lucide/svelte';
 	import '../app.css';
 	import '@fontsource-variable/inter';
 	import { browser } from '$app/environment';
 	import type { DeploymentInfo } from '$lib/types';
-	import { appDimensions, pageDimensions } from '$lib/state.svelte';
+	import { appDimensions, badgeState, pageDimensions } from '$lib/state.svelte';
 	import Tooltip from 'sv-tooltip';
+	import { resetBadge } from '$lib';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -77,14 +78,25 @@
 			<div class="flex flex-row items-center justify-center">
 				badger 3: echoes of the prequel
 			</div>
-			<div class="flex flex-row items-center justify-end">
+			<div class="flex flex-row items-center justify-end gap-4">
+				<Tooltip left badger tip="Reset badge">
+					<Button
+						action={resetBadge}
+						style="transparent"
+						roundness="circle"
+						type="action"
+						label="Reset badge"
+					>
+						<LucideRotateCcw />
+					</Button>
+				</Tooltip>
 				<Tooltip left badger tip="Toggle light/dark theme">
 					<Button
 						action={toggleTheme}
 						style="transparent"
 						roundness="circle"
 						type="action"
-						label="Toggle light/dark mode"
+						label="Toggle light/dark theme"
 					>
 						<LucideSunMoon />
 					</Button>

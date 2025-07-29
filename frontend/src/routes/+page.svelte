@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { appDimensions, pageDimensions } from '$lib/state.svelte';
-	import type { Badge } from '@badgered/common';
-	import { defaultBadge, defaultIcon, V2BadgeVariants, sanitiseText } from '@badgered/common';
+	import { appDimensions, pageDimensions, badgeState } from '$lib/state.svelte';
+	import { defaultIcon, V2BadgeVariants, sanitiseText } from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 	import UIBadge from '$lib/ui/+Badge.svelte';
 	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
 	import ColorThief from 'colorthief';
 	import { browser } from '$app/environment';
-	import { fileToBase64, generatePalette, rgbToHex, uploadToHost } from '$lib';
+	import { generatePalette, rgbToHex, uploadToHost } from '$lib';
 	import type { HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
@@ -33,7 +32,6 @@
 		Math.max(pageDimensions.height - (tallestHeight - appDimensions.height), 0)
 	);
 
-	let badgeState = $state<Badge>(defaultBadge);
 	let badgePalette = $state<HexColour[]>([]);
 	let badgeIconValid = $state<boolean>(true);
 	let badgeIconUpload = $state<FileList>();
@@ -127,20 +125,24 @@
 						<span class="w-fit">URL</span>
 
 						<Tooltip badger tip="Upload icon file">
-							<label for="file-input">
-								<Button className="size-10" label="Upload icon file">
-									<LucideUpload />
-								</Button></label
-							>
-							<input
-								onchange={submitIconUpload}
-								class="hidden"
-								id="file-input"
-								name="file-input"
-								type="file"
-								accept="image/*"
-								bind:files={badgeIconUpload}
-							/>
+							<span class="relative h-10 w-fit">
+								<input
+									onchange={submitIconUpload}
+									class="peer absolute left-0 top-0 z-[-1] size-10 appearance-none opacity-0"
+									id="file-input"
+									name="file-input"
+									type="file"
+									accept="image/*"
+									bind:files={badgeIconUpload}
+								/>
+								<div class="rounded-xl peer-focus-visible:outline">
+									<label class="size-10" for="file-input">
+										<Button className="size-10" label="Upload icon file">
+											<LucideUpload />
+										</Button></label
+									>
+								</div>
+							</span>
 						</Tooltip>
 
 						<TextInput
@@ -169,18 +171,23 @@
 								class="h-35 flex w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
 								{#each badgePalette as colour}
-									<span
+									<button
+										onkeypress={(key) =>
+											key.key.toLowerCase() === 'enter' || 'space'
+												? generateBackground(colour)
+												: {}}
+										aria-label="Colour {colour} from auto icon palette"
 										class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
 									>
 										<LucidePipette
 											onclick={() => generateBackground(colour)}
-											class="group-active:bg-badger-background-secondary/90 bg-badger-background-secondary/60 z-1 relative size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-active:scale-95"
+											class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 z-1 relative size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
 										/>
 										<span
 											class="absolute left-0 top-0 z-0 h-full w-full transition group-hover:brightness-90"
 											style="background-color: {colour}"
 										></span>
-									</span>
+									</button>
 								{/each}
 								{#if badgePalette.length === 0}
 									<span

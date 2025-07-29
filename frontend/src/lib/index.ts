@@ -2,6 +2,8 @@ import { env } from '$env/dynamic/public';
 import chroma from 'chroma-js';
 import type { HexColour } from './types';
 import { ofetch } from 'ofetch';
+import { badgeState } from './state.svelte';
+import { defaultBadge } from '@badgered/common';
 
 export const apiBase = env.PUBLIC_API_BASE ?? 'https://api.v3.badger.worldwidepixel.ca/';
 
@@ -64,4 +66,14 @@ export async function uploadToHost(data: File) {
 	});
 
 	return imageResult;
+}
+
+export function resetBadge() {
+	badgeState.icon = defaultBadge.icon;
+	badgeState.topText = defaultBadge.topText;
+	badgeState.bottomText = defaultBadge.bottomText;
+	badgeState.topTextColour = defaultBadge.topTextColour;
+	badgeState.bottomTextColour = defaultBadge.bottomTextColour;
+	badgeState.topBackgroundColour = defaultBadge.topBackgroundColour;
+	badgeState.bottomBackgroundColour = defaultBadge.bottomBackgroundColour;
 }
