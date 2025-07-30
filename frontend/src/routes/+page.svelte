@@ -98,7 +98,7 @@
 
 	function locale() {
 		console.log(`changing locale to ${requestedLocale}`);
-		setCurrentLocale(requestedLocale as any, { reload: false });
+		setCurrentLocale(requestedLocale as any, { reload: true });
 		console.log(`locale is now ${getCurrentLocale()}`);
 	}
 </script>
