@@ -1,6 +1,6 @@
-import { badgeExportTypes } from "./utils";
+import { defaultBadge } from "./build";
 
-export type Badge = {
+/* export type Badge = {
 	topText: string;
 	bottomText: string;
 	topTextColour: string;
@@ -8,19 +8,11 @@ export type Badge = {
 	topBackgroundColour: string;
 	bottomBackgroundColour: string;
 	icon: string;
-};
+}; */
+
+export type Badge = typeof defaultBadge;
 
 // RENDERING
-
-export type MinimalSafeBadge = {
-	topText?: string;
-	bottomText?: string;
-	topTextColour?: string;
-	bottomTextColour?: string;
-	topBackgroundColour: string;
-	bottomBackgroundColour: string;
-	icon: string;
-};
 
 export const V2BadgeVariants = ["cosy", "cosy_minimal", "compact", "compact_minimal"];
 export type BadgeVariant = (typeof V2BadgeVariants)[number];

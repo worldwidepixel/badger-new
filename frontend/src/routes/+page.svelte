@@ -6,7 +6,9 @@
 		sanitiseText,
 		build,
 		type BadgeExportType,
-		badgeExportTypes
+		badgeExportTypes,
+		defaultBadge,
+		type Badge
 	} from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
@@ -22,12 +24,11 @@
 		setCurrentLocale,
 		uploadToHost
 	} from '$lib';
-	import type { HexColour } from '$lib/types';
+	import type { BadgerParameters, HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
 		LucideEye,
 		LucideGlobe,
-		LucideGlobe2,
 		LucideImage,
 		LucidePaintbrush,
 		LucidePen,
@@ -42,15 +43,31 @@
 	import fileSaver from 'file-saver';
 	const saveAs = fileSaver;
 
+	interface Props {
+		data: BadgerParameters;
+	}
+	let { data }: Props = $props();
+
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
 	);
+
+	// Parameter-based data loading
+	for (const [key, value] of Object.entries(data.editorParameters)) {
+		if (Object.keys(defaultBadge).includes(key)) {
+			badgeState[key as keyof Badge] = value;
+		}
+	}
+
+	// Application scaling
 
 	const tallestHeight = $derived(Math.max(pageDimensions.height, pageDimensions.contentHeight));
 
 	const appHeight = $derived(
 		Math.max(pageDimensions.height - (tallestHeight - appDimensions.height), 0)
 	);
+
+	// Icon-based colour palettes
 
 	let badgePalette = $state<HexColour[]>([]);
 	let badgeIconValid = $state<boolean>(true);
@@ -95,6 +112,8 @@
 		badgeState.bottomBackgroundColour = colours.bottom;
 		badgeState.bottomTextColour = colours.text;
 	}
+
+	// Remotely-hosted icons
 
 	async function submitIconUpload(event: Event) {
 		if (badgeIconUpload != null && badgeIconUpload[0] != null) {

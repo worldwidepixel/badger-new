@@ -55,6 +55,7 @@ export async function build(variant: BadgeVariant, props: Badge) {
 
 export const defaultIcon = "https://v3.badger.worldwidepixel.ca/badger.png";
 
+// This constant defines the entire badge schema of Badger.
 export const defaultBadge = {
 	topText: "Made for",
 	bottomText: "You",
