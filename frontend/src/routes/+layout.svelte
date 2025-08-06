@@ -1,15 +1,16 @@
 <script lang="ts">
 	import LogoType from '$lib/ui/+LogoType.svelte';
 	import Button from '$lib/ui/+Button.svelte';
-	import { LucideRotateCcw, LucideSunMoon } from '@lucide/svelte';
+	import { LucideCheck, LucideRotateCcw, LucideShare, LucideSunMoon } from '@lucide/svelte';
 	import '../app.css';
 	import '@fontsource-variable/inter';
 	import { browser } from '$app/environment';
 	import type { DeploymentInfo } from '$lib/types';
 	import { appDimensions, badgeState, currentLocale, pageDimensions } from '$lib/state.svelte';
 	import Tooltip from 'sv-tooltip';
-	import { resetBadge } from '$lib';
+	import { pageBase, resetBadge } from '$lib';
 	import { m } from '$lib/paraglide/messages';
+	import { createParameters } from '@badgered/common';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -57,6 +58,24 @@
 		'%cA badge designer for the web',
 		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1rem;"
 	);
+
+	// Project sharing
+
+	let showCopyFeedback = $state(false);
+
+	function shareBadgeProject() {
+		const url = pageBase + createParameters(badgeState);
+		try {
+			if (browser) {
+				navigator.clipboard.writeText(url);
+			}
+			showCopyFeedback = true;
+			setTimeout(() => {
+				showCopyFeedback = false;
+			}, 5 * 1000);
+		} catch {}
+		console.log(url);
+	}
 </script>
 
 <svelte:head>
@@ -81,6 +100,19 @@
 					badger 3: echoes of the prequel
 				</div>
 				<div class="flex flex-row items-center justify-end gap-4">
+					<Button
+						action={shareBadgeProject}
+						type="action"
+						className="px-3 font-semibold"
+						label={m['label.layout.share.aria']()}
+					>
+						{#if showCopyFeedback}
+							<LucideCheck class="p-0.5" />
+						{:else}
+							<LucideShare class="p-0.5" />
+						{/if}
+						{m['label.layout.share']()}
+					</Button>
 					<Tooltip left badger tip={m['label.layout.reset']()}>
 						<Button
 							action={resetBadge}
@@ -130,7 +162,7 @@
 					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_branch}"
 					aria-label={m['label.layout.source']()}
 				>
-					{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}
+					<code>{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}</code>
 				</a>
 			</div>
 			<div class="flex flex-col items-center gap-1 sm:items-start">

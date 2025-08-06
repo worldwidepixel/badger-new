@@ -8,7 +8,7 @@ export function load({ url }): PageServerLoad<BadgerParameters> {
 
 	for (const [key, value] of params) {
 		if (Object.keys(defaultBadge).includes(key)) {
-			packedParameters[key as keyof Partial<Badge>] = value;
+			packedParameters[key as keyof Partial<Badge>] = decodeURIComponent(value);
 		}
 	}
 

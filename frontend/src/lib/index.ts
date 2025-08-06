@@ -7,6 +7,7 @@ import { defaultBadge } from '@badgered/common';
 import { setLocale, type Locale } from './paraglide/runtime';
 
 export const apiBase = env.PUBLIC_API_BASE ?? 'https://api.v3.badger.worldwidepixel.ca/';
+export const pageBase = env.PUBLIC_FRONTEND_BASE ?? 'https://v3.badger.worldwidepixel.ca/';
 
 // https://stackoverflow.com/a/5624139
 export function rgbToHex(r: number, g: number, b: number) {

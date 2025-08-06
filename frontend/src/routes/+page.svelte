@@ -30,8 +30,10 @@
 		LucideEye,
 		LucideGlobe,
 		LucideImage,
+		LucideImageDown,
 		LucidePaintbrush,
 		LucidePen,
+		LucidePenTool,
 		LucidePipette,
 		LucideText,
 		LucideUpload
@@ -328,10 +330,11 @@
 			<Button
 				action={() => generateZip(badgeExportTypes[1])}
 				type="action"
-				label="Export ZIP of all as SVG"><LucidePen />Export ZIP of all as SVG</Button
+				label={m['label.editor.export.zip.svg']()}
+				><LucidePenTool class="p-0.5" />{m['label.editor.export.zip.svg']()}</Button
 			>
-			<Button disabled label="Export ZIP of all as PNG"
-				><LucideImage /> Export ZIP of all as PNG</Button
+			<Button disabled label={m['label.editor.export.zip.png']()}
+				><LucideImageDown class="p-0.5" /> {m['label.editor.export.zip.png']()}</Button
 			>
 		</div>
 		<h1><LucideGlobe />Localisation (Testing)</h1>

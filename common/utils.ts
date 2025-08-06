@@ -44,6 +44,19 @@ export function getWittyComment() {
 	return splashes[Math.floor(Math.random() * splashes.length)];
 }
 
+export function createParameters(data: Badge, format?: string) {
+	return [
+		"?topText=" + encodeURIComponent(data.topText),
+		"&bottomText=" + encodeURIComponent(data.bottomText),
+		"&topTextColour=" + encodeURIComponent(data.topTextColour),
+		"&bottomTextColour=" + encodeURIComponent(data.bottomTextColour),
+		"&topBackgroundColour=" + encodeURIComponent(data.topBackgroundColour),
+		"&bottomBackgroundColour=" + encodeURIComponent(data.bottomBackgroundColour),
+		"&icon=" + encodeURIComponent(data.icon),
+		format ? "&format=" + format : "",
+	].join("");
+}
+
 export function createEmbedUrl(
 	data: Badge,
 	type: BadgeVariant,
@@ -56,16 +69,7 @@ export function createEmbedUrl(
 		apiBase,
 		!apiBase.endsWith("/") ? "/" : "",
 		[apiVersion ?? "v3", "format", badgeFormat ?? "v2", type].join("/"),
-		[
-			"?topText=" + data.topText,
-			"&bottomText=" + data.bottomText,
-			"&topTextColour=" + data.topTextColour,
-			"&bottomTextColour=" + data.bottomTextColour,
-			"&topBackgroundColour=" + data.topBackgroundColour,
-			"&bottomBackgroundColour=" + data.bottomBackgroundColour,
-			"&icon=" + encodeURIComponent(data.icon),
-			format ? "&format=" + format : "",
-		].join(""),
+		createParameters(data, format),
 	].join("");
 }
 
