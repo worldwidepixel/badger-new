@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { appDimensions, pageDimensions, badgeState } from '$lib/state.svelte';
-	import { defaultIcon, V2BadgeVariants, sanitiseText } from '@badgered/common';
+	import {
+		defaultIcon,
+		V2BadgeVariants,
+		sanitiseText,
+		build,
+		type BadgeExportType,
+		badgeExportTypes
+	} from '@badgered/common';
 	import ColourInput from '$lib/ui/+ColourInput.svelte';
 	import TextInput from '$lib/ui/+TextInput.svelte';
 	import UIBadge from '$lib/ui/+Badge.svelte';
@@ -8,6 +15,7 @@
 	import ColorThief from 'colorthief';
 	import { browser } from '$app/environment';
 	import {
+		createBlob,
 		generatePalette,
 		getCurrentLocale,
 		rgbToHex,
@@ -30,6 +38,9 @@
 	import Button from '$lib/ui/+Button.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { m } from '$lib/paraglide/messages';
+	import JSZip from 'jszip';
+	import fileSaver from 'file-saver';
+	const saveAs = fileSaver;
 
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
@@ -100,6 +111,24 @@
 		console.log(`changing locale to ${requestedLocale}`);
 		setCurrentLocale(requestedLocale as any, { reload: true });
 		console.log(`locale is now ${getCurrentLocale()}`);
+	}
+
+	// ZIP Downloads
+
+	async function generateZip(fileType: BadgeExportType) {
+		const container = new JSZip();
+		for (const type of V2BadgeVariants) {
+			const badgeData = await build(type, badgeState);
+			const blob = createBlob(fileType.mime, badgeData);
+			container.file(`${type}.${fileType.extension}`, blob);
+		}
+
+		container.generateAsync({ type: 'blob' }).then((content) => {
+			saveAs(
+				content,
+				`badger_${badgeState.topText.replaceAll(' ', '_')}_${badgeState.bottomText.replaceAll(' ', '_')}_${fileType.extension}`
+			);
+		});
 	}
 </script>
 
@@ -276,7 +305,16 @@
 		</div>
 		<h1><LucideArrowUpRight /> {m['text.editor.export.header']()}</h1>
 		<hr />
-		export options for all badges will go here (think a ZIP file of all of them)
+		<div class="grid w-full grid-cols-2 gap-2">
+			<Button
+				action={() => generateZip(badgeExportTypes[1])}
+				type="action"
+				label="Export ZIP of all as SVG"><LucidePen />Export ZIP of all as SVG</Button
+			>
+			<Button disabled label="Export ZIP of all as PNG"
+				><LucideImage /> Export ZIP of all as PNG</Button
+			>
+		</div>
 		<h1><LucideGlobe />Localisation (Testing)</h1>
 		<hr />
 		Test String: {m.test()}

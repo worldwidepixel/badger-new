@@ -1,3 +1,5 @@
+import { badgeExportTypes } from "./utils";
+
 export type Badge = {
 	topText: string;
 	bottomText: string;
