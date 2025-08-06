@@ -87,3 +87,9 @@ export function setCurrentLocale(locale: Locale, options?: { reload?: boolean })
 export function getCurrentLocale() {
 	return currentLocale.locale;
 }
+
+export function createBlob(format: string, data: BlobPart) {
+	return new Blob([data], {
+		type: format
+	});
+}

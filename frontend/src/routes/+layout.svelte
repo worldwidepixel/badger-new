@@ -81,24 +81,24 @@
 					badger 3: echoes of the prequel
 				</div>
 				<div class="flex flex-row items-center justify-end gap-4">
-					<Tooltip left badger tip={m['button.layout.reset']()}>
+					<Tooltip left badger tip={m['label.layout.reset']()}>
 						<Button
 							action={resetBadge}
 							style="transparent"
 							roundness="circle"
 							type="action"
-							label={m['button.layout.reset']()}
+							label={m['label.layout.reset']()}
 						>
 							<LucideRotateCcw />
 						</Button>
 					</Tooltip>
-					<Tooltip left badger tip={m['button.layout.theme']()}>
+					<Tooltip left badger tip={m['label.layout.theme']()}>
 						<Button
 							action={toggleTheme}
 							style="transparent"
 							roundness="circle"
 							type="action"
-							label={m['button.layout.theme']()}
+							label={m['label.layout.theme']()}
 						>
 							<LucideSunMoon />
 						</Button>

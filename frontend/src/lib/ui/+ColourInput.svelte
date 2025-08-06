@@ -30,7 +30,9 @@
 </script>
 
 <div class="bg-badger-background-secondary flex w-fit flex-col overflow-clip rounded-xl">
-	<div class="flex h-10 w-64 flex-row gap-0 rounded-xl border p-2">
+	<div
+		class="flex h-10 w-64 flex-row gap-0 rounded-xl border p-2 outline-offset-[-2px] focus-within:outline"
+	>
 		<input
 			aria-label="Hex input for {label}"
 			name="colour-hex"
@@ -42,7 +44,7 @@
 			onkeypress={tryValidate}
 		/>
 		<span
-			class=" h-full w-full cursor-pointer overflow-clip rounded-md border focus-within:outline"
+			class="h-full w-full cursor-pointer overflow-clip rounded-md border focus-within:outline"
 			style="background-color: {value}"
 		>
 			<!--
