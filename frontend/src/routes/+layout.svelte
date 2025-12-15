@@ -74,7 +74,6 @@
 				showCopyFeedback = false;
 			}, 5 * 1000);
 		} catch {}
-		console.log(url);
 	}
 </script>
 
@@ -85,19 +84,19 @@
 <svelte:window bind:innerWidth={pageDimensions.width} bind:innerHeight={pageDimensions.height} />
 <svelte:body bind:offsetHeight={pageDimensions.contentHeight} />
 
-{#key currentLocale}
+{#key currentLocale.locale}
 	<div class="flex h-full flex-col">
 		<nav class="flex w-auto justify-center border-b p-5">
 			<div class="grid w-full max-w-[80rem] grid-cols-3 flex-row items-center">
 				<div class="flex flex-row items-center justify-start">
 					<a aria-label="Badger home" class="w-fit" href="/">
-						<span class="flex select-none flex-row items-center gap-2 text-xl">
+						<span class="flex flex-row items-center gap-2 text-xl select-none">
 							<LogoType />
 						</span>
 					</a>
 				</div>
 				<div class="flex flex-row items-center justify-center">
-					badger 3: echoes of the prequel
+					<!--badger 3: echoes of the prequel-->
 				</div>
 				<div class="flex flex-row items-center justify-end gap-4">
 					<Button
@@ -152,14 +151,14 @@
 		>
 			<div class="mt-[-1.25rem] flex flex-col items-center gap-1 sm:items-start">
 				<a href="/">
-					<span class="flex select-none flex-row items-center gap-2 text-xl">
+					<span class="flex flex-row items-center gap-2 text-xl select-none">
 						<LogoType />
 					</span>
 				</a>
 				<a
 					class="underline"
 					target="_blank"
-					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_branch}"
+					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_branch}/{data.deployment_hash}"
 					aria-label={m['label.layout.source']()}
 				>
 					<code>{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}</code>

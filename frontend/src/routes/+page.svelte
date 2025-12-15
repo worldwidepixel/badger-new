@@ -130,7 +130,7 @@
 
 	function locale() {
 		console.log(`changing locale to ${requestedLocale}`);
-		setCurrentLocale(requestedLocale as any, { reload: true });
+		setCurrentLocale(requestedLocale as any, { reload: false });
 		console.log(`locale is now ${getCurrentLocale()}`);
 	}
 
@@ -197,7 +197,7 @@
 							<span class="relative h-10 w-fit">
 								<input
 									onchange={submitIconUpload}
-									class="peer absolute left-0 top-0 z-[-1] size-10 appearance-none opacity-0"
+									class="peer absolute top-0 left-0 z-[-1] size-10 appearance-none opacity-0"
 									id="file-input"
 									name="file-input"
 									type="file"
@@ -234,7 +234,7 @@
 							<img
 								draggable="false"
 								alt={m['label.editor.edit.icon.preview']()}
-								class="size-35 aspect-square rounded-2xl p-2"
+								class="aspect-square size-35 rounded-2xl p-2"
 								src={badgeIconValid ? sanitiseText(badgeState.icon) : defaultIcon}
 							/>
 						</div>
@@ -244,7 +244,7 @@
 								>{m['text.editor.edit.icon.suggested']()}</span
 							>
 							<div
-								class="h-35 flex w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
+								class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
 								{#each badgePalette as colour}
 									<button
@@ -259,10 +259,10 @@
 									>
 										<LucidePipette
 											onclick={() => generateBackground(colour)}
-											class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 z-1 relative size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
+											class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 relative z-1 size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
 										/>
 										<span
-											class="absolute left-0 top-0 z-0 h-full w-full transition group-hover:brightness-90"
+											class="absolute top-0 left-0 z-0 h-full w-full transition group-hover:brightness-90"
 											style="background-color: {colour}"
 										></span>
 									</button>
