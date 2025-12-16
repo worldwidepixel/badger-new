@@ -15,33 +15,29 @@
 
 		public constructor(key: string) {
 			this.key = key;
+			setContext(this.key, this);
 		}
 	}
 </script>
 
 <script lang="ts">
 	import { XIcon } from '@lucide/svelte';
-	import { getContext, type Snippet } from 'svelte';
+	import { getContext, setContext, type Snippet } from 'svelte';
 	import Button from '../+Button.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { m } from '$lib/paraglide/messages';
 
 	type Props = {
-		header: Snippet;
-		content: Snippet;
-		footer: Snippet<[Function]>;
+		header: Snippet<[ModalData]>;
+		content: Snippet<[ModalData]>;
+		footer: Snippet<[ModalData]>;
 		key: string;
 	};
 	let { header, content, footer, key }: Props = $props();
 
 	const modalData: ModalData = getContext(key);
-
-	function setIsOpen(open: boolean) {
-		modalData.context.isOpen = open;
-	}
 </script>
 
-{modalData.context.isOpen}
 {#if modalData.context.isOpen}
 	<div
 		class="bg-badger-background-secondary/50 fixed top-0 right-0 bottom-0 left-0 z-10 flex h-full w-full flex-col items-center justify-center backdrop-blur-sm"
@@ -53,7 +49,7 @@
 				class="flex w-full flex-row justify-between gap-6 border-b-3 border-dotted px-6 py-5"
 			>
 				<div class="flex flex-row items-center gap-3">
-					{@render header()}
+					{@render header(modalData)}
 				</div>
 				<Tooltip badger tip={m['modal.close']()}>
 					<Button
@@ -68,10 +64,10 @@
 				</Tooltip>
 			</div>
 			<div class="flex max-h-full w-full flex-col gap-2 overflow-y-auto px-6">
-				{@render content()}
+				{@render content(modalData)}
 			</div>
 			<div class="flex flex-row flex-wrap items-center gap-2 px-6 pb-5">
-				{@render footer(setIsOpen)}
+				{@render footer(modalData)}
 			</div>
 		</div>
 	</div>

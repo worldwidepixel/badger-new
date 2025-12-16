@@ -16,14 +16,12 @@
 		{key}
 		HELLO THERE T
 	{/snippet}
-	{#snippet footer(setter)}
+	{#snippet footer(data)}
 		<Button className="bg-badger-background-tertiary px-3" label={m['modal.common.save']()}
 			><SaveIcon class="p-0.5" />{m['modal.common.save']()}</Button
 		>
 		<Button
-			action={() => {
-				setter(false);
-			}}
+			action={data?.context.close}
 			type="action"
 			className="bg-badger-background-tertiary px-3"
 			label={m['modal.common.cancel']()}

@@ -18,8 +18,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import { createParameters } from '@badgered/common';
 	import SettingsModal from '$lib/ui/modal/+SettingsModal.svelte';
-	import { setContext } from 'svelte';
-	import { ModalData, type ModalContext } from '$lib/ui/modal/+Modal.svelte';
+	import { ModalData } from '$lib/ui/modal/+Modal.svelte';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -87,8 +86,7 @@
 
 	// Layout modals
 
-	const settingsModalData = new ModalData('settingsModal');
-	setContext(settingsModalData.key, settingsModalData);
+	const settingsModalData = new ModalData('modalSettings');
 </script>
 
 <svelte:head>
