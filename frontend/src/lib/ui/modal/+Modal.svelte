@@ -51,13 +51,13 @@
 				<div class="flex flex-row items-center gap-3">
 					{@render header(modalData)}
 				</div>
-				<Tooltip badger tip={m['modal.close']()}>
+				<Tooltip badger tip={m['modal.common.close']()}>
 					<Button
 						type="action"
 						action={modalData.context.close}
 						roundness="circle"
 						className="w-fit bg-badger-background-tertiary h-fit"
-						label={m['modal.close']()}
+						label={m['modal.common.close']()}
 					>
 						<XIcon />
 					</Button>

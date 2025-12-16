@@ -53,7 +53,7 @@
 		@apply flex flex-row flex-wrap items-center gap-2 text-xl font-bold;
 	}
 	h4 {
-		@apply flex flex-row flex-wrap items-center gap-2 text-lg font-semibold;
+		@apply flex flex-row flex-wrap items-center gap-2 text-lg font-bold;
 	}
 	hr {
 		@apply w-full;

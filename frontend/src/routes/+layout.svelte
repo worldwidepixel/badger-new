@@ -12,7 +12,13 @@
 	import '@fontsource-variable/inter';
 	import { browser } from '$app/environment';
 	import type { DeploymentInfo } from '$lib/types';
-	import { appDimensions, badgeState, currentLocale, pageDimensions } from '$lib/state.svelte';
+	import {
+		appDimensions,
+		badgeState,
+		currentLocale,
+		pageDimensions,
+		toggleTheme
+	} from '$lib/state.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { pageBase, resetBadge } from '$lib';
 	import { m } from '$lib/paraglide/messages';
@@ -26,37 +32,6 @@
 	}
 
 	let { children, data }: Props = $props();
-
-	let theme = refreshTheme(); // Load user theme
-
-	function refreshTheme() {
-		if (browser) {
-			document.documentElement.classList.toggle(
-				'dark',
-				localStorage.theme === 'dark' ||
-					(!('theme' in localStorage) &&
-						window.matchMedia('(prefers-color-scheme: dark)').matches)
-			);
-			return localStorage.theme;
-		}
-		return 'light';
-	}
-
-	function setTheme(nextTheme: string) {
-		theme = nextTheme;
-		if (browser) {
-			localStorage.theme = nextTheme;
-		}
-		refreshTheme();
-	}
-
-	function toggleTheme() {
-		if (theme === 'light') {
-			setTheme('dark');
-			return;
-		}
-		setTheme('light');
-	}
 
 	console.log(
 		'%cBadger',
