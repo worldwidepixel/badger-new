@@ -40,6 +40,7 @@
 	"modal.settings.appearance.theme.dark": "Dark mode",
 	"modal.settings.locale.title": "Locale",
 	"modal.settings.locale.display_language": "Display Language",
+	"modal.settings.locale.display_language.aria": "Select display language",
 	"modal.reset.confirm": "Reset workspace",
 	"modal.reset.message": "Resetting your workspace will delete all your work forever! (A long time!)",
 	"modal.reset.skip": "Hold CTRL when resetting workspace to skip this warning.",

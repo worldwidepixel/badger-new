@@ -47,6 +47,7 @@
 			<h4 class="col-span-2">{m['modal.settings.locale.title']()}</h4>
 			<p>{m['modal.settings.locale.display_language']()}</p>
 			<select
+				aria-label={m['modal.settings.locale.display_language.aria']()}
 				style="appearance: base-select"
 				class="bg-badger-background-tertiary flex w-56 cursor-pointer flex-row items-center justify-center gap-1 rounded-xl border p-1.5 px-3 text-left font-semibold text-nowrap transition hover:brightness-95 active:brightness-95"
 				bind:value={requestedLocale}
