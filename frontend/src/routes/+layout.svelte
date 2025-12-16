@@ -174,7 +174,7 @@
 				<a
 					class="underline"
 					target="_blank"
-					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_branch}/{data.deployment_hash}"
+					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_hash}"
 					aria-label={m['label.layout.source']()}
 				>
 					<code>{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}</code>
