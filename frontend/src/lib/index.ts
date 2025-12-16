@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/public';
 import chroma from 'chroma-js';
 import type { HexColour } from './types';
 import { ofetch } from 'ofetch';
-import { badgeState, currentLocale } from './state.svelte';
+import { badgeState, currentLocale, keyboardState } from './state.svelte';
 import { defaultBadge } from '@badgered/common';
 import { setLocale, type Locale } from './paraglide/runtime';
 
@@ -93,4 +93,12 @@ export function createBlob(format: string, data: BlobPart) {
 	return new Blob([data], {
 		type: format
 	});
+}
+
+export function handleKeys(event: KeyboardEvent, keyDown: boolean) {
+	if (!keyDown) {
+		keyboardState.currentKey = '';
+		return;
+	}
+	keyboardState.currentKey = event.key;
 }

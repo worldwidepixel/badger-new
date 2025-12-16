@@ -2,6 +2,7 @@
 
 @theme {
 	--color-badger-red: #ff125e;
+	--color-badger-red-secondary: color-mix(in oklch, var(--color-badger-red), black 10%);
 	--color-badger-orange: #ff8e31;
 	--color-badger-green: #00e54a;
 	--color-badger-blue: #047eff;

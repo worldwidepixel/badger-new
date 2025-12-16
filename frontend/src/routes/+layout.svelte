@@ -16,15 +16,17 @@
 		appDimensions,
 		badgeState,
 		currentLocale,
+		keyboardState,
 		pageDimensions,
 		toggleTheme
 	} from '$lib/state.svelte';
 	import Tooltip from 'sv-tooltip';
-	import { pageBase, resetBadge } from '$lib';
+	import { pageBase, handleKeys, resetBadge } from '$lib';
 	import { m } from '$lib/paraglide/messages';
 	import { createParameters } from '@badgered/common';
 	import SettingsModal from '$lib/ui/modal/+SettingsModal.svelte';
 	import { ModalData } from '$lib/ui/modal/+Modal.svelte';
+	import ResetWarningModal from '$lib/ui/modal/+ResetWarningModal.svelte';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -62,15 +64,28 @@
 	// Layout modals
 
 	const settingsModalData = new ModalData('modalSettings');
+	const resetModalData = new ModalData('modalReset');
+
+	function handleReset() {
+		if (keyboardState.currentKey === 'Control') {
+			resetBadge();
+			return;
+		}
+		resetModalData.context.open();
+	}
 </script>
 
 <svelte:head>
 	<meta name="darkreader-lock" />
 </svelte:head>
 
-<svelte:window bind:innerWidth={pageDimensions.width} bind:innerHeight={pageDimensions.height} />
+<svelte:window
+	onkeydown={(event) => handleKeys(event, true)}
+	onkeyup={(event) => handleKeys(event, false)}
+	bind:innerWidth={pageDimensions.width}
+	bind:innerHeight={pageDimensions.height}
+/>
 <svelte:body bind:offsetHeight={pageDimensions.contentHeight} />
-
 {#key currentLocale.locale}
 	<div class="flex h-full flex-col">
 		<nav class="flex w-auto justify-center border-b p-5">
@@ -101,7 +116,7 @@
 					</Button>
 					<Tooltip left badger tip={m['label.layout.reset']()}>
 						<Button
-							action={resetBadge}
+							action={handleReset}
 							style="transparent"
 							roundness="circle"
 							type="action"
@@ -137,6 +152,7 @@
 		</nav>
 		<!-- Any page-wide modals should be here. -->
 		<SettingsModal key={settingsModalData.key} />
+		<ResetWarningModal key={resetModalData.key} />
 		<main
 			bind:clientWidth={appDimensions.width}
 			bind:clientHeight={appDimensions.height}

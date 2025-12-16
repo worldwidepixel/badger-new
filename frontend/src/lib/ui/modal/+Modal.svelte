@@ -39,11 +39,19 @@
 </script>
 
 {#if modalData.context.isOpen}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		class="bg-badger-background-secondary/50 fixed top-0 right-0 bottom-0 left-0 z-10 flex h-full w-full flex-col items-center justify-center backdrop-blur-sm"
+		onclick={() => modalData.context.close()}
+		class="bg-badger-background-secondary/50 fixed top-0 right-0 bottom-0 left-0 z-10 h-full w-full backdrop-blur-sm"
+	></div>
+
+	<div
+		class="pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-11 flex h-full w-full flex-col items-center justify-center"
 	>
 		<div
-			class="bg-badger-background-secondary flex max-h-full max-w-full flex-col gap-4 rounded-2xl border shadow-2xl"
+			class="bg-badger-background-secondary pointer-events-auto flex max-h-full max-w-full flex-col gap-4 rounded-2xl border shadow-2xl"
 		>
 			<div
 				class="flex w-full flex-row justify-between gap-6 border-b-3 border-dotted px-6 py-5"
@@ -66,7 +74,7 @@
 			<div class="flex max-h-full w-full flex-col gap-2 overflow-y-auto px-6">
 				{@render content(modalData)}
 			</div>
-			<div class="flex flex-row flex-wrap items-center gap-2 px-6 pb-5">
+			<div class="flex flex-row flex-wrap items-center justify-end gap-2 px-6 pb-5">
 				{@render footer(modalData)}
 			</div>
 		</div>

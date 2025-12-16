@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages';
-	import { CheckIcon, LucideMoon, LucideSun, SettingsIcon, XIcon } from '@lucide/svelte';
+	import { LucideMoon, LucideSun, SaveIcon, SettingsIcon } from '@lucide/svelte';
 	import Button from '../+Button.svelte';
-	import Modal from './+Modal.svelte';
+	import Modal, { type ModalContext } from './+Modal.svelte';
 	import { currentLocale, currentTheme, toggleTheme } from '$lib/state.svelte';
 	import { locales } from '$lib/paraglide/runtime';
 	import { setCurrentLocale } from '$lib';
@@ -12,10 +12,11 @@
 	const existingLocale = currentLocale;
 	let requestedLocale: string = $state(existingLocale.locale);
 
-	function saveLocale() {
+	function saveLocale(context: ModalContext) {
 		if (requestedLocale !== existingLocale.locale) {
 			setCurrentLocale(requestedLocale as any, { reload: false });
 		}
+		context.close();
 	}
 </script>
 
@@ -47,7 +48,7 @@
 			<p>{m['modal.settings.locale.display_language']()}</p>
 			<select
 				style="appearance: base-select"
-				class="bg-badger-background-tertiary flex w-56 flex-row items-center justify-center gap-1 rounded-xl border p-1.5 px-3 text-left font-semibold text-nowrap transition hover:brightness-95 active:brightness-95"
+				class="bg-badger-background-tertiary flex w-56 cursor-pointer flex-row items-center justify-center gap-1 rounded-xl border p-1.5 px-3 text-left font-semibold text-nowrap transition hover:brightness-95 active:brightness-95"
 				bind:value={requestedLocale}
 			>
 				{#each locales as locale}
@@ -63,22 +64,13 @@
 	{/snippet}
 	{#snippet footer(data)}
 		<Button
-			action={saveLocale}
+			action={() => saveLocale(data.context)}
 			type="action"
 			className="bg-badger-background-tertiary px-3"
-			label={m['modal.common.save']()}
+			label={m['modal.common.save_and_quit']()}
 		>
-			<CheckIcon class="p-0.5" />
-			{m['modal.common.save']()}</Button
-		>
-		<Button
-			action={data.context.close}
-			type="action"
-			className="bg-badger-background-tertiary px-3"
-			label={m['modal.common.close']()}
-		>
-			<XIcon class="p-0.5" />
-			{m['modal.common.close']()}</Button
+			<SaveIcon class="p-0.5" />
+			{m['modal.common.save_and_quit']()}</Button
 		>
 	{/snippet}
 </Modal>

@@ -2,12 +2,6 @@ import { defaultBadge, type Badge } from '@badgered/common';
 import { getLocale } from './paraglide/runtime';
 import { browser } from '$app/environment';
 
-export const pageDimensions = $state({
-	width: 0,
-	height: 0,
-	contentHeight: 0
-});
-
 export const appDimensions = $state({
 	width: 0,
 	height: 0
@@ -51,3 +45,13 @@ export function toggleTheme() {
 	}
 	setTheme('light');
 }
+
+export const keyboardState = $state({
+	currentKey: ''
+});
+
+export const pageDimensions = $state({
+	width: 0,
+	height: 0,
+	contentHeight: 0
+});
