@@ -9,6 +9,7 @@
 
 	--color-badger-background: #ffffff;
 	--color-badger-background-secondary: #fafafa;
+	--color-badger-background-tertiary: #f4f2f2;
 	--color-badger-background-transparent: #0d0e1207;
 	--color-badger-text: #0d0e12;
 	--color-badger-text-primary: #000000;
@@ -19,7 +20,8 @@
 
 .dark {
 	--color-badger-background: #0b0d0e;
-	--color-badger-background-secondary: #161b1d;
+	--color-badger-background-secondary: #101516;
+	--color-badger-background-tertiary: #161b1d;
 	--color-badger-background-transparent: #ebecf407;
 	--color-badger-text: #e1e2ea;
 	--color-badger-text-primary: #ffffff;
@@ -38,6 +40,9 @@
 			@apply h-full;
 		}
 	}
+	h0 {
+		@apply text-badger-text-primary flex flex-row flex-wrap items-center gap-2 text-3xl font-extrabold;
+	}
 	h1 {
 		@apply text-badger-text-primary flex flex-row flex-wrap items-center gap-2 text-3xl font-bold;
 	}
@@ -45,7 +50,10 @@
 		@apply flex flex-row flex-wrap items-center gap-2 text-2xl font-bold;
 	}
 	h3 {
-		@apply flex flex-row flex-wrap items-center gap-2 text-xl font-semibold;
+		@apply flex flex-row flex-wrap items-center gap-2 text-xl font-bold;
+	}
+	h4 {
+		@apply flex flex-row flex-wrap items-center gap-2 text-lg font-semibold;
 	}
 	hr {
 		@apply w-full;

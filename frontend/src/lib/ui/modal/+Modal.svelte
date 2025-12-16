@@ -1,0 +1,78 @@
+<script module>
+	export type ModalContext = {
+		isOpen: boolean;
+		open: Function;
+		close: Function;
+	};
+
+	export class ModalData {
+		public key: string;
+		public context: ModalContext = $state({
+			isOpen: false,
+			open: () => (this.context.isOpen = true),
+			close: () => (this.context.isOpen = false)
+		});
+
+		public constructor(key: string) {
+			this.key = key;
+		}
+	}
+</script>
+
+<script lang="ts">
+	import { XIcon } from '@lucide/svelte';
+	import { getContext, type Snippet } from 'svelte';
+	import Button from '../+Button.svelte';
+	import Tooltip from 'sv-tooltip';
+	import { m } from '$lib/paraglide/messages';
+
+	type Props = {
+		header: Snippet;
+		content: Snippet;
+		footer: Snippet<[Function]>;
+		key: string;
+	};
+	let { header, content, footer, key }: Props = $props();
+
+	const modalData: ModalData = getContext(key);
+
+	function setIsOpen(open: boolean) {
+		modalData.context.isOpen = open;
+	}
+</script>
+
+{modalData.context.isOpen}
+{#if modalData.context.isOpen}
+	<div
+		class="bg-badger-background-secondary/50 fixed top-0 right-0 bottom-0 left-0 z-10 flex h-full w-full flex-col items-center justify-center backdrop-blur-sm"
+	>
+		<div
+			class="bg-badger-background-secondary flex max-h-full max-w-full flex-col gap-4 rounded-2xl border shadow-2xl"
+		>
+			<div
+				class="flex w-full flex-row justify-between gap-6 border-b-3 border-dotted px-6 py-5"
+			>
+				<div class="flex flex-row items-center gap-3">
+					{@render header()}
+				</div>
+				<Tooltip badger tip={m['modal.close']()}>
+					<Button
+						type="action"
+						action={modalData.context.close}
+						roundness="circle"
+						className="w-fit bg-badger-background-tertiary h-fit"
+						label={m['modal.close']()}
+					>
+						<XIcon />
+					</Button>
+				</Tooltip>
+			</div>
+			<div class="flex max-h-full w-full flex-col gap-2 overflow-y-auto px-6">
+				{@render content()}
+			</div>
+			<div class="flex flex-row flex-wrap items-center gap-2 px-6 pb-5">
+				{@render footer(setIsOpen)}
+			</div>
+		</div>
+	</div>
+{/if}

@@ -1,7 +1,13 @@
 <script lang="ts">
 	import LogoType from '$lib/ui/+LogoType.svelte';
 	import Button from '$lib/ui/+Button.svelte';
-	import { LucideCheck, LucideRotateCcw, LucideShare, LucideSunMoon } from '@lucide/svelte';
+	import {
+		LucideCheck,
+		LucideRotateCcw,
+		LucideSettings,
+		LucideShare,
+		LucideSunMoon
+	} from '@lucide/svelte';
 	import '../app.css';
 	import '@fontsource-variable/inter';
 	import { browser } from '$app/environment';
@@ -11,6 +17,9 @@
 	import { pageBase, resetBadge } from '$lib';
 	import { m } from '$lib/paraglide/messages';
 	import { createParameters } from '@badgered/common';
+	import SettingsModal from '$lib/ui/modal/+SettingsModal.svelte';
+	import { setContext } from 'svelte';
+	import { ModalData, type ModalContext } from '$lib/ui/modal/+Modal.svelte';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -75,6 +84,11 @@
 			}, 5 * 1000);
 		} catch {}
 	}
+
+	// Layout modals
+
+	const settingsModalData = new ModalData('settingsModal');
+	setContext(settingsModalData.key, settingsModalData);
 </script>
 
 <svelte:head>
@@ -102,7 +116,7 @@
 					<Button
 						action={shareBadgeProject}
 						type="action"
-						className="px-3 font-semibold"
+						className="px-3"
 						label={m['label.layout.share.aria']()}
 					>
 						{#if showCopyFeedback}
@@ -123,6 +137,17 @@
 							<LucideRotateCcw />
 						</Button>
 					</Tooltip>
+					<Tooltip left badger tip={m['label.layout.settings']()}>
+						<Button
+							action={settingsModalData.context.open}
+							style="transparent"
+							roundness="circle"
+							type="action"
+							label={m['label.layout.settings']()}
+						>
+							<LucideSettings />
+						</Button>
+					</Tooltip>
 					<Tooltip left badger tip={m['label.layout.theme']()}>
 						<Button
 							action={toggleTheme}
@@ -137,6 +162,8 @@
 				</div>
 			</div>
 		</nav>
+		<!-- Any page-wide modals should be here. -->
+		<SettingsModal key={settingsModalData.key} />
 		<main
 			bind:clientWidth={appDimensions.width}
 			bind:clientHeight={appDimensions.height}
@@ -174,6 +201,7 @@
 					target="_blank"
 					href="https://worldwidepixel.ca"
 					aria-label={m['label.layout.created']()}
+					class="hover:underline"
 				>
 					{m['text.layout.created']({ name: 'WorldWidePixel' })}
 				</a>

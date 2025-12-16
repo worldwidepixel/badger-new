@@ -27,12 +27,12 @@
 	const transparencyStyle =
 		style === 'solid'
 			? 'bg-badger-background-secondary border'
-			: 'hover:outline outline-badger-border hover:bg-badger-background-transparent hover:shadow';
+			: 'hover:outline active:outline outline-badger-border hover:bg-badger-background-transparent active:bg-badger-background-transparent hover:shadow';
 	const actionStyle = action || to ? 'cursor-pointer' : '';
 	const disabledStyle = disabled ? 'opacity-50 !cursor-not-allowed' : '';
 
 	const buttonStyle = [
-		'flex flex-row gap-1 items-center justify-center transition p-1.5 hover:brightness-99 active:brightness-95',
+		'flex flex-row gap-1 font-semibold items-center justify-center transition p-1.5 hover:brightness-95 active:brightness-95 active:scale-95',
 		roundnessStyle,
 		transparencyStyle,
 		actionStyle,
