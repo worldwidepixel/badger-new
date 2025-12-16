@@ -26,6 +26,7 @@
 	import Button from '../+Button.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { m } from '$lib/paraglide/messages';
+	import { keyboardState } from '$lib/state.svelte';
 
 	type Props = {
 		header: Snippet<[ModalData]>;
@@ -36,6 +37,12 @@
 	let { header, content, footer, key }: Props = $props();
 
 	const modalData: ModalData = getContext(key);
+
+	keyboardState.listeners.push((event) => {
+		if (event.key === 'Escape') {
+			modalData.context.close();
+		}
+	});
 </script>
 
 {#if modalData.context.isOpen}

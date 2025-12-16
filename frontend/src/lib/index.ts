@@ -101,4 +101,7 @@ export function handleKeys(event: KeyboardEvent, keyDown: boolean) {
 		return;
 	}
 	keyboardState.currentKey = event.key;
+	keyboardState.listeners.forEach((listener) => {
+		listener(event);
+	});
 }

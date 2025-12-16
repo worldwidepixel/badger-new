@@ -14,3 +14,10 @@ export type HexColour = `#${string}`;
 export type BadgerParameters = {
 	editorParameters: Partial<Badge>;
 } & DeploymentInfo;
+
+// Keyboard handling
+
+export type KeyboardStateType = {
+	currentKey: string;
+	listeners: ((event: KeyboardEvent) => void)[];
+};
