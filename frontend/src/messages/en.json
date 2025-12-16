@@ -1,5 +1,6 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta.display_name": "English",
 	"test": "Hai :333",
 	"label.badge.tools.copy.html": "Copy HTML code",
 	"label.badge.tools.copy.html.aria": "Copy {label} badge HTML code",
@@ -36,6 +37,8 @@
 	"modal.settings.appearance.theme.title": "Colour theme",
 	"modal.settings.appearance.theme.light": "Light mode",
 	"modal.settings.appearance.theme.dark": "Dark mode",
+	"modal.settings.locale.title": "Locale",
+	"modal.settings.locale.display_language": "Display Language",
 	"placeholder.editor.edit.text.bottom": "Bottom: Type anything here",
 	"placeholder.editor.edit.text.top": "Top: Type anything here",
 	"text.badge.type.compact": "Compact",

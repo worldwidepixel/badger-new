@@ -1,4 +1,5 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"meta.display_name": "English (Test Variant)",
 	"test": "Hi"
 }

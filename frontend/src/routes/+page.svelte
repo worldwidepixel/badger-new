@@ -124,16 +124,6 @@
 		}
 	}
 
-	// i18n debug
-
-	let requestedLocale = $state('en-test');
-
-	function locale() {
-		console.log(`changing locale to ${requestedLocale}`);
-		setCurrentLocale(requestedLocale as any, { reload: false });
-		console.log(`locale is now ${getCurrentLocale()}`);
-	}
-
 	// ZIP Downloads
 
 	async function generateZip(fileType: BadgeExportType) {
@@ -337,14 +327,5 @@
 				><LucideImageDown class="p-0.5" /> {m['label.editor.export.zip.png']()}</Button
 			>
 		</div>
-		<h1><LucideGlobe />Localisation (Testing)</h1>
-		<hr />
-		Test String: {m.test()}
-		Current Locale: {getCurrentLocale()}
-
-		<TextInput bind:value={requestedLocale} label="test" />
-		<Button action={locale} type="action" label="test"
-			>Change locale to {requestedLocale}</Button
-		>
 	</div>
 </div>
