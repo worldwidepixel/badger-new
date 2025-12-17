@@ -5,18 +5,6 @@ export async function create() {
 		return "";
 	};
 
-	/*
-	export const defaultBadge = {
-		topText: "Made for",
-		bottomText: "You",
-		topTextColour: "#FFFFFF",
-		bottomTextColour: "#FF0066",
-		topBackgroundColour: "#8F004C",
-		bottomBackgroundColour: "#61003D",
-		icon: defaultIcon,
-	};
-	 */
-
 	const bwKeys = {
 		topText: "topText",
 		bottomText: "bottomText",
