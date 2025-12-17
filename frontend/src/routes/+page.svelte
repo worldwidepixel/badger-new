@@ -16,19 +16,11 @@
 	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
 	import ColorThief from 'colorthief';
 	import { browser } from '$app/environment';
-	import {
-		createBlob,
-		generatePalette,
-		getCurrentLocale,
-		rgbToHex,
-		setCurrentLocale,
-		uploadToHost
-	} from '$lib';
+	import { createBlob, generatePalette, rgbToHex, uploadToHost } from '$lib';
 	import type { BadgerParameters, HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
 		LucideEye,
-		LucideGlobe,
 		LucideImage,
 		LucideImageDown,
 		LucidePaintbrush,

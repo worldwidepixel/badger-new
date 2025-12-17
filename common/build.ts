@@ -1,13 +1,12 @@
 import { Font } from "opentype.js";
-import xss from "xss";
 import { Badge, BadgeVariant, PathData, RenderProps } from "./types";
-import { getInterExtraBold, getInterMedium } from "./fonts";
+import { interExtraBoldFont, interMediumFont } from "./fonts";
 import { compact, compactMinimal, cosy, cosyMinimal } from "./render";
 import { sanitiseText } from "./utils";
 
 export async function build(variant: BadgeVariant, props: Badge) {
-	const mediumFont: Font = await getInterMedium();
-	const extraBoldFont: Font = await getInterExtraBold();
+	const mediumFont: Font = await interMediumFont.getFont();
+	const extraBoldFont: Font = await interExtraBoldFont.getFont();
 
 	const pathData = generatePathData(
 		mediumFont,
@@ -66,7 +65,6 @@ export const defaultBadge = {
 	icon: defaultIcon,
 };
 
-// Uhhh... this just assumes all images are PNGs.
 async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 	const fetchImageUrl = await fetch(imgUrl);
 	const responseArrBuffer = await fetchImageUrl.arrayBuffer();

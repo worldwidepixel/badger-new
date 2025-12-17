@@ -1,34 +1,32 @@
 import opentype from "opentype.js";
 
+class BadgerFont {
+	private url: string;
+	private buffer: ArrayBuffer | undefined;
+	private font: opentype.Font | undefined;
+	private name: string;
+
+	public constructor(url: string, name: string) {
+		this.name = name;
+		this.url = url;
+		this.getFont();
+	}
+
+	public async getFont() {
+		const fontResponse = await fetch(this.url);
+		if (!this.buffer) {
+			this.buffer = await fontResponse.arrayBuffer();
+			this.font = opentype.parse(this.buffer);
+		}
+		if (!this.font) {
+			throw new Error(`${this.name} has not loaded`);
+		}
+		return this.font;
+	}
+}
+
 const INTER_MEDIUM_URL = "https://fonts.bunny.net/inter/files/inter-latin-500-normal.woff";
 const INTER_EXTRA_BOLD_URL = "https://fonts.bunny.net/inter/files/inter-latin-800-normal.woff";
 
-let bufferMedium: ArrayBuffer | null = null;
-let interMedium: opentype.Font | null = null;
-
-export async function getInterMedium(): Promise<opentype.Font> {
-	if (!bufferMedium) {
-		const res = await fetch(INTER_MEDIUM_URL);
-		bufferMedium = await res.arrayBuffer();
-		interMedium = opentype.parse(bufferMedium);
-	}
-	if (!interMedium) {
-		throw new Error("Inter Medium font not loaded yet");
-	}
-	return interMedium;
-}
-
-let bufferExtraBold: ArrayBuffer | null = null;
-let interExtraBold: opentype.Font | null = null;
-
-export async function getInterExtraBold(): Promise<opentype.Font> {
-	if (!bufferExtraBold) {
-		const res = await fetch(INTER_EXTRA_BOLD_URL);
-		bufferExtraBold = await res.arrayBuffer();
-		interExtraBold = opentype.parse(bufferExtraBold);
-	}
-	if (!interExtraBold) {
-		throw new Error("Inter Extra Bold font not loaded yet");
-	}
-	return interExtraBold;
-}
+export const interMediumFont = new BadgerFont(INTER_MEDIUM_URL, "Inter Medium");
+export const interExtraBoldFont = new BadgerFont(INTER_EXTRA_BOLD_URL, "Inter Extrabold");
