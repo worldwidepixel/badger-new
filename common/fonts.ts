@@ -1,6 +1,6 @@
 import opentype from "opentype.js";
 
-class BadgerFont {
+export class BadgerFont {
 	private url: string;
 	private buffer: ArrayBuffer | undefined;
 	private font: opentype.Font | undefined;

@@ -1,5 +1,11 @@
 import { paraglideMiddleware } from '$lib/paraglide/server';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, ServerInit } from '@sveltejs/kit';
+
+export const init: ServerInit = async () => {
+	console.log('hai');
+};
+
+// Paraglide i18n
 
 const paraglideHandle: Handle = ({ event, resolve }) => {
 	return paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {

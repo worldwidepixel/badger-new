@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import Button from '$lib/ui/+Button.svelte';
 	import { getWittyComment } from '@badgered/common';
@@ -36,9 +37,13 @@
 </script>
 
 <div class="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
-	<span> {getWittyComment()} </span>
+	{#if browser}
+		<span> {getWittyComment()} </span>
+	{:else}
+		<span> Witty comment loading... </span>
+	{/if}
 	<span
-		class="flex select-none flex-row items-center gap-0 text-9xl font-extrabold [&>svg]:h-28 [&>svg]:w-28"
+		class="flex flex-row items-center gap-0 text-9xl font-extrabold select-none [&>svg]:h-28 [&>svg]:w-28"
 	>
 		{@html code}
 	</span>
