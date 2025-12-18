@@ -34,6 +34,7 @@
 	"modal.common.save": "Save",
 	"modal.common.save_and_quit": "Save and quit",
 	"modal.settings.title": "Badger settings",
+	"modal.settings.debug.title": "Debug",
 	"modal.settings.appearance.title": "Appearance",
 	"modal.settings.appearance.theme.title": "Colour theme",
 	"modal.settings.appearance.theme.light": "Light mode",

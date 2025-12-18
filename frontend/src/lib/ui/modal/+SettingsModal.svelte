@@ -3,7 +3,7 @@
 	import { LucideMoon, LucideSun, SaveIcon, SettingsIcon } from '@lucide/svelte';
 	import Button from '../+Button.svelte';
 	import Modal, { type ModalContext } from './+Modal.svelte';
-	import { currentLocale, currentTheme, toggleTheme } from '$lib/state.svelte';
+	import { currentLocale, currentTheme, debugState, toggleTheme } from '$lib/state.svelte';
 	import { locales } from '$lib/paraglide/runtime';
 	import { setCurrentLocale } from '$lib';
 
@@ -17,6 +17,10 @@
 			setCurrentLocale(requestedLocale as any, { reload: false });
 		}
 		context.close();
+	}
+
+	function toggleWeasel() {
+		debugState.weasel = !debugState.weasel;
 	}
 </script>
 
@@ -61,6 +65,17 @@
 					>
 				{/each}
 			</select>
+			<hr class="col-span-2 my-4" />
+			<h4 class="col-span-2">{m['modal.settings.debug.title']()}</h4>
+			<p>Use alpha Weasel system</p>
+			<Button
+				type="action"
+				action={toggleWeasel}
+				className="bg-badger-background-tertiary px-3"
+				label="Toggle Weasel"
+			>
+				{debugState.weasel}
+			</Button>
 		</div>
 	{/snippet}
 	{#snippet footer(data)}

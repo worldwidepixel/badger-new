@@ -57,3 +57,7 @@ export const pageDimensions = $state({
 	height: 0,
 	contentHeight: 0
 });
+
+export const debugState = $state({
+	weasel: false
+});
