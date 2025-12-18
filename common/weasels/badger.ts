@@ -3,15 +3,15 @@ import {
 	Weasel,
 	WeaselBadgeVariant,
 	WeaselBiLinkedInput,
+	WeaselCollection,
 	WeaselEditorGroup,
 	weaselInputElements,
 	WeaselLinkedInput,
 	WeaselParameter,
-	WeaselVariantGroup,
 } from "../";
 import { interExtraBoldFont, interMediumFont } from "../fonts";
 
-export const badgerWeasel: Weasel = new Weasel.Builder("badger", {
+export const classicWeasel: Weasel = new Weasel.Builder("classic", {
 	icon: new WeaselParameter("icon"),
 	topText: new WeaselParameter("topText"),
 	bottomText: new WeaselParameter("bottomText"),
@@ -67,19 +67,14 @@ export const badgerWeasel: Weasel = new Weasel.Builder("badger", {
 			)
 			.build(),
 	)
-	.addVariantGroup(
-		new WeaselVariantGroup.Builder("v2")
-			.addVariant(new WeaselBadgeVariant("cosy", emptyRenderer))
-			.addVariant(new WeaselBadgeVariant("cosy_minimal", emptyRenderer))
-			.addVariant(new WeaselBadgeVariant("compact", emptyRenderer))
-			.addVariant(new WeaselBadgeVariant("compact_minimal", emptyRenderer))
-			.build(),
-	)
-	.addVariantGroup(
-		new WeaselVariantGroup.Builder("v4")
-			.addVariant(new WeaselBadgeVariant("full", emptyRenderer))
-			.addVariant(new WeaselBadgeVariant("full_strokeless", emptyRenderer))
-			.build(),
-	)
+	.addVariant(new WeaselBadgeVariant("cosy", emptyRenderer))
+	.addVariant(new WeaselBadgeVariant("cosy_minimal", emptyRenderer))
+	.addVariant(new WeaselBadgeVariant("compact", emptyRenderer))
+	.addVariant(new WeaselBadgeVariant("compact_minimal", emptyRenderer))
 
 	.build();
+
+export const badgerWeasels: WeaselCollection = {
+	id: "badger",
+	weasels: [classicWeasel],
+};

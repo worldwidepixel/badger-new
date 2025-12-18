@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages';
-	import { badgerWeasel, generateKey, WeaselEditorGroup } from '@badgered/common';
+	import { classicWeasel, generateKey, WeaselEditorGroup } from '@badgered/common';
 	import { LucidePen } from '@lucide/svelte';
 	import WeaselGroupIcon from './+WeaselGroupIcon.svelte';
 	import WeaselInput from './+WeaselInput.svelte';
 
-	const bId = badgerWeasel.getId();
-	const bEditorGroups = badgerWeasel.getEditorGroups();
+	const bId = classicWeasel.getId();
+	const bEditorGroups = classicWeasel.getEditorGroups();
 </script>
 
 <h1><LucidePen />{m['text.editor.edit.header']()} (Weasel)</h1>

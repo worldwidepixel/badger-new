@@ -8,33 +8,38 @@ export function generateKey(...args: string[]) {
 	return ["weasel", ...args].join(".");
 }
 
+export type WeaselCollection = {
+	id: string;
+	weasels: Weasel[];
+};
+
 // Weasels belong to the same animal family as Badgers, so I thought it'd be fitting.
 export class Weasel {
 	private id;
 	private fonts;
 	private parameters;
 	private editorGroups;
-	private variantGroups;
+	private variants;
 
 	private constructor(
 		id: string,
 		fonts: BadgerFont[],
 		parameters: WeaselParameter[],
 		editorGroups: WeaselEditorGroup[],
-		variantGroups: WeaselVariantGroup[],
+		variants: WeaselBadgeVariant[],
 	) {
 		this.id = id;
 		this.fonts = fonts;
 		this.parameters = parameters;
 		this.editorGroups = editorGroups;
-		this.variantGroups = variantGroups;
+		this.variants = variants;
 	}
 
 	static Builder = class {
 		private id: string;
 		private parameters;
 		private editorGroups: WeaselEditorGroup[] = [];
-		private variantGroups: WeaselVariantGroup[] = [];
+		private variants: WeaselBadgeVariant[] = [];
 		private fonts: BadgerFont[] = [];
 
 		public constructor(id: string, parameters: { [key: string]: WeaselParameter }) {
@@ -48,8 +53,8 @@ export class Weasel {
 			return this;
 		}
 
-		public addVariantGroup(variantGroup: WeaselVariantGroup) {
-			this.variantGroups.push(variantGroup);
+		public addVariant(variant: WeaselBadgeVariant) {
+			this.variants.push(variant);
 			return this;
 		}
 
@@ -59,13 +64,7 @@ export class Weasel {
 		}
 
 		public build() {
-			return new Weasel(
-				this.id,
-				this.fonts,
-				Object.values(this.parameters),
-				this.editorGroups,
-				this.variantGroups,
-			);
+			return new Weasel(this.id, this.fonts, Object.values(this.parameters), this.editorGroups, this.variants);
 		}
 	};
 
@@ -81,8 +80,8 @@ export class Weasel {
 	public getEditorGroups() {
 		return this.editorGroups;
 	}
-	public getVariantGroups() {
-		return this.variantGroups;
+	public getVariants() {
+		return this.variants;
 	}
 }
 
@@ -169,35 +168,6 @@ export const weaselInputElements = {
 	image_input: new WeaselInputElement("image_input"),
 	image_colour_input: new WeaselInputElement("image_colour_input"),
 };
-
-export class WeaselVariantGroup {
-	public id;
-	public variants;
-
-	private constructor(id: string, variants: WeaselBadgeVariant[]) {
-		this.id = id;
-		this.variants = variants;
-	}
-
-	static Builder = class {
-		private id;
-		private variants: WeaselBadgeVariant[] = [];
-
-		public constructor(id: string) {
-			this.id = id;
-			return this;
-		}
-
-		public addVariant(variant: WeaselBadgeVariant) {
-			this.variants.push(variant);
-			return this;
-		}
-
-		public build() {
-			return new WeaselVariantGroup(this.id, this.variants);
-		}
-	};
-}
 
 export class WeaselBadgeVariant {
 	public id;
