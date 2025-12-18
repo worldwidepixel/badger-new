@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { appDimensions, pageDimensions, badgeState } from '$lib/state.svelte';
+	import { appDimensions, pageDimensions, badgeState, debugState } from '$lib/state.svelte';
 	import {
 		defaultIcon,
 		V2BadgeVariants,
@@ -35,6 +35,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import JSZip from 'jszip';
 	import fileSaver from 'file-saver';
+	import WeaselEditPanel from '$lib/ui/weasel/+WeaselEditPanel.svelte';
 	const saveAs = fileSaver;
 
 	interface Props {
@@ -140,14 +141,19 @@
 		style="max-height: {appHeight}px"
 		class="flex flex-col gap-4 overflow-y-auto border-r py-6 pr-6"
 	>
+		{#if debugState.weasel}
+			<code class="underline decoration-wavy">WEASEL SYSTEM ENABLED</code>
+			<WeaselEditPanel />
+		{/if}
 		<h1><LucidePen />{m['text.editor.edit.header']()}</h1>
 		<hr />
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<h3><LucideText /> {m['text.editor.edit.text.header']()}</h3>
-				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
+				<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
+					<p>{m['text.editor.edit.text.top']()}</p>
 					<TextInput
-						placeholder={m['placeholder.editor.edit.text.top']()}
+						placeholder={m['placeholder.editor.edit.text']()}
 						label={m['label.editor.edit.text.content.top']()}
 						bind:value={badgeState.topText}
 						className="w-full"
@@ -156,8 +162,10 @@
 						label={m['label.editor.edit.text.colour.top']()}
 						bind:value={badgeState.topTextColour}
 					/>
+					<p>{m['text.editor.edit.text.bottom']()}</p>
+
 					<TextInput
-						placeholder={m['placeholder.editor.edit.text.bottom']()}
+						placeholder={m['placeholder.editor.edit.text']()}
 						label={m['label.editor.edit.text.content.bottom']()}
 						bind:value={badgeState.bottomText}
 						className="w-full"
@@ -173,7 +181,7 @@
 				<h3><LucideImage /> {m['text.editor.edit.icon.header']()}</h3>
 				<div class="flex flex-col items-center gap-4">
 					<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
-						<span class="w-fit">{m['text.editor.edit.icon.url']()}</span>
+						<p>{m['text.editor.edit.icon.url']()}</p>
 
 						<Tooltip badger tip={m['label.editor.edit.icon.upload']()}>
 							<span class="relative h-10 w-fit">
@@ -265,12 +273,12 @@
 			<div class="flex flex-col gap-2">
 				<h3><LucidePaintbrush /> {m['text.editor.edit.background']()}</h3>
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
-					<span class="w-fit">{m['text.editor.edit.background.top']()}</span>
+					<p>{m['text.editor.edit.background.top']()}</p>
 					<ColourInput
 						label={m['label.editor.edit.background.top']()}
 						bind:value={badgeState.topBackgroundColour}
 					/>
-					<span class="w-fit">{m['text.editor.edit.background.bottom']()}</span>
+					<p>{m['text.editor.edit.background.bottom']()}</p>
 					<ColourInput
 						label={m['label.editor.edit.background.bottom']()}
 						bind:value={badgeState.bottomBackgroundColour}

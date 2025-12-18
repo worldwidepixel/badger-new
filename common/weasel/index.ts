@@ -1,8 +1,12 @@
-import { BadgerFont, interExtraBoldFont, interMediumFont } from "../fonts";
+import { BadgerFont } from "../fonts";
 
 export const emptyRenderer: WeaselBadgeRenderer = async (fonts: BadgerFont[]) => {
 	return "";
 };
+
+export function generateKey(...args: string[]) {
+	return ["weasel", ...args].join(".");
+}
 
 // Weasels belong to the same animal family as Badgers, so I thought it'd be fitting.
 export class Weasel {
@@ -64,13 +68,28 @@ export class Weasel {
 			);
 		}
 	};
+
+	public getId() {
+		return this.id;
+	}
+	public getFonts() {
+		return this.fonts;
+	}
+	public getParameters() {
+		return this.parameters;
+	}
+	public getEditorGroups() {
+		return this.editorGroups;
+	}
+	public getVariantGroups() {
+		return this.variantGroups;
+	}
 }
 
 export class WeaselParameter {
 	public id;
 	public constructor(id: string) {
 		this.id = id;
-		Object.freeze(this);
 	}
 }
 
@@ -85,7 +104,6 @@ export class WeaselEditorGroup {
 		this.id = id;
 		this.icon = icon;
 		this.linkedInputs = linkedInputs;
-		Object.freeze(this);
 	}
 
 	static Builder = class {
@@ -119,7 +137,6 @@ export class WeaselLinkedInput {
 		this.id = id;
 		this.parameter = parameter;
 		this.inputElement = inputElement;
-		Object.freeze(this);
 	}
 }
 
@@ -134,7 +151,6 @@ export class WeaselBiLinkedInput extends WeaselLinkedInput {
 	) {
 		super(id, firstParameter, inputElement);
 		this.secondParameter = secondParameter;
-		Object.freeze(this);
 	}
 }
 
@@ -143,7 +159,6 @@ export class WeaselInputElement {
 
 	public constructor(id: string) {
 		this.id = id;
-		Object.freeze(this);
 	}
 }
 
@@ -162,7 +177,6 @@ export class WeaselVariantGroup {
 	private constructor(id: string, variants: WeaselBadgeVariant[]) {
 		this.id = id;
 		this.variants = variants;
-		Object.freeze(this);
 	}
 
 	static Builder = class {
@@ -192,7 +206,6 @@ export class WeaselBadgeVariant {
 	public constructor(id: string, renderer: WeaselBadgeRenderer) {
 		this.id = id;
 		this.renderer = renderer;
-		Object.freeze(this);
 	}
 }
 

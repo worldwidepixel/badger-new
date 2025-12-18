@@ -195,7 +195,7 @@
 					aria-label={m['label.layout.created']()}
 					class="hover:underline"
 				>
-					{m['text.layout.created']({ name: 'WorldWidePixel' })}
+					{m['text.layout.created']()}
 				</a>
 			</div>
 		</footer>

@@ -5,3 +5,4 @@ export * from "./render";
 export * from "./types";
 export * from "./utils";
 export * from "./weasel/index";
+export * from "./weasels/index";

@@ -8,10 +8,10 @@ import {
 	WeaselLinkedInput,
 	WeaselParameter,
 	WeaselVariantGroup,
-} from ".";
+} from "../";
 import { interExtraBoldFont, interMediumFont } from "../fonts";
 
-const badgerWeasel: Weasel = new Weasel.Builder("badger", {
+export const badgerWeasel: Weasel = new Weasel.Builder("badger", {
 	icon: new WeaselParameter("icon"),
 	topText: new WeaselParameter("topText"),
 	bottomText: new WeaselParameter("bottomText"),
@@ -39,7 +39,7 @@ const badgerWeasel: Weasel = new Weasel.Builder("badger", {
 	)
 	.addEditorGroup((p) =>
 		new WeaselEditorGroup.Builder("icon", "image")
-			.addInput(new WeaselLinkedInput("image_icon", p.icon, weaselInputElements.text_colour_input))
+			.addInput(new WeaselLinkedInput("image_icon", p.icon, weaselInputElements.image_colour_input))
 			.build(),
 	)
 	.addEditorGroup((p) =>
@@ -53,6 +53,17 @@ const badgerWeasel: Weasel = new Weasel.Builder("badger", {
 					p.bottomBackgroundColour,
 					weaselInputElements.colour_input,
 				),
+			)
+			.build(),
+	)
+	.addEditorGroup((p) =>
+		new WeaselEditorGroup.Builder("test", "text")
+			.addInput(new WeaselLinkedInput("test_colour_input", p.topText, weaselInputElements.colour_input))
+			.addInput(new WeaselLinkedInput("test_text_input", p.topText, weaselInputElements.text_input))
+			.addInput(new WeaselLinkedInput("test_text_colour_input", p.topText, weaselInputElements.text_colour_input))
+			.addInput(new WeaselLinkedInput("test_image_input", p.topText, weaselInputElements.image_input))
+			.addInput(
+				new WeaselLinkedInput("test_image_colour_input", p.topText, weaselInputElements.image_colour_input),
 			)
 			.build(),
 	)

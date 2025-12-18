@@ -59,6 +59,9 @@
 	hr {
 		@apply w-full;
 	}
+	p {
+		@apply w-fit;
+	}
 	[badger] {
 		@apply !bg-badger-background-secondary/80 !text-badger-text-primary pointer-events-none flex flex-col items-center !rounded-lg text-sm font-semibold shadow-xl backdrop-blur-lg dark:shadow-2xl;
 		.tip:before {
