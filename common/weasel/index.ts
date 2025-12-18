@@ -10,7 +10,7 @@ export function generateKey(...args: string[]) {
 
 export type WeaselCollection = {
 	id: string;
-	weasels: Weasel[];
+	weasels: { [key: string]: Weasel };
 };
 
 // Weasels belong to the same animal family as Badgers, so I thought it'd be fitting.

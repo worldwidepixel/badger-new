@@ -11,7 +11,7 @@ import {
 } from "../";
 import { interExtraBoldFont, interMediumFont } from "../fonts";
 
-export const classicWeasel: Weasel = new Weasel.Builder("classic", {
+const classicWeasel: Weasel = new Weasel.Builder("classic", {
 	icon: new WeaselParameter("icon"),
 	topText: new WeaselParameter("topText"),
 	bottomText: new WeaselParameter("bottomText"),
@@ -74,7 +74,9 @@ export const classicWeasel: Weasel = new Weasel.Builder("classic", {
 
 	.build();
 
-export const badgerWeasels: WeaselCollection = {
+export const badgerWeaselCollection: WeaselCollection = {
 	id: "badger",
-	weasels: [classicWeasel],
+	weasels: {
+		classic: classicWeasel,
+	},
 };
