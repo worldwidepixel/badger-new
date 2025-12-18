@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		defaultIcon,
-		weaselInputElements,
-		WeaselLinkedInput,
-		type WeaselInputElement
-	} from '@badgered/common';
+	import { WeaselBiLinkedInput, weaselInputElements, WeaselLinkedInput } from '@badgered/common';
 	import ColourInput from '../+ColourInput.svelte';
 	import TextInput from '../+TextInput.svelte';
 	import Tooltip from 'sv-tooltip';
@@ -17,23 +12,23 @@
 {#if input.inputElement === weaselInputElements.colour_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 		<p class="overflow-auto">text.{id}</p>
-		<ColourInput label={'TRANSLATE ME'} value={'#FF0066'} />
+		<ColourInput label={'TRANSLATE ME'} value={input.defaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.text_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 		<p class="overflow-auto">text.{id}</p>
-		<TextInput label={'TRANSLATE ME'} value={'label.' + id} />
+		<TextInput label={'TRANSLATE ME'} value={input.defaultValue} />
 	</div>
-{:else if input.inputElement === weaselInputElements.text_colour_input}
+{:else if input.inputElement === weaselInputElements.text_colour_input && input instanceof WeaselBiLinkedInput}
 	<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
 		<p class="overflow-auto">text.{id}</p>
 		<TextInput
 			placeholder={'TRANSLATE ME'}
 			label={'TRANSLATE ME'}
-			value={'label.' + id}
+			value={input.defaultValue}
 			className="w-full"
 		/>
-		<ColourInput label={'TRANSLATE ME'} value={'#FF0066'} />
+		<ColourInput label={'TRANSLATE ME'} value={input.secondDefaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.image_input || input.inputElement === weaselInputElements.image_colour_input}
 	<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
@@ -61,11 +56,11 @@
 		<TextInput
 			placeholder={'TRANSLATE ME'}
 			label={'TRANSLATE ME'}
-			value={'label' + id}
+			value={input.defaultValue}
 			className="w-full"
 		/>
 	</div>
-	{#if input.inputElement === weaselInputElements.image_colour_input}
+	{#if input.inputElement === weaselInputElements.image_colour_input && input instanceof WeaselBiLinkedInput}
 		<div
 			class="bg-badger-background-secondary flex w-full flex-row items-center gap-4 rounded-xl border p-4"
 		>
@@ -75,7 +70,7 @@
 					draggable="false"
 					alt={'TRANSLATE ME'}
 					class="aspect-square size-35 rounded-2xl p-2"
-					src={defaultIcon}
+					src={input.defaultValue}
 				/>
 			</div>
 			<span class="bg-badger-border h-full w-[1px]"></span>

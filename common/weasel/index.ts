@@ -130,26 +130,32 @@ export class WeaselEditorGroup {
 export class WeaselLinkedInput {
 	public id;
 	public parameter;
+	public defaultValue;
 	public inputElement;
 
-	public constructor(id: string, parameter: WeaselParameter, inputElement: WeaselInputElement) {
+	public constructor(id: string, parameter: WeaselParameter, defaultValue: string, inputElement: WeaselInputElement) {
 		this.id = id;
 		this.parameter = parameter;
+		this.defaultValue = defaultValue;
 		this.inputElement = inputElement;
 	}
 }
 
 export class WeaselBiLinkedInput extends WeaselLinkedInput {
 	public secondParameter;
+	public secondDefaultValue;
 
 	public constructor(
 		id: string,
 		firstParameter: WeaselParameter,
+		firstDefaultValue: string,
 		secondParameter: WeaselParameter,
+		secondDefaultValue: string,
 		inputElement: WeaselInputElement,
 	) {
-		super(id, firstParameter, inputElement);
+		super(id, firstParameter, firstDefaultValue, inputElement);
 		this.secondParameter = secondParameter;
+		this.secondDefaultValue = secondDefaultValue;
 	}
 }
 

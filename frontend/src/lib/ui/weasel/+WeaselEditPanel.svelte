@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages';
-	import { badgerWeaselCollection, generateKey, WeaselEditorGroup } from '@badgered/common';
+	import { badgerWeaselCollection, generateKey } from '@badgered/common';
 	import { LucidePen } from '@lucide/svelte';
 	import WeaselGroupIcon from './+WeaselGroupIcon.svelte';
 	import WeaselInput from './+WeaselInput.svelte';
