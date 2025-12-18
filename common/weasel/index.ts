@@ -4,6 +4,10 @@ export const emptyRenderer: WeaselBadgeRenderer = async (fonts: BadgerFont[]) =>
 	return "";
 };
 
+export function prefixKey(key: string, ...prefixes: string[]) {
+	return prefixes.concat([key]).join(".");
+}
+
 export function generateKey(...args: string[]) {
 	return ["weasel", ...args].join(".");
 }

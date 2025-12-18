@@ -1,27 +1,33 @@
 <script lang="ts">
-	import { WeaselBiLinkedInput, weaselInputElements, WeaselLinkedInput } from '@badgered/common';
+	import {
+		prefixKey,
+		WeaselBiLinkedInput,
+		weaselInputElements,
+		WeaselLinkedInput
+	} from '@badgered/common';
 	import ColourInput from '../+ColourInput.svelte';
 	import TextInput from '../+TextInput.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { LucidePipette, LucideUpload } from '@lucide/svelte';
 	import Button from '../+Button.svelte';
+	import { m } from '$lib/paraglide/messages';
 
 	const { input, id }: { input: WeaselLinkedInput; id: string } = $props();
 </script>
 
 {#if input.inputElement === weaselInputElements.colour_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
-		<p class="overflow-auto">text.{id}</p>
+		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
 		<ColourInput label={'TRANSLATE ME'} value={input.defaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.text_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
-		<p class="overflow-auto">text.{id}</p>
+		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
 		<TextInput label={'TRANSLATE ME'} value={input.defaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.text_colour_input && input instanceof WeaselBiLinkedInput}
 	<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
-		<p class="overflow-auto">text.{id}</p>
+		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
 		<TextInput
 			placeholder={'TRANSLATE ME'}
 			label={'TRANSLATE ME'}
@@ -32,9 +38,9 @@
 	</div>
 {:else if input.inputElement === weaselInputElements.image_input || input.inputElement === weaselInputElements.image_colour_input}
 	<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
-		<p class="overflow-auto">text.{id}</p>
+		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
 
-		<Tooltip badger tip={'tip' + id}>
+		<Tooltip badger tip={prefixKey(id, 'tip')}>
 			<span class="relative h-10 w-fit">
 				<input
 					class="peer absolute top-0 left-0 z-[-1] size-10 appearance-none opacity-0"
@@ -65,23 +71,28 @@
 			class="bg-badger-background-secondary flex w-full flex-row items-center gap-4 rounded-xl border p-4"
 		>
 			<div class="flex shrink-0 flex-col gap-2">
-				<span class="text-center font-semibold">BORKED</span>
+				<span class="text-center font-semibold">{m['text.editor.edit.icon.preview']()}</span
+				>
 				<img
 					draggable="false"
-					alt={'TRANSLATE ME'}
+					alt={m['label.editor.edit.icon.preview']()}
 					class="aspect-square size-35 rounded-2xl p-2"
 					src={input.defaultValue}
 				/>
 			</div>
 			<span class="bg-badger-border h-full w-[1px]"></span>
 			<div class="flex w-full flex-col gap-2">
-				<span class="text-center font-semibold">{'TRANSLATE ME'}</span>
+				<span class="text-center font-semibold"
+					>{m['text.editor.edit.icon.suggested']()}</span
+				>
 				<div
 					class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 				>
 					{#each [] as colour}
 						<button
-							aria-label={'TRANSLATE ME'}
+							aria-label={m['label.editor.edit.icon.suggested']({
+								colour: 'TRANSLATE ME'
+							})}
 							class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
 						>
 							<LucidePipette
@@ -96,7 +107,7 @@
 					{/each}
 					{#if [].length === 0}
 						<span class="flex h-full w-full items-center justify-center text-center"
-							>{'TRANSLATE ME'}</span
+							>{m['text.editor.edit.icon.invalid']()}</span
 						>
 					{/if}
 				</div>
