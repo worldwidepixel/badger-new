@@ -27,6 +27,7 @@
 	import SettingsModal from '$lib/ui/modal/+SettingsModal.svelte';
 	import { ModalData } from '$lib/ui/modal/+Modal.svelte';
 	import ResetWarningModal from '$lib/ui/modal/+ResetWarningModal.svelte';
+	import { page } from '$app/state';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -101,30 +102,32 @@
 					<!--badger 3: echoes of the prequel-->
 				</div>
 				<div class="flex flex-row items-center justify-end gap-4">
-					<Button
-						action={shareBadgeProject}
-						type="action"
-						className="px-3"
-						label={m['label.layout.share.aria']()}
-					>
-						{#if showCopyFeedback}
-							<LucideCheck class="p-0.5" />
-						{:else}
-							<LucideShare class="p-0.5" />
-						{/if}
-						{m['label.layout.share']()}
-					</Button>
-					<Tooltip left badger tip={m['label.layout.reset']()}>
+					{#if page.url.pathname === '/'}
 						<Button
-							action={handleReset}
-							style="transparent"
-							roundness="circle"
+							action={shareBadgeProject}
 							type="action"
-							label={m['label.layout.reset']()}
+							className="px-3"
+							label={m['label.layout.share.aria']()}
 						>
-							<LucideRotateCcw />
+							{#if showCopyFeedback}
+								<LucideCheck class="p-0.5" />
+							{:else}
+								<LucideShare class="p-0.5" />
+							{/if}
+							{m['label.layout.share']()}
 						</Button>
-					</Tooltip>
+						<Tooltip left badger tip={m['label.layout.reset']()}>
+							<Button
+								action={handleReset}
+								style="transparent"
+								roundness="circle"
+								type="action"
+								label={m['label.layout.reset']()}
+							>
+								<LucideRotateCcw />
+							</Button>
+						</Tooltip>
+					{/if}
 					<Tooltip left badger tip={m['label.layout.settings']()}>
 						<Button
 							action={settingsModalData.context.open}
