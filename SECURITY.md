@@ -1,4 +1,4 @@
-# Security Policy
+# Badger Security Policy
 
 ## Supported Versions
 
@@ -6,4 +6,5 @@ Security vulnerabilities for Badger 3.X are the only ones taken into considerati
 
 ## Reporting a Vulnerability
 
-Please send an email to contact (cat mroaw) worldwidepixel (dot) ca detailing the issue.
+Please use GitHub's in-built reporting feature.
+If this is not possible, please send an email to contact (cat mroaw) worldwidepixel (dot) ca detailing the issue.
