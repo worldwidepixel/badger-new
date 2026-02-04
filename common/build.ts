@@ -4,9 +4,16 @@ import { interExtraBoldFont, interMediumFont } from "./fonts";
 import { compact, compactMinimal, cosy, cosyMinimal } from "./render";
 import { sanitiseText } from "./utils";
 
+let mediumFont: Font | null = null;
+let extraBoldFont: Font | null = null;
+
 export async function build(variant: BadgeVariant, props: Badge) {
-	const mediumFont: Font = await interMediumFont.getFont();
-	const extraBoldFont: Font = await interExtraBoldFont.getFont();
+	if(mediumFont == null) {
+		mediumFont = await interMediumFont.getFont();
+	}
+	if(extraBoldFont == null) {
+		extraBoldFont = await interExtraBoldFont.getFont();
+	}
 
 	const pathData = generatePathData(
 		mediumFont,
