@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@badgered/common": "workspace:*",
-		"sharp": "^0.34.3"
+		"sharp": "^0.34.5"
 	},
 	"compatibility_date": "2025-07-19"
 }
