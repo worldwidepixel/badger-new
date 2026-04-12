@@ -1,8 +1,6 @@
 import { defaultBadge, type Badge } from '@badgered/common';
-import type { PageServerLoad } from './$types';
-import type { BadgerParameters } from '$lib/types';
 
-export function load({ url }): PageServerLoad<BadgerParameters> {
+export function load({ url }) {
 	const params = url.searchParams;
 	const packedParameters: Partial<Badge> = {};
 
@@ -12,5 +10,5 @@ export function load({ url }): PageServerLoad<BadgerParameters> {
 		}
 	}
 
-	return { editorParameters: packedParameters } as unknown as PageServerLoad<BadgerParameters>;
+	return { editorParameters: packedParameters };
 }

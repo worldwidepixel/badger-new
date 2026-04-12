@@ -52,6 +52,7 @@
 		"file-saver": "^2.0.5",
 		"jszip": "^3.10.1",
 		"mime-types": "^3.0.2",
-		"ofetch": "^1.5.1"
+		"ofetch": "^1.5.1",
+		"svelte-meta-tags": "^4.6.0"
 	}
 }

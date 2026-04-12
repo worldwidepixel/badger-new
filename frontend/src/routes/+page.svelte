@@ -17,7 +17,7 @@
 	import { getPalette } from 'colorthief';
 	import { browser } from '$app/environment';
 	import { createBlob, generatePalette, uploadToHost } from '$lib';
-	import type { BadgerParameters, HexColour } from '$lib/types';
+	import type { HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
 		LucideEye,
@@ -38,10 +38,7 @@
 	import WeaselEditPanel from '$lib/ui/weasel/+WeaselEditPanel.svelte';
 	const saveAs = fileSaver;
 
-	interface Props {
-		data: BadgerParameters;
-	}
-	let { data }: Props = $props();
+	let { data } = $props();
 
 	console.log(
 		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'

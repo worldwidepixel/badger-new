@@ -1,7 +1,7 @@
 import { defaultBadge, type Badge } from '@badgered/common';
 import { getLocale } from './paraglide/runtime';
 import { browser } from '$app/environment';
-import type { KeyboardStateType } from './types';
+import type { KeyboardStateType, ThemeProfile } from './types';
 
 export const appDimensions = $state({
 	width: 0,
@@ -14,37 +14,27 @@ export const currentLocale = $state({
 	locale: getLocale()
 });
 
-export const currentTheme = $state({
-	theme: refreshTheme() // Load user theme
+/* Theming */
+
+export const theme = $state({
+	themeProfile: 'light'
 });
 
-function refreshTheme() {
+function setThemeProfile(newTheme: ThemeProfile) {
 	if (browser) {
-		document.documentElement.classList.toggle(
-			'dark',
-			localStorage.theme === 'dark' ||
-				(!('theme' in localStorage) &&
-					window.matchMedia('(prefers-color-scheme: dark)').matches)
-		);
-		return localStorage.theme;
+		document.cookie = `themeProfile=${newTheme}; path=/; SameSite=Strict;`;
+		document.documentElement.setAttribute('data-theme', newTheme);
 	}
-	return 'light';
+	theme.themeProfile = newTheme;
 }
 
-function setTheme(nextTheme: string) {
-	currentTheme.theme = nextTheme;
-	if (browser) {
-		localStorage.theme = nextTheme;
-	}
-	refreshTheme();
-}
-
-export function toggleTheme() {
-	if (currentTheme.theme === 'light') {
-		setTheme('dark');
+export function toggleLightDarkThemeProfile() {
+	console.log(theme.themeProfile);
+	if (theme.themeProfile !== 'dark') {
+		setThemeProfile('dark');
 		return;
 	}
-	setTheme('light');
+	setThemeProfile('light');
 }
 
 export const keyboardState: KeyboardStateType = $state({

@@ -11,14 +11,13 @@
 	import '../app.css';
 	import '@fontsource-variable/inter';
 	import { browser } from '$app/environment';
-	import type { DeploymentInfo } from '$lib/types';
 	import {
 		appDimensions,
 		badgeState,
 		currentLocale,
 		keyboardState,
 		pageDimensions,
-		toggleTheme
+		toggleLightDarkThemeProfile
 	} from '$lib/state.svelte';
 	import Tooltip from 'sv-tooltip';
 	import { pageBase, handleKeys, resetBadge } from '$lib';
@@ -30,12 +29,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 
-	interface Props {
-		children?: import('svelte').Snippet;
-		data: DeploymentInfo;
-	}
-
-	let { children, data }: Props = $props();
+	let { children, data } = $props();
 
 	console.log(
 		'%cBadger',
@@ -144,7 +138,7 @@
 					</Tooltip>
 					<Tooltip left badger tip={m['label.layout.theme']()}>
 						<Button
-							action={toggleTheme}
+							action={toggleLightDarkThemeProfile}
 							style="transparent"
 							roundness="circle"
 							type="action"
@@ -180,10 +174,16 @@
 				<a
 					class="underline"
 					target="_blank"
-					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_hash}"
+					href="https://github.com/worldwidepixel/badger/commit/{data.deployment_info
+						.git_hash}"
 					aria-label={m['label.layout.source']()}
 				>
-					<code>{data.deployment_branch}@{data.deployment_hash.substring(0, 7)}</code>
+					<code
+						>{data.deployment_info.branch}@{data.deployment_info.git_hash.substring(
+							0,
+							7
+						)}</code
+					>
 				</a>
 			</div>
 			<div class="flex flex-col items-center gap-1 sm:items-start">

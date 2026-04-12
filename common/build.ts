@@ -8,10 +8,10 @@ let mediumFont: Font | null = null;
 let extraBoldFont: Font | null = null;
 
 export async function build(variant: BadgeVariant, props: Badge) {
-	if(mediumFont == null) {
+	if (mediumFont == null) {
 		mediumFont = await interMediumFont.getFont();
 	}
-	if(extraBoldFont == null) {
+	if (extraBoldFont == null) {
 		extraBoldFont = await interExtraBoldFont.getFont();
 	}
 
@@ -72,6 +72,7 @@ export const defaultBadge = {
 	icon: defaultIcon,
 };
 
+/* https://stackoverflow.com/a/42334410 */
 async function toBase64ImageUrl(imgUrl: string): Promise<string> {
 	const fetchImageUrl = await fetch(imgUrl);
 	const responseArrBuffer = await fetchImageUrl.arrayBuffer();

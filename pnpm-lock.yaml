@@ -97,6 +97,9 @@ importers:
       ofetch:
         specifier: ^1.5.1
         version: 1.5.1
+      svelte-meta-tags:
+        specifier: ^4.6.0
+        version: 4.6.0(svelte@5.55.3(@typescript-eslint/types@8.58.1))
     devDependencies:
       '@eslint/compat':
         specifier: ^2.0.5
@@ -1933,6 +1936,9 @@ packages:
   safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
+  schema-dts@1.1.5:
+    resolution: {integrity: sha512-RJr9EaCmsLzBX2NDiO5Z3ux2BVosNZN5jo0gWgsyKvxKIUL5R3swNvoorulAeL9kLB0iTSX7V6aokhla2m7xbg==}
+
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
     engines: {node: '>=10'}
@@ -2025,6 +2031,11 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-meta-tags@4.6.0:
+    resolution: {integrity: sha512-UvoylslTqnhoWISfcimskFayGOqgJRLmk5ZWwNoIqfGyRBdc5yq2lxeH+nhxWp9C3x3ywXAw+GL1QyjQpM9WEw==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   svelte@3.59.2:
     resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
@@ -3718,6 +3729,8 @@ snapshots:
 
   safe-buffer@5.1.2: {}
 
+  schema-dts@1.1.5: {}
+
   semver@7.7.4: {}
 
   set-cookie-parser@3.1.0: {}
@@ -3837,6 +3850,11 @@ snapshots:
       postcss-selector-parser: 7.1.1
       semver: 7.7.4
     optionalDependencies:
+      svelte: 5.55.3(@typescript-eslint/types@8.58.1)
+
+  svelte-meta-tags@4.6.0(svelte@5.55.3(@typescript-eslint/types@8.58.1)):
+    dependencies:
+      schema-dts: 1.1.5
       svelte: 5.55.3(@typescript-eslint/types@8.58.1)
 
   svelte@3.59.2: {}

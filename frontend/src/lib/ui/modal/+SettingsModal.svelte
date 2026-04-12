@@ -3,18 +3,23 @@
 	import { LucideMoon, LucideSun, SaveIcon, SettingsIcon } from '@lucide/svelte';
 	import Button from '../+Button.svelte';
 	import Modal, { type ModalContext } from './+Modal.svelte';
-	import { currentLocale, currentTheme, debugState, toggleTheme } from '$lib/state.svelte';
-	import { locales } from '$lib/paraglide/runtime';
+	import {
+		currentLocale,
+		debugState,
+		theme,
+		toggleLightDarkThemeProfile
+	} from '$lib/state.svelte';
+	import { locales, type Locale } from '$lib/paraglide/runtime';
 	import { setCurrentLocale } from '$lib';
 
 	let { key }: { key: string } = $props();
 
 	const existingLocale = currentLocale;
-	let requestedLocale: string = $state(existingLocale.locale);
+	let requestedLocale: Locale = $state(existingLocale.locale);
 
 	function saveLocale(context: ModalContext) {
 		if (requestedLocale !== existingLocale.locale) {
-			setCurrentLocale(requestedLocale as any, { reload: false });
+			setCurrentLocale(requestedLocale, { reload: false });
 		}
 		context.close();
 	}
@@ -35,11 +40,11 @@
 			<p>{m['modal.settings.appearance.theme.title']()}</p>
 			<Button
 				type="action"
-				action={toggleTheme}
+				action={toggleLightDarkThemeProfile}
 				className="bg-badger-background-tertiary px-3"
 				label={m['label.layout.theme']()}
 			>
-				{#if currentTheme.theme === 'dark'}
+				{#if theme.themeProfile === 'dark'}
 					<LucideMoon class="p-0.5" />
 					{m['modal.settings.appearance.theme.dark']()}
 				{:else}
@@ -56,7 +61,7 @@
 				class="bg-badger-background-tertiary flex w-56 cursor-pointer flex-row items-center justify-center gap-1 rounded-xl border p-1.5 px-3 text-left font-semibold text-nowrap transition hover:brightness-95 active:brightness-95"
 				bind:value={requestedLocale}
 			>
-				{#each locales as locale}
+				{#each locales as locale (locale)}
 					<option
 						class="text-badger-text bg-badger-background-tertiary max-w-48 font-sans"
 						value={locale}
