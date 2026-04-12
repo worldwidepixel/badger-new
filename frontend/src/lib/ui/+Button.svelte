@@ -1,14 +1,16 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	type Props = {
 		style?: 'solid' | 'transparent';
 		roundness?: 'circle' | 'round';
 		label: string;
 		type?: 'action' | 'link';
-		action?: any;
+		action?: () => void;
 		to?: string;
 		className?: string;
 		disabled?: boolean;
-		children: Function;
+		children: Snippet;
 	};
 
 	let {
@@ -23,13 +25,13 @@
 		disabled = false
 	}: Props = $props();
 
-	const roundnessStyle = roundness === 'circle' ? 'rounded-full' : 'rounded-xl';
+	const roundnessStyle = (() => roundness)() === 'circle' ? 'rounded-full' : 'rounded-xl';
 	const transparencyStyle =
-		style === 'solid'
+		(() => style)() === 'solid'
 			? 'bg-badger-background-secondary border'
 			: 'hover:outline active:outline outline-badger-border hover:bg-badger-background-transparent active:bg-badger-background-transparent hover:shadow';
-	const actionStyle = action || to ? 'cursor-pointer' : '';
-	const disabledStyle = disabled ? 'opacity-50 !cursor-not-allowed' : '';
+	const actionStyle = (() => action)() || (() => to)() ? 'cursor-pointer' : '';
+	const disabledStyle = (() => disabled)() ? 'opacity-50 !cursor-not-allowed' : '';
 
 	const buttonStyle = [
 		'flex flex-row gap-1 font-semibold items-center justify-center transition p-1.5 hover:brightness-95 active:brightness-95 active:scale-95',
@@ -37,7 +39,7 @@
 		transparencyStyle,
 		actionStyle,
 		disabledStyle,
-		className
+		(() => className)()
 	].join(' ');
 </script>
 
@@ -46,7 +48,7 @@
 		{@render children()}
 	</button>
 {:else}
-	<a class={buttonStyle} href={to} aria-label={label}>
+	<a class={buttonStyle} href={to} rel="external" aria-label={label}>
 		{@render children()}
 	</a>
 {/if}

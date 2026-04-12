@@ -16,6 +16,6 @@
 	"license": "MPL-2.0",
 	"devDependencies": {
 		"concurrently": "^9.2.1",
-		"prettier": "^3.8.1"
+		"prettier": "^3.8.2"
 	}
 }

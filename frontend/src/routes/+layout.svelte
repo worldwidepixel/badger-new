@@ -28,6 +28,7 @@
 	import { ModalData } from '$lib/ui/modal/+Modal.svelte';
 	import ResetWarningModal from '$lib/ui/modal/+ResetWarningModal.svelte';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -59,7 +60,9 @@
 			setTimeout(() => {
 				showCopyFeedback = false;
 			}, 5 * 1000);
-		} catch {}
+		} catch {
+			/* empty */
+		}
 	}
 
 	// Layout modals
@@ -90,9 +93,9 @@
 {#key currentLocale.locale}
 	<div class="flex h-full flex-col">
 		<nav class="flex w-auto justify-center border-b p-5">
-			<div class="grid w-full max-w-[80rem] grid-cols-3 flex-row items-center">
+			<div class="grid w-full max-w-7xl grid-cols-3 flex-row items-center">
 				<div class="flex flex-row items-center justify-start">
-					<a aria-label="Badger home" class="w-fit" href="/">
+					<a aria-label="Badger home" class="w-fit" href={resolve('/')}>
 						<span class="flex flex-row items-center gap-2 text-xl select-none">
 							<LogoType />
 						</span>
@@ -161,15 +164,15 @@
 			bind:clientHeight={appDimensions.height}
 			class="relative flex w-full flex-1 flex-col items-center px-6"
 		>
-			<div class="h-full w-full max-w-[80rem]">
+			<div class="h-full w-full max-w-7xl">
 				{@render children?.()}
 			</div>
 		</main>
 		<footer
 			class="bg-badger-background-secondary flex flex-col justify-center gap-6 border-t p-4 py-8 text-sm sm:flex-row sm:items-center"
 		>
-			<div class="mt-[-1.25rem] flex flex-col items-center gap-1 sm:items-start">
-				<a href="/">
+			<div class="-mt-5 flex flex-col items-center gap-1 sm:items-start">
+				<a href={resolve('/')}>
 					<span class="flex flex-row items-center gap-2 text-xl select-none">
 						<LogoType />
 					</span>

@@ -1,8 +1,8 @@
 <script module>
 	export type ModalContext = {
 		isOpen: boolean;
-		open: Function;
-		close: Function;
+		open: () => void;
+		close: () => void;
 	};
 
 	export class ModalData {
@@ -34,9 +34,9 @@
 		footer: Snippet<[ModalData]>;
 		key: string;
 	};
-	let { header, content, footer, key }: Props = $props();
+	const { header, content, footer, key }: Props = $props();
 
-	const modalData: ModalData = getContext(key);
+	const modalData: ModalData = getContext((() => key)());
 
 	keyboardState.listeners.push((event) => {
 		if (event.key === 'Escape') {

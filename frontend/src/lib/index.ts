@@ -9,9 +9,32 @@ import { setLocale, type Locale } from './paraglide/runtime';
 export const apiBase = env.PUBLIC_API_BASE ?? 'https://api.v3.badger.worldwidepixel.ca/';
 export const pageBase = env.PUBLIC_FRONTEND_BASE ?? 'https://v3.badger.worldwidepixel.ca/';
 
-// https://stackoverflow.com/a/5624139
-export function rgbToHex(r: number, g: number, b: number) {
-	return ('#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)) as HexColour;
+// https://stackoverflow.com/a/38935990
+export function base64toFile(b64: string, filename: string) {
+	const array = b64.split(',');
+	const mime = (array[0].match(/:(.*?);/) ?? [])[1];
+	const bstr = atob(array[array.length - 1]);
+	let n = bstr.length;
+	const u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new File([u8arr], filename, { type: mime });
+}
+
+export function createBlob(format: string, data: BlobPart) {
+	return new Blob([data], {
+		type: format
+	});
+}
+
+export function fileToBase64(file: File): Promise<string> {
+	const reader = new FileReader();
+	reader.readAsDataURL(file);
+	return new Promise((resolve, reject) => {
+		reader.onload = () => resolve((reader.result ?? '').toString());
+		reader.onerror = reject;
+	});
 }
 
 export function generatePalette(input: HexColour): {
@@ -27,36 +50,36 @@ export function generatePalette(input: HexColour): {
 	};
 }
 
-export function fileToBase64(file: File): Promise<string> {
-	const reader = new FileReader();
-	reader.readAsDataURL(file);
-	return new Promise((resolve, reject) => {
-		reader.onload = () => resolve((reader.result ?? '').toString());
-		reader.onerror = reject;
+export function handleKeys(event: KeyboardEvent, keyDown: boolean) {
+	if (!keyDown) {
+		keyboardState.currentKey = '';
+		return;
+	}
+	keyboardState.currentKey = event.key;
+	keyboardState.listeners.forEach((listener) => {
+		listener(event);
 	});
 }
 
-// https://stackoverflow.com/a/38935990
-export function base64toFile(b64: string, filename: string) {
-	const array = b64.split(',');
-	const mime = (array[0].match(/:(.*?);/) ?? [])[1];
-	const bstr = atob(array[array.length - 1]);
-	let n = bstr.length;
-	const u8arr = new Uint8Array(n);
-	while (n--) {
-		u8arr[n] = bstr.charCodeAt(n);
-	}
-	return new File([u8arr], filename, { type: mime });
+/* Locale */
+
+export function getCurrentLocale() {
+	return currentLocale.locale;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function useFetch(url: string, opts?: any) {
-	const fetchOptions = opts ?? {};
-	if (!opts || !opts.headers) {
-		fetchOptions.headers = {};
-	}
-	fetchOptions.headers['User-Agent'] = 'worldwidepixel/badger@3.0.0';
-	return ofetch(url, fetchOptions);
+export function setCurrentLocale(locale: Locale, options?: { reload?: boolean }) {
+	currentLocale.locale = locale;
+	setLocale(locale, options);
+}
+
+export function resetBadge() {
+	badgeState.icon = defaultBadge.icon;
+	badgeState.topText = defaultBadge.topText;
+	badgeState.bottomText = defaultBadge.bottomText;
+	badgeState.topTextColour = defaultBadge.topTextColour;
+	badgeState.bottomTextColour = defaultBadge.bottomTextColour;
+	badgeState.topBackgroundColour = defaultBadge.topBackgroundColour;
+	badgeState.bottomBackgroundColour = defaultBadge.bottomBackgroundColour;
 }
 
 export async function uploadToHost(data: File) {
@@ -70,38 +93,12 @@ export async function uploadToHost(data: File) {
 	return imageResult;
 }
 
-export function resetBadge() {
-	badgeState.icon = defaultBadge.icon;
-	badgeState.topText = defaultBadge.topText;
-	badgeState.bottomText = defaultBadge.bottomText;
-	badgeState.topTextColour = defaultBadge.topTextColour;
-	badgeState.bottomTextColour = defaultBadge.bottomTextColour;
-	badgeState.topBackgroundColour = defaultBadge.topBackgroundColour;
-	badgeState.bottomBackgroundColour = defaultBadge.bottomBackgroundColour;
-}
-
-export function setCurrentLocale(locale: Locale, options?: { reload?: boolean }) {
-	currentLocale.locale = locale;
-	setLocale(locale, options);
-}
-
-export function getCurrentLocale() {
-	return currentLocale.locale;
-}
-
-export function createBlob(format: string, data: BlobPart) {
-	return new Blob([data], {
-		type: format
-	});
-}
-
-export function handleKeys(event: KeyboardEvent, keyDown: boolean) {
-	if (!keyDown) {
-		keyboardState.currentKey = '';
-		return;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function useFetch(url: string, opts?: any) {
+	const fetchOptions = opts ?? {};
+	if (!opts || !opts.headers) {
+		fetchOptions.headers = {};
 	}
-	keyboardState.currentKey = event.key;
-	keyboardState.listeners.forEach((listener) => {
-		listener(event);
-	});
+	fetchOptions.headers['User-Agent'] = 'worldwidepixel/badger@3.0.0';
+	return ofetch(url, fetchOptions);
 }

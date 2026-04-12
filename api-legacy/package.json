@@ -1,0 +1,21 @@
+{
+	"name": "@badgered/api-legacy",
+	"description": "Backend for Badger services",
+	"version": "3.0.0",
+	"private": true,
+	"scripts": {
+		"build": "nitro build",
+		"dev": "nitro dev",
+		"prepare": "nitro prepare",
+		"preview": "node .output/server/index.mjs"
+	},
+	"devDependencies": {
+		"nitropack": "latest",
+		"prettier": "3.8.2"
+	},
+	"dependencies": {
+		"@badgered/common": "workspace:*",
+		"sharp": "^0.34.5"
+	},
+	"compatibility_date": "2025-07-19"
+}

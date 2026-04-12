@@ -14,9 +14,9 @@
 	import TextInput from '$lib/ui/+TextInput.svelte';
 	import UIBadge from '$lib/ui/+Badge.svelte';
 	import BadgeOptions from '$lib/ui/+BadgeOptions.svelte';
-	import ColorThief from 'colorthief';
+	import { getPalette } from 'colorthief';
 	import { browser } from '$app/environment';
-	import { createBlob, generatePalette, rgbToHex, uploadToHost } from '$lib';
+	import { createBlob, generatePalette, uploadToHost } from '$lib';
 	import type { BadgerParameters, HexColour } from '$lib/types';
 	import {
 		LucideArrowUpRight,
@@ -48,7 +48,7 @@
 	);
 
 	// Parameter-based data loading
-	for (const [key, value] of Object.entries(data.editorParameters)) {
+	for (const [key, value] of Object.entries((() => data)().editorParameters)) {
 		if (Object.keys(defaultBadge).includes(key)) {
 			badgeState[key as keyof Badge] = value;
 		}
@@ -69,7 +69,6 @@
 	let badgeIconUpload = $state<FileList>();
 
 	if (browser) {
-		const colorThief = new ColorThief();
 		function setColourPallete() {
 			if (!URL.canParse(badgeState.icon)) {
 				badgeIconValid = false;
@@ -83,11 +82,12 @@
 				image.onerror = image.onabort = () => {
 					badgeIconValid = false;
 				};
-				image.onload = () => {
+				image.onload = async () => {
 					badgeIconValid = true;
-					const palette = colorThief.getPalette(image);
+					const palette = await getPalette(image);
+					if (!palette) return;
 					palette.map((value) => {
-						badgePalette.push(rgbToHex(...value));
+						badgePalette.push(value.hex() as HexColour);
 					});
 				};
 			} catch (e) {
@@ -110,7 +110,7 @@
 
 	// Remotely-hosted icons
 
-	async function submitIconUpload(event: Event) {
+	async function submitIconUpload() {
 		if (badgeIconUpload != null && badgeIconUpload[0] != null) {
 			const uploadData = await uploadToHost(badgeIconUpload[0]);
 			badgeState.icon = uploadData;
@@ -228,7 +228,7 @@
 								src={badgeIconValid ? sanitiseText(badgeState.icon) : defaultIcon}
 							/>
 						</div>
-						<span class="bg-badger-border h-full w-[1px]"></span>
+						<span class="bg-badger-border h-full w-px"></span>
 						<div class="flex w-full flex-col gap-2">
 							<span class="text-center font-semibold"
 								>{m['text.editor.edit.icon.suggested']()}</span
@@ -236,9 +236,10 @@
 							<div
 								class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
-								{#each badgePalette as colour}
+								{#each badgePalette as colour (colour)}
 									<button
 										onkeypress={(key) =>
+											// eslint-disable-next-line no-constant-condition
 											key.key.toLowerCase() === 'enter' || 'space'
 												? generateBackground(colour)
 												: {}}
@@ -291,7 +292,7 @@
 		<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>
 		<hr />
 		<div class="my-4 grid w-full grid-cols-2 items-center gap-6">
-			{#each V2BadgeVariants as type}
+			{#each V2BadgeVariants as type (type)}
 				<span
 					class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"
 				>
@@ -299,7 +300,7 @@
 						data={badgeState}
 						{type}
 						label={m['label.editor.preview.badge']({
-							//@ts-ignore
+							//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
 							type: m[`text.badge.type.${type}`]()
 						})}
 					/>
@@ -307,7 +308,8 @@
 						data={badgeState}
 						{type}
 						label={m['label.editor.preview.badge']({
-							//@ts-ignore
+							//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
+
 							type: m[`text.badge.type.${type}`]()
 						})}
 					/>
