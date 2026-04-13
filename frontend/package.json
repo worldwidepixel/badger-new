@@ -2,7 +2,6 @@
 	"name": "@badgered/frontend",
 	"description": "Web frontend for Badger services",
 	"private": true,
-	"version": "3.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -46,12 +45,11 @@
 		"@types/chroma-js": "^3.1.2",
 		"@types/colorthief": "^2.6.1",
 		"@types/file-saver": "^2.0.7",
-		"@types/mime-types": "^3.0.1",
 		"chroma-js": "^3.2.0",
 		"colorthief": "^3.3.1",
 		"file-saver": "^2.0.5",
 		"jszip": "^3.10.1",
-		"mime-types": "^3.0.2",
+		"mime": "^4.1.0",
 		"ofetch": "^1.5.1",
 		"svelte-meta-tags": "^4.6.0"
 	}

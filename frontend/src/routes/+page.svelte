@@ -144,8 +144,8 @@
 		{/if}
 		<h1><LucidePen />{m['text.editor.edit.header']()}</h1>
 		<hr />
-		<div class="flex flex-col gap-4">
-			<div class="flex flex-col gap-2">
+		<ul class="flex flex-col gap-4">
+			<li class="flex flex-col gap-2">
 				<h3><LucideTextAlignStart /> {m['text.editor.edit.text.header']()}</h3>
 				<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
 					<p>{m['text.editor.edit.text.top']()}</p>
@@ -172,9 +172,9 @@
 						bind:value={badgeState.bottomTextColour}
 					/>
 				</div>
-			</div>
+			</li>
 			<hr />
-			<div class="flex flex-col gap-2">
+			<li class="flex flex-col gap-2">
 				<h3><LucideImage /> {m['text.editor.edit.icon.header']()}</h3>
 				<div class="flex flex-col items-center gap-4">
 					<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
@@ -230,30 +230,32 @@
 							<span class="text-center font-semibold"
 								>{m['text.editor.edit.icon.suggested']()}</span
 							>
-							<div
+							<ul
 								class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
 								{#each badgePalette as colour (colour)}
-									<button
-										onkeypress={(key) =>
-											// eslint-disable-next-line no-constant-condition
-											key.key.toLowerCase() === 'enter' || 'space'
-												? generateBackground(colour)
-												: {}}
-										aria-label={m['label.editor.edit.icon.suggested']({
-											colour: colour
-										})}
-										class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
-									>
-										<LucidePipette
-											onclick={() => generateBackground(colour)}
-											class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 relative z-1 size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
-										/>
-										<span
-											class="absolute top-0 left-0 z-0 h-full w-full transition group-hover:brightness-90"
-											style="background-color: {colour}"
-										></span>
-									</button>
+									<li>
+										<button
+											onkeypress={(key) =>
+												// eslint-disable-next-line no-constant-condition
+												key.key.toLowerCase() === 'enter' || 'space'
+													? generateBackground(colour)
+													: {}}
+											aria-label={m['label.editor.edit.icon.suggested']({
+												colour: colour
+											})}
+											class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
+										>
+											<LucidePipette
+												onclick={() => generateBackground(colour)}
+												class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 relative z-1 size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
+											/>
+											<span
+												class="absolute top-0 left-0 z-0 h-full w-full transition group-hover:brightness-90"
+												style="background-color: {colour}"
+											></span>
+										</button>
+									</li>
 								{/each}
 								{#if badgePalette.length === 0}
 									<span
@@ -261,14 +263,14 @@
 										>{m['text.editor.edit.icon.invalid']()}</span
 									>
 								{/if}
-							</div>
+							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
+			</li>
 
 			<hr />
-			<div class="flex flex-col gap-2">
+			<li class="flex flex-col gap-2">
 				<h3><LucidePaintbrush /> {m['text.editor.edit.background']()}</h3>
 				<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 					<p>{m['text.editor.edit.background.top']()}</p>
@@ -282,8 +284,8 @@
 						bind:value={badgeState.bottomBackgroundColour}
 					/>
 				</div>
-			</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 	<div style="max-height: {appHeight}px" class="flex flex-col gap-4 overflow-y-auto p-6">
 		<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>

@@ -1,8 +1,8 @@
 {
 	"name": "@badgered/monorepo",
-	"private": true,
-	"version": "3.0.0",
 	"description": "A badge creator for the web.",
+	"version": "3.0.0",
+	"private": true,
 	"scripts": {
 		"frontend:dev": "cd frontend && pnpm dev",
 		"frontend:build": "cd frontend && pnpm build",

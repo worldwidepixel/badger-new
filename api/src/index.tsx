@@ -1,12 +1,16 @@
-import { Hono } from 'hono'
-import { renderer } from './renderer'
+import { Hono } from "hono";
+import centralPackageInfo from "../../package.json";
+import appPackageInfo from "../package.json";
 
-const app = new Hono()
+const app = new Hono();
 
-app.use(renderer)
+app.get("/", (c) => {
+	return c.json({
+		about: appPackageInfo.description,
+		documentation: "Not yet available. https://badger.worldwidepixel.ca",
+		name: appPackageInfo.name,
+		version: centralPackageInfo.version,
+	});
+});
 
-app.get('/', (c) => {
-  return c.render(<h1>Hello!</h1>)
-})
-
-export default app
+export default app;

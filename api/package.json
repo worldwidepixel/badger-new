@@ -1,5 +1,6 @@
 {
 	"name": "@badgered/api",
+	"description": "API for Badger services",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
