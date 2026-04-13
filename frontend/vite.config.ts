@@ -15,8 +15,5 @@ export default defineConfig({
 	],
 	ssr: {
 		noExternal: ['opentype.js']
-	},
-	build: {
-		target: 'esnext'
 	}
 });
