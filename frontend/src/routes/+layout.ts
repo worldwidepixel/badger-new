@@ -6,7 +6,7 @@ export function load({ url, data }) {
 
 	const title = 'Badger';
 	const description = 'A badge designer for the web.';
-	const baseTags = defineBaseMetaTags({
+	const baseMetaTags = defineBaseMetaTags({
 		title,
 		titleTemplate: '%s | Badger',
 		description,
@@ -35,5 +35,5 @@ export function load({ url, data }) {
 
 	if (data.savedThemeProfile) theme.themeProfile = data.savedThemeProfile;
 
-	return { ...baseTags, deployment_info: data.deployment_info };
+	return { ...baseMetaTags, deployment_info: data.deployment_info };
 }

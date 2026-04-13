@@ -35,6 +35,7 @@
 <span class="w-fit rounded-lg">
 	<Tooltip bottom badger tip={label}>
 		<span class="cursor-pointer rounded-sm transition hover:brightness-110" aria-label={label}>
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html renderedBadge}
 		</span>
 	</Tooltip>

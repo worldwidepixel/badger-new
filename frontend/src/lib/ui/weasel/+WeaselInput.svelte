@@ -18,23 +18,23 @@
 {#if input.inputElement === weaselInputElements.colour_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
-		<ColourInput label={'TRANSLATE ME'} value={input.defaultValue} />
+		<ColourInput label="TRANSLATE ME" value={input.defaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.text_input}
 	<div class="grid grid-cols-[1fr_16rem] items-center gap-2">
 		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
-		<TextInput label={'TRANSLATE ME'} value={input.defaultValue} />
+		<TextInput label="TRANSLATE ME" value={input.defaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.text_colour_input && input instanceof WeaselBiLinkedInput}
 	<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
 		<p class="overflow-auto">{prefixKey(id, 'text')}</p>
 		<TextInput
-			placeholder={'TRANSLATE ME'}
-			label={'TRANSLATE ME'}
+			placeholder="TRANSLATE ME"
+			label="TRANSLATE ME"
 			value={input.defaultValue}
 			className="w-full"
 		/>
-		<ColourInput label={'TRANSLATE ME'} value={input.secondDefaultValue} />
+		<ColourInput label="TRANSLATE ME" value={input.secondDefaultValue} />
 	</div>
 {:else if input.inputElement === weaselInputElements.image_input || input.inputElement === weaselInputElements.image_colour_input}
 	<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
@@ -51,7 +51,7 @@
 				/>
 				<div class="rounded-xl peer-focus-visible:outline">
 					<label class="size-10" for="file-input">
-						<Button className="size-10" label={'TRANSLATE ME'}>
+						<Button className="size-10" label="TRANSLATE ME">
 							<LucideUpload />
 						</Button></label
 					>
@@ -60,8 +60,8 @@
 		</Tooltip>
 
 		<TextInput
-			placeholder={'TRANSLATE ME'}
-			label={'TRANSLATE ME'}
+			placeholder="TRANSLATE ME"
+			label="TRANSLATE ME"
 			value={input.defaultValue}
 			className="w-full"
 		/>
@@ -80,7 +80,7 @@
 					src={input.defaultValue}
 				/>
 			</div>
-			<span class="bg-badger-border h-full w-[1px]"></span>
+			<span class="bg-badger-border h-full w-px"></span>
 			<div class="flex w-full flex-col gap-2">
 				<span class="text-center font-semibold"
 					>{m['text.editor.edit.icon.suggested']()}</span
@@ -88,7 +88,7 @@
 				<div
 					class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 				>
-					{#each [] as colour}
+					{#each [] as colour (colour)}
 						<button
 							aria-label={m['label.editor.edit.icon.suggested']({
 								colour: 'TRANSLATE ME'

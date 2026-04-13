@@ -19,16 +19,16 @@
 	import { createBlob, generatePalette, uploadToHost } from '$lib';
 	import type { HexColour } from '$lib/types';
 	import {
-		LucideArrowUpRight,
-		LucideEye,
-		LucideImage,
-		LucideImageDown,
-		LucidePaintbrush,
-		LucidePen,
-		LucidePenTool,
-		LucidePipette,
-		LucideText,
-		LucideUpload
+		ArrowUpRight as LucideArrowUpRight,
+		Eye as LucideEye,
+		Image as LucideImage,
+		ImageDown as LucideImageDown,
+		Paintbrush as LucidePaintbrush,
+		Pen as LucidePen,
+		PenTool as LucidePenTool,
+		Pipette as LucidePipette,
+		Upload as LucideUpload,
+		TextAlignStart as LucideTextAlignStart
 	} from '@lucide/svelte';
 	import Button from '$lib/ui/+Button.svelte';
 	import Tooltip from 'sv-tooltip';
@@ -146,7 +146,7 @@
 		<hr />
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
-				<h3><LucideText /> {m['text.editor.edit.text.header']()}</h3>
+				<h3><LucideTextAlignStart /> {m['text.editor.edit.text.header']()}</h3>
 				<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
 					<p>{m['text.editor.edit.text.top']()}</p>
 					<TextInput

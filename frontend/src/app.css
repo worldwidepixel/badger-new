@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
 	--color-badger-red: #ff125e;
 	--color-badger-red-secondary: color-mix(in oklch, var(--color-badger-red), black 10%);
@@ -19,7 +21,7 @@
 	--default-font-family: 'Inter Variable';
 }
 
-.dark {
+[data-theme='dark'] {
 	--color-badger-background: #0b0d0e;
 	--color-badger-background-secondary: #101516;
 	--color-badger-background-tertiary: #161b1d;
@@ -29,13 +31,23 @@
 	--color-badger-border: #21292c;
 }
 
+[data-theme='cp-dark'] {
+	--color-badger-background: #11111b;
+	--color-badger-background-secondary: #181825;
+	--color-badger-background-tertiary: #1e1e2e;
+	--color-badger-background-transparent: #18182507;
+	--color-badger-text: #bac2de;
+	--color-badger-text-primary: #cdd6f4;
+	--color-badger-border: #313244;
+}
+
 @layer utilities {
 	* {
 		@apply border-badger-border tracking-tight select-none;
 		scrollbar-color: var(--color-badger-red) #00000000;
 	}
 	html {
-		@apply bg-badger-background text-badger-text h-full max-h-[100vh];
+		@apply bg-badger-background text-badger-text h-full max-h-screen;
 
 		body {
 			@apply h-full;
@@ -63,12 +75,12 @@
 		@apply w-fit;
 	}
 	[badger] {
-		@apply !bg-badger-background-secondary/80 !text-badger-text-primary pointer-events-none flex flex-col items-center !rounded-lg text-sm font-semibold shadow-xl backdrop-blur-lg dark:shadow-2xl;
+		@apply bg-badger-background-secondary/80! text-badger-text-primary! pointer-events-none flex flex-col items-center rounded-lg! text-sm font-semibold shadow-xl backdrop-blur-lg dark:shadow-2xl;
 		.tip:before {
-			@apply !border-b-badger-background-secondary;
+			@apply border-b-badger-background-secondary!;
 		}
 	}
 	.tooltip-slot {
-		@apply !flex !h-fit !w-fit;
+		@apply flex! h-fit! w-fit!;
 	}
 }

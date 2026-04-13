@@ -29,7 +29,6 @@ function setThemeProfile(newTheme: ThemeProfile) {
 }
 
 export function toggleLightDarkThemeProfile() {
-	console.log(theme.themeProfile);
 	if (theme.themeProfile !== 'dark') {
 		setThemeProfile('dark');
 		return;

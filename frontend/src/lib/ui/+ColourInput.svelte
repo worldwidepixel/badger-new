@@ -8,11 +8,7 @@
 
 	const hexRegex = /^#(?:(?:[\da-f]{3}){1,2}|(?:[\da-f]{4}){1,2})$/i;
 
-	let liveColour = $state(value);
-
-	$effect(() => {
-		liveColour = value;
-	});
+	let liveColour = $derived(value);
 
 	function tryValidate(e: KeyboardEvent) {
 		if (e.key === 'Enter') {
@@ -31,12 +27,12 @@
 
 <div class="bg-badger-background-secondary flex w-fit flex-col overflow-clip rounded-xl">
 	<div
-		class="flex h-10 w-64 flex-row gap-0 rounded-xl border p-2 outline-offset-[-2px] focus-within:outline"
+		class="flex h-10 w-64 flex-row gap-0 rounded-xl border p-2 -outline-offset-2 focus-within:outline"
 	>
 		<input
 			aria-label="Hex input for {label}"
 			name="colour-hex"
-			class="w-[10rem] outline-none dark:bg-transparent"
+			class="w-40 outline-none dark:bg-transparent"
 			bind:value={liveColour}
 			type="text"
 			maxlength="7"

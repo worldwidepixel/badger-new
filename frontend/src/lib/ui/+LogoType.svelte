@@ -2,7 +2,6 @@
 	import { dev } from '$app/environment';
 
 	function getEnvironment() {
-		const apiUrl = 'config.public.apiBase';
 		if (!dev) {
 			return 'prod';
 		} else if (dev) {

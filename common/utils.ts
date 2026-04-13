@@ -12,7 +12,6 @@ export function isBadgeType(test: string) {
 export function getWittyComment() {
 	const splashes = [
 		"Oh no!",
-		"Skill Issue!",
 		"We need to burrow back to you.",
 		"Please come back in regular business hours.",
 		"Try turning it off and on again!",
@@ -23,8 +22,6 @@ export function getWittyComment() {
 		"Hi! I'm Badger, and I'm a crashaholic.",
 		"Probably not meant to happen.",
 		"Is Cloudflare down?",
-		"Is GitHub down?",
-		"explod",
 		"Not broken at all!",
 		"How did you get here?",
 		"Mind the gap.",
@@ -39,6 +36,7 @@ export function getWittyComment() {
 		"And the dish ran away with the spoon.",
 		"Would you like a soundtrack with that?",
 		"F*cking hell, Gradle",
+		"IT'S A SNAKE!??",
 	];
 
 	return splashes[Math.floor(Math.random() * splashes.length)];

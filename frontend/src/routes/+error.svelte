@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import Button from '$lib/ui/+Button.svelte';
 	import { getWittyComment } from '@badgered/common';
-	import { LucideHome } from '@lucide/svelte';
+	import { Home } from '@lucide/svelte';
 
 	const logo = `
 <svg width="70mm" height="70mm" version="1.1" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -36,6 +36,10 @@
 	const code = page.status.toString().replace('0', logo);
 </script>
 
+<svelte:head>
+	<title>{page.status} | Badger</title>
+</svelte:head>
+
 <div class="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
 	{#if browser}
 		<span> {getWittyComment()} </span>
@@ -45,8 +49,9 @@
 	<span
 		class="flex flex-row items-center gap-0 text-9xl font-extrabold select-none [&>svg]:h-28 [&>svg]:w-28"
 	>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html code}
 	</span>
 	<span class="mb-2">{page.error?.message}</span>
-	<Button type="link" to="/" label="Return to home page"><LucideHome /></Button>
+	<Button type="link" to="/" label="Return to home page"><Home /></Button>
 </div>

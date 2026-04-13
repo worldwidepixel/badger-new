@@ -28,6 +28,7 @@
 	import ResetWarningModal from '$lib/ui/modal/+ResetWarningModal.svelte';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { deepMerge, MetaTags } from 'svelte-meta-tags';
 
 	let { children, data } = $props();
 
@@ -39,6 +40,8 @@
 		'%cA badge designer for the web',
 		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1rem;"
 	);
+
+	const metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
 
 	// Project sharing
 
@@ -72,6 +75,8 @@
 		resetModalData.context.open();
 	}
 </script>
+
+<MetaTags {...metaTags} />
 
 <svelte:head>
 	<meta name="darkreader-lock" />

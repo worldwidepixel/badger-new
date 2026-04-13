@@ -44,7 +44,7 @@
 <ul
 	class="bg-badger-background-secondary flex w-fit flex-row justify-center divide-x rounded-xl border"
 >
-	{#each badgeExportTypes as format}
+	{#each badgeExportTypes as format (format.name)}
 		<li>
 			<Tooltip bottom badger tip={m['label.badge.tools.export']({ format: format.name })}>
 				<button

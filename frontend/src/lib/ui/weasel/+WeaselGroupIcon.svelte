@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { WeaselEditorGroupIcon } from '@badgered/common';
-	import { LucideImage, LucidePaintbrush, LucideSettings2, LucideText } from '@lucide/svelte';
+	import { Image, Paintbrush, Settings2, TextAlignStart } from '@lucide/svelte';
 
 	const { icon }: { icon?: WeaselEditorGroupIcon } = $props();
 </script>
 
 {#if icon === 'text'}
-	<LucideText />
+	<TextAlignStart />
 {:else if icon === 'image'}
-	<LucideImage />
+	<Image />
 {:else if icon === 'colour'}
-	<LucidePaintbrush />
+	<Paintbrush />
 {:else}
-	<LucideSettings2 />
+	<Settings2 />
 {/if}
