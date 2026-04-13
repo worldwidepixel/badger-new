@@ -17,6 +17,9 @@ importers:
 
   api:
     dependencies:
+      '@badgered/common':
+        specifier: workspace:*
+        version: link:../common
       hono:
         specifier: ^4.12.12
         version: 4.12.12
