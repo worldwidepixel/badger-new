@@ -22,6 +22,8 @@
 	"label.editor.export.zip.png": "Export all as PNG (zipped)",
 	"label.editor.preview.badge": "{type} Badge",
 	"label.layout.created": "WorldWidePixel's website",
+	"label.layout.download": "Download project",
+	"label.layout.download.aria": "Download badge project file",
 	"label.layout.reset": "Reset badge workspace",
 	"label.layout.settings": "Badger settings",
 	"label.layout.share": "Share",

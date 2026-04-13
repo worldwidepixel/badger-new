@@ -9,7 +9,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		csrf: {
-			checkOrigin: false // All endpoints on the frontend are public, anyways.
+			trustedOrigins: ['v3.badger.worldwidepixel.ca', 'badger.worldwidepixel.ca']
 		}
 	}
 };

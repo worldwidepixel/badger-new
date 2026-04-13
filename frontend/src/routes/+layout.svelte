@@ -2,6 +2,7 @@
 	import LogoType from '$lib/ui/+LogoType.svelte';
 	import Button from '$lib/ui/+Button.svelte';
 	import {
+		Download,
 		LucideCheck,
 		LucideRotateCcw,
 		LucideSettings,
@@ -29,6 +30,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import { deepMerge, MetaTags } from 'svelte-meta-tags';
+	import saveAs from 'file-saver';
 
 	let { children, data } = $props();
 
@@ -60,6 +62,16 @@
 		} catch {
 			/* empty */
 		}
+	}
+
+	function downloadBadgeProject() {
+		const fileBlob = new Blob([JSON.stringify(badgeState)], {
+			type: 'application/json'
+		});
+		saveAs(
+			fileBlob,
+			`${badgeState.topText.replaceAll(' ', '_')}_${badgeState.bottomText.replaceAll(' ', '_')}.badger`
+		);
 	}
 
 	// Layout modals
@@ -105,19 +117,32 @@
 				</div>
 				<div class="flex flex-row items-center justify-end gap-4">
 					{#if page.url.pathname === '/'}
-						<Button
-							action={shareBadgeProject}
-							type="action"
-							className="px-3"
-							label={m['label.layout.share.aria']()}
-						>
-							{#if showCopyFeedback}
-								<LucideCheck class="p-0.5" />
-							{:else}
-								<LucideShare class="p-0.5" />
-							{/if}
-							{m['label.layout.share']()}
-						</Button>
+						<div class="flex flex-row items-center">
+							<Button
+								action={shareBadgeProject}
+								type="action"
+								className="px-3 active:translate-x-0.75 border-r-0 rounded-r-none"
+								label={m['label.layout.share.aria']()}
+							>
+								{#if showCopyFeedback}
+									<LucideCheck class="p-0.5" />
+								{:else}
+									<LucideShare class="p-0.5" />
+								{/if}
+								{m['label.layout.share']()}
+							</Button>
+							<Tooltip left badger tip={m['label.layout.download']()}>
+								<Button
+									action={downloadBadgeProject}
+									type="action"
+									className="active:-translate-x-px rounded-l-none"
+									label={m['label.layout.download.aria']()}
+								>
+									<Download class="p-0.5" />
+								</Button>
+							</Tooltip>
+						</div>
+
 						<Tooltip left badger tip={m['label.layout.reset']()}>
 							<Button
 								action={handleReset}
