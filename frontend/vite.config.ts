@@ -14,6 +14,7 @@ export default defineConfig({
 		})
 	],
 	ssr: {
-		noExternal: ['opentype.js']
+		//noExternal: ['opentype.js']
+		noExternal: true
 	}
 });
