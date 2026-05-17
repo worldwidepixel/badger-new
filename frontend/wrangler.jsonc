@@ -4,6 +4,6 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"compatibility_date": "2025-07-19",
 	"vars": {
-		"NODE_VERSION": "24.14.1"
+		"NODE_VERSION": "24.15.0"
 	}
 }
