@@ -5,5 +5,8 @@
 	"compatibility_date": "2025-07-19",
 	"vars": {
 		"NODE_VERSION": "24.15.0"
+	},
+	"alias": {
+		"node:module": "./src/polyfills/node-module.ts"
 	}
 }
