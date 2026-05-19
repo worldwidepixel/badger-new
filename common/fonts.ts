@@ -1,4 +1,4 @@
-import opentype from "opentype.js";
+import { parse } from "opentype.js";
 
 export class BadgerFont {
 	private url: string;
@@ -16,7 +16,7 @@ export class BadgerFont {
 		const fontResponse = await fetch(this.url);
 		if (!this.buffer) {
 			this.buffer = await fontResponse.arrayBuffer();
-			this.font = opentype.parse(this.buffer);
+			this.font = parse(this.buffer);
 		}
 		if (!this.font) {
 			throw new Error(`${this.name} has not loaded`);
