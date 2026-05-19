@@ -19,7 +19,7 @@
 		"@inlang/paraglide-js": "2.18.0",
 		"@sveltejs/adapter-auto": "7.0.1",
 		"@sveltejs/kit": "^2.60.1",
-		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@tailwindcss/vite": "^4.3.0",
 		"eslint": "^10.4.0",
 		"eslint-config-prettier": "^10.1.8",
@@ -34,7 +34,7 @@
 		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.59.3",
-		"vite": "^8.0.13",
+		"vite": "^7.3.3",
 		"wrangler": "^4.92.0"
 	},
 	"dependencies": {
