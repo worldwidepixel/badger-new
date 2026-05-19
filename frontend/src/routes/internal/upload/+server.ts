@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { useFetch } from '$lib';
+import { useFetch, userAgent } from '$lib';
 
 export async function POST({ request }) {
 	const multipart = await request.formData();
@@ -10,7 +10,10 @@ export async function POST({ request }) {
 	form.append('reqtype', 'fileupload');
 	const data = await useFetch('https://catbox.moe/user/api.php', {
 		method: 'POST',
-		body: form
+		body: form,
+		headers: {
+			'User-Agent': userAgent
+		}
 	}).catch((e) => {
 		console.error(e.data);
 		error(e.data.status_code ?? 500, 'Failed to upload image: ' + e.data);

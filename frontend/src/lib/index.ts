@@ -9,6 +9,8 @@ import { setLocale, type Locale } from './paraglide/runtime';
 export const apiBase = env.PUBLIC_API_BASE ?? 'https://api.v3.badger.worldwidepixel.ca/';
 export const pageBase = env.PUBLIC_FRONTEND_BASE ?? 'https://v3.badger.worldwidepixel.ca/';
 
+export const userAgent = 'worldwidepixel/badger/frontend@v3';
+
 // https://stackoverflow.com/a/38935990
 export function base64toFile(b64: string, filename: string) {
 	const array = b64.split(',');
