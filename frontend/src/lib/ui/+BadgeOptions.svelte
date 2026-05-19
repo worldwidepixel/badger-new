@@ -17,7 +17,6 @@
 	import fileSaver from 'file-saver';
 	const saveAs = fileSaver;
 	import Tooltip from 'sv-tooltip';
-	import mime from 'mime/lite';
 	import { m } from '$lib/paraglide/messages';
 
 	type Props = {
@@ -51,7 +50,7 @@
 					onclick={async () =>
 						saveAs(
 							await createBlob(format.mime),
-							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${mime.getExtension(format.mime)}`
+							`${data.topText.replaceAll(' ', '_')}_${data.bottomText.replaceAll(' ', '_')}_${type}.${format.extension}`
 						)}
 					aria-label={m['label.badge.tools.export.aria']({
 						format: format.name,

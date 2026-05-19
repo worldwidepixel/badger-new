@@ -85,9 +85,6 @@ importers:
       jszip:
         specifier: ^3.10.1
         version: 3.10.1
-      mime:
-        specifier: ^4.1.0
-        version: 4.1.0
       ofetch:
         specifier: ^1.5.1
         version: 1.5.1
@@ -1843,11 +1840,6 @@ packages:
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
-
-  mime@4.1.0:
-    resolution: {integrity: sha512-X5ju04+cAzsojXKes0B/S4tcYtFAJ6tTMuSPBEn9CPGlrWr8Fiw7qYeLT0XyH80HSoAoqWCaz+MWKh22P7G1cw==}
-    engines: {node: '>=16'}
-    hasBin: true
 
   miniflare@4.20260409.0:
     resolution: {integrity: sha512-ayl6To4av0YuXsSivGgWLj+Ug8xZ0Qz3sGV8+Ok2LhNVl6m8m5ktEBM3LX9iT9MtLZRJwBlJrKcraNs/DlZQfA==}
@@ -3824,8 +3816,6 @@ snapshots:
   magic-string@0.30.21:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  mime@4.1.0: {}
 
   miniflare@4.20260409.0:
     dependencies:
