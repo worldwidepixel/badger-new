@@ -36,6 +36,7 @@
 	import JSZip from 'jszip';
 	import fileSaver from 'file-saver';
 	import WeaselEditPanel from '$lib/ui/weasel/+WeaselEditPanel.svelte';
+	import Footer from '$lib/ui/+Footer.svelte';
 	const saveAs = fileSaver;
 
 	let { data } = $props();
@@ -136,7 +137,7 @@
 <div class="grid h-full w-full grid-cols-2">
 	<div
 		style="max-height: {appHeight}px"
-		class="flex flex-col gap-4 overflow-y-auto border-r py-6 pr-6"
+		class="flex flex-col gap-4 overflow-y-auto border-r border-l p-6"
 	>
 		{#if debugState.weasel}
 			<code class="underline decoration-wavy">WEASEL SYSTEM ENABLED</code>
@@ -287,46 +288,52 @@
 			</li>
 		</ul>
 	</div>
-	<div style="max-height: {appHeight}px" class="flex flex-col gap-4 overflow-y-auto p-6">
-		<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>
-		<hr />
-		<div class="my-4 grid w-full grid-cols-2 items-center gap-6">
-			{#each V2BadgeVariants as type (type)}
-				<span
-					class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"
-				>
-					<UIBadge
-						data={badgeState}
-						{type}
-						label={m['label.editor.preview.badge']({
-							//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
-							type: m[`text.badge.type.${type}`]()
-						})}
-					/>
-					<BadgeOptions
-						data={badgeState}
-						{type}
-						label={m['label.editor.preview.badge']({
-							//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
+	<div
+		style="max-height: {appHeight}px"
+		class="flex flex-col justify-between overflow-y-auto border-r"
+	>
+		<div class="flex flex-col gap-4 p-6">
+			<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>
+			<hr />
+			<div class="my-4 grid w-full grid-cols-2 items-center gap-6">
+				{#each V2BadgeVariants as type (type)}
+					<span
+						class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"
+					>
+						<UIBadge
+							data={badgeState}
+							{type}
+							label={m['label.editor.preview.badge']({
+								//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
+								type: m[`text.badge.type.${type}`]()
+							})}
+						/>
+						<BadgeOptions
+							data={badgeState}
+							{type}
+							label={m['label.editor.preview.badge']({
+								//@ts-expect-error Language definitions can't really just randomly get types, annoyingly
 
-							type: m[`text.badge.type.${type}`]()
-						})}
-					/>
-				</span>
-			{/each}
+								type: m[`text.badge.type.${type}`]()
+							})}
+						/>
+					</span>
+				{/each}
+			</div>
+			<h1><LucideArrowUpRight /> {m['text.editor.export.header']()}</h1>
+			<hr />
+			<div class="grid w-full grid-cols-2 gap-2">
+				<Button
+					action={() => generateZip(badgeExportTypes[1])}
+					type="action"
+					label={m['label.editor.export.zip.svg']()}
+					><LucidePenTool class="p-0.5" />{m['label.editor.export.zip.svg']()}</Button
+				>
+				<Button disabled label={m['label.editor.export.zip.png']()}
+					><LucideImageDown class="p-0.5" /> {m['label.editor.export.zip.png']()}</Button
+				>
+			</div>
 		</div>
-		<h1><LucideArrowUpRight /> {m['text.editor.export.header']()}</h1>
-		<hr />
-		<div class="grid w-full grid-cols-2 gap-2">
-			<Button
-				action={() => generateZip(badgeExportTypes[1])}
-				type="action"
-				label={m['label.editor.export.zip.svg']()}
-				><LucidePenTool class="p-0.5" />{m['label.editor.export.zip.svg']()}</Button
-			>
-			<Button disabled label={m['label.editor.export.zip.png']()}
-				><LucideImageDown class="p-0.5" /> {m['label.editor.export.zip.png']()}</Button
-			>
-		</div>
+		<Footer deployment={data.deployment_info} />
 	</div>
 </div>
