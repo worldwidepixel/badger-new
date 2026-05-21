@@ -2,7 +2,7 @@
 	import LogoType from '$lib/ui/+LogoType.svelte';
 	import Button from '$lib/ui/+Button.svelte';
 	import {
-		Download,
+		LucideDownload,
 		LucideCheck,
 		LucideRotateCcw,
 		LucideSettings,
@@ -32,17 +32,20 @@
 	import { resolve } from '$app/paths';
 	import { deepMerge, MetaTags } from 'svelte-meta-tags';
 	import saveAs from 'file-saver';
+	import ImportProjectModal from '$lib/ui/modal/+ImportProjectModal.svelte';
 
 	let { children, data } = $props();
 
-	console.log(
-		'%cBadger',
-		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1.5rem; font-weight: 700;"
-	);
-	console.log(
-		'%cA badge designer for the web',
-		"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1rem;"
-	);
+	if (browser) {
+		console.log(
+			'%cBadger',
+			"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1.5rem; font-weight: 700;"
+		);
+		console.log(
+			'%cA badge designer for the web',
+			"font-family: 'Inter', 'Helvetica', 'Segoe UI', sans-serif; font-size: 1rem;"
+		);
+	}
 
 	const metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
 
@@ -67,7 +70,7 @@
 
 	function downloadBadgeProject() {
 		const fileBlob = new Blob([JSON.stringify(badgeState)], {
-			type: 'application/json'
+			type: 'application/json+badger'
 		});
 		saveAs(
 			fileBlob,
@@ -75,10 +78,18 @@
 		);
 	}
 
+	// Open import modal if a file is dragged onto screen
+
+	function handleFileDrag(e: DragEvent) {
+		importProjectModalData.context.open();
+		e.preventDefault();
+	}
+
 	// Layout modals
 
 	const settingsModalData = new ModalData('modalSettings');
 	const resetModalData = new ModalData('modalReset');
+	const importProjectModalData = new ModalData('modalImportProject');
 
 	function handleReset() {
 		if (keyboardState.currentKey === 'Control') {
@@ -101,7 +112,11 @@
 	bind:innerWidth={pageDimensions.width}
 	bind:innerHeight={pageDimensions.height}
 />
-<svelte:body bind:offsetHeight={pageDimensions.contentHeight} />
+<svelte:body
+	bind:offsetHeight={pageDimensions.contentHeight}
+	ondragover={handleFileDrag}
+	ondragenter={handleFileDrag}
+/>
 {#key currentLocale.locale}
 	<div class="flex h-full flex-col">
 		<nav class="flex w-auto justify-center border-b p-5">
@@ -139,7 +154,7 @@
 									className="active:-translate-x-px rounded-l-none"
 									label={m['label.layout.download.aria']()}
 								>
-									<Download class="p-0.5" />
+									<LucideDownload class="p-0.5" />
 								</Button>
 							</Tooltip>
 						</div>
@@ -184,6 +199,7 @@
 		<!-- Any page-wide modals should be here. -->
 		<SettingsModal key={settingsModalData.key} />
 		<ResetWarningModal key={resetModalData.key} />
+		<ImportProjectModal key={importProjectModalData.key} />
 		<main
 			bind:clientWidth={appDimensions.width}
 			bind:clientHeight={appDimensions.height}
@@ -193,6 +209,5 @@
 				{@render children?.()}
 			</div>
 		</main>
-
 	</div>
 {/key}

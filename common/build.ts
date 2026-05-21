@@ -59,7 +59,7 @@ export async function build(variant: BadgeVariant, props: Badge) {
 	}
 }
 
-export const defaultIcon = "https://v3.badger.worldwidepixel.ca/badger.svg";
+export const defaultIcon = "https://wombat.worldwidepixel.ca/project/badger/icon/icon_min.svg";
 
 // This constant defines the entire badge schema of Badger.
 export const defaultBadge = {

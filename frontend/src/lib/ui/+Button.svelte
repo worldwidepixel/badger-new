@@ -34,7 +34,7 @@
 	const disabledStyle = (() => disabled)() ? 'opacity-50 !cursor-not-allowed' : '';
 
 	const buttonStyle = [
-		'flex flex-row gap-1 font-semibold items-center justify-center transition p-1.5 hover:brightness-95 active:brightness-95 active:scale-95',
+		'flex flex-row gap-1 text-center font-semibold items-center justify-center transition p-1.5 hover:brightness-95 active:brightness-95 active:scale-95',
 		roundnessStyle,
 		transparencyStyle,
 		actionStyle,

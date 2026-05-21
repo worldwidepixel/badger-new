@@ -27,7 +27,7 @@
 		Pen as LucidePen,
 		PenTool as LucidePenTool,
 		Pipette as LucidePipette,
-		Upload as LucideUpload,
+		//Upload as LucideUpload,
 		TextAlignStart as LucideTextAlignStart
 	} from '@lucide/svelte';
 	import Button from '$lib/ui/+Button.svelte';
@@ -41,9 +41,11 @@
 
 	let { data } = $props();
 
-	console.log(
-		'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
-	);
+	if (browser) {
+		console.log(
+			'If you see any GET errors here involving images, think "TypeError: Failed to fetch", it\'s just a result of how image fetching is handled. Have no fear.'
+		);
+	}
 
 	// Parameter-based data loading
 	for (const [key, value] of Object.entries((() => data)().editorParameters)) {
@@ -62,7 +64,11 @@
 
 	// Icon-based colour palettes
 
-	let badgePalette = $state<HexColour[]>([]);
+	type iterativeColour = {
+		value: HexColour;
+		id: string;
+	};
+	let badgePalette = $state<iterativeColour[]>(new Array<iterativeColour>());
 	let badgeIconValid = $state<boolean>(true);
 	let badgeIconUpload = $state<FileList>();
 
@@ -85,7 +91,10 @@
 					const palette = await getPalette(image);
 					if (!palette) return;
 					palette.map((value) => {
-						badgePalette.push(value.hex() as HexColour);
+						badgePalette.push({
+							value: value.hex() as HexColour,
+							id: Math.trunc(Math.random() * 10000).toString()
+						});
 					});
 				};
 			} catch (e) {
@@ -134,10 +143,10 @@
 	}
 </script>
 
-<div class="grid h-full w-full grid-cols-2">
+<div class="grid h-full w-full grid-cols-1 lg:grid-cols-2">
 	<div
 		style="max-height: {appHeight}px"
-		class="flex flex-col gap-4 overflow-y-auto border-r border-l p-6"
+		class="flex max-h-min flex-col gap-4 overflow-y-auto border-r border-l p-6"
 	>
 		{#if debugState.weasel}
 			<code class="underline decoration-wavy">WEASEL SYSTEM ENABLED</code>
@@ -148,30 +157,44 @@
 		<ul class="flex flex-col gap-4">
 			<li class="flex flex-col gap-2">
 				<h3><LucideTextAlignStart /> {m['text.editor.edit.text.header']()}</h3>
-				<div class="grid grid-cols-[1fr__12rem_16rem] items-center gap-2">
+				<div
+					class="grid grid-cols-[1fr_16rem] items-center gap-2 md:grid-cols-[1fr_28.5rem] lg:grid-cols-[1fr_16rem] xl:grid-cols-[1fr_28.5rem]"
+				>
 					<p>{m['text.editor.edit.text.top']()}</p>
-					<TextInput
-						placeholder={m['placeholder.editor.edit.text']()}
-						label={m['label.editor.edit.text.content.top']()}
-						bind:value={badgeState.topText}
-						className="w-full"
-					/>
-					<ColourInput
-						label={m['label.editor.edit.text.colour.top']()}
-						bind:value={badgeState.topTextColour}
-					/>
+					<div
+						class="grid grid-cols-1 gap-2 md:grid-cols-[1fr_16rem] lg:grid-cols-1 xl:grid-cols-[12rem_16rem]"
+					>
+						<TextInput
+							placeholder={m['placeholder.editor.edit.text']()}
+							label={m['label.editor.edit.text.content.top']()}
+							bind:value={badgeState.topText}
+							className="w-full"
+						/>
+						<ColourInput
+							label={m['label.editor.edit.text.colour.top']()}
+							bind:value={badgeState.topTextColour}
+						/>
+					</div>
+				</div>
+				<space class="block md:hidden lg:block xl:hidden"></space>
+				<div
+					class="grid grid-cols-[1fr_16rem] items-center gap-2 md:grid-cols-[1fr_28.5rem] lg:grid-cols-[1fr_16rem] xl:grid-cols-[1fr_28.5rem]"
+				>
 					<p>{m['text.editor.edit.text.bottom']()}</p>
-
-					<TextInput
-						placeholder={m['placeholder.editor.edit.text']()}
-						label={m['label.editor.edit.text.content.bottom']()}
-						bind:value={badgeState.bottomText}
-						className="w-full"
-					/>
-					<ColourInput
-						label={m['label.editor.edit.text.colour.bottom']()}
-						bind:value={badgeState.bottomTextColour}
-					/>
+					<div
+						class="grid grid-cols-1 gap-2 md:grid-cols-[1fr_16rem] lg:grid-cols-1 xl:grid-cols-[12rem_16rem]"
+					>
+						<TextInput
+							placeholder={m['placeholder.editor.edit.text']()}
+							label={m['label.editor.edit.text.content.bottom']()}
+							bind:value={badgeState.bottomText}
+							className="w-full"
+						/>
+						<ColourInput
+							label={m['label.editor.edit.text.colour.bottom']()}
+							bind:value={badgeState.bottomTextColour}
+						/>
+					</div>
 				</div>
 			</li>
 			<hr />
@@ -192,6 +215,7 @@
 									accept="image/*"
 									bind:files={badgeIconUpload}
 								/>
+								<!--
 								<div class="rounded-xl peer-focus-visible:outline">
 									<label class="size-10" for="file-input">
 										<Button
@@ -202,6 +226,7 @@
 										</Button></label
 									>
 								</div>
+								-->
 							</span>
 						</Tooltip>
 
@@ -234,13 +259,13 @@
 							<ul
 								class="flex h-35 w-full flex-row flex-wrap justify-center gap-2 overflow-y-scroll px-4 py-4"
 							>
-								{#each badgePalette as colour (colour)}
+								{#each badgePalette as colour (colour.id)}
 									<li>
 										<button
 											onkeypress={(key) =>
 												// eslint-disable-next-line no-constant-condition
 												key.key.toLowerCase() === 'enter' || 'space'
-													? generateBackground(colour)
+													? generateBackground(colour.value)
 													: {}}
 											aria-label={m['label.editor.edit.icon.suggested']({
 												colour: colour
@@ -248,12 +273,12 @@
 											class="group relative flex size-12 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border"
 										>
 											<LucidePipette
-												onclick={() => generateBackground(colour)}
+												onclick={() => generateBackground(colour.value)}
 												class="group-active:bg-badger-background-secondary/90 group-focus-visible:bg-badger-background-secondary/90 bg-badger-background-secondary/60 relative z-1 size-10 scale-90 overflow-visible rounded-[0.8rem] border p-2.5 opacity-0 shadow backdrop-saturate-150 transition group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95"
 											/>
 											<span
 												class="absolute top-0 left-0 z-0 h-full w-full transition group-hover:brightness-90"
-												style="background-color: {colour}"
+												style="background-color: {colour.value}"
 											></span>
 										</button>
 									</li>
@@ -290,12 +315,12 @@
 	</div>
 	<div
 		style="max-height: {appHeight}px"
-		class="flex flex-col justify-between overflow-y-auto border-r"
+		class="flex flex-col justify-between overflow-y-auto border-x lg:border-r"
 	>
 		<div class="flex flex-col gap-4 p-6">
 			<h1><LucideEye /> {m['text.editor.preview.header']()}</h1>
 			<hr />
-			<div class="my-4 grid w-full grid-cols-2 items-center gap-6">
+			<div class="my-4 grid w-full grid-cols-1 items-center gap-x-4 gap-y-6 sm:grid-cols-2">
 				{#each V2BadgeVariants as type (type)}
 					<span
 						class="flex h-fit flex-col items-center justify-center gap-4 justify-self-center"

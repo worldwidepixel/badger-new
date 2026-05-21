@@ -1,17 +1,20 @@
 <script module>
 	export type ModalContext = {
-		isOpen: boolean;
 		open: () => void;
 		close: () => void;
 	};
 
 	export class ModalData {
 		public key: string;
+		private isOpen = $state(false);
 		public context: ModalContext = $state({
-			isOpen: false,
-			open: () => (this.context.isOpen = true),
-			close: () => (this.context.isOpen = false)
+			open: () => (this.isOpen = true),
+			close: () => (this.isOpen = false)
 		});
+
+		public getIsOpen() {
+			return this.isOpen;
+		}
 
 		public constructor(key: string) {
 			this.key = key;
@@ -45,7 +48,7 @@
 	});
 </script>
 
-{#if modalData.context.isOpen}
+{#if modalData.getIsOpen()}
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 
 	<!-- svelte-ignore a11y_no_static_element_interactions -->

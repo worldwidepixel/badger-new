@@ -36,6 +36,22 @@
 		/>
 		<ColourInput label="TRANSLATE ME" value={input.secondDefaultValue} />
 	</div>
+	<div
+		class="grid grid-cols-[1fr_16rem] items-center gap-2 md:grid-cols-[1fr_28.5rem] lg:grid-cols-[1fr_16rem] xl:grid-cols-[1fr_28.5rem]"
+	>
+		<p>{prefixKey(id, 'text')}</p>
+		<div
+			class="grid grid-cols-1 gap-2 md:grid-cols-[1fr_16rem] lg:grid-cols-1 xl:grid-cols-[12rem_16rem]"
+		>
+			<TextInput
+				placeholder="TRANSLATE ME"
+				label="TRANSLATE ME"
+				value={input.defaultValue}
+				className="w-full"
+			/>
+			<ColourInput label="TRANSLATE ME" bind:value={input.secondDefaultValue} />
+		</div>
+	</div>
 {:else if input.inputElement === weaselInputElements.image_input || input.inputElement === weaselInputElements.image_colour_input}
 	<div class="grid w-full grid-cols-[1fr__2.5rem_16rem] items-center gap-2">
 		<p class="overflow-auto">{prefixKey(id, 'text')}</p>

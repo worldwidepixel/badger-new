@@ -14,7 +14,7 @@
 <hr />
 
 <div class="flex flex-col gap-4">
-	{#each bEditorGroups as group, iter (group.id)}
+	{#each bEditorGroups as group, iter (generateKey(bId, group.id))}
 		<div class="flex flex-col gap-2">
 			<h3><WeaselGroupIcon icon={group.icon} /> {generateKey(bId, group.id)}</h3>
 			{#each group.linkedInputs as input (input.id)}
