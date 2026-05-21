@@ -22,7 +22,6 @@
 						}
 					}
 					dataModal.context.close();
-					console.log(key);
 				} catch (e) {
 					console.error(`Failed to import badger project file ${itemFile.name}`, e);
 				}
